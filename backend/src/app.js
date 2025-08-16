@@ -3,7 +3,6 @@
   const bodyParser = require("body-parser");
   require("dotenv").config();
 
-  const authRoutes = require("./routes/auth");
   const missionsRoutes = require("./routes/missions");
   const cardsRoutes = require("./routes/cards");
   const clubsRoutes = require("./routes/clubs");
@@ -18,7 +17,6 @@
   app.use(bodyParser.json());
 
   // Rutas
-  app.use("/api/auth", authRoutes);
   app.use("/api/missions", missionsRoutes);
   app.use("/api/cards", cardsRoutes);
   app.use("/api/clubs", clubsRoutes);
