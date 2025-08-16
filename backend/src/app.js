@@ -8,6 +8,7 @@ const missionsRoutes = require("./routes/missions");
 const cardsRoutes = require("./routes/cards");
 const clubsRoutes = require("./routes/clubs");
 const prizesRoutes = require("./routes/prizes");
+const userRoutes = require('./routes/userRoutes'); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.use("/api/cards", cardsRoutes);
 app.use("/api/clubs", clubsRoutes);
 app.use("/api/prizes", prizesRoutes);
 app.use("/api/auth", authRoutes);
+app.use('/api/users', userRoutes);
 
 // Ruta de prueba
 app.get("/", (req, res) => {
