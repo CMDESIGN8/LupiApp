@@ -22,6 +22,7 @@ app.use("/api/missions", missionsRoutes);
 app.use("/api/cards", cardsRoutes);
 app.use("/api/clubs", clubsRoutes);
 app.use("/api/prizes", prizesRoutes);
+app.use("/api/auth", authRoutes);
 
 // Ruta de prueba
 app.get("/", (req, res) => {
