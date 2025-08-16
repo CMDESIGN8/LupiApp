@@ -1,11 +1,22 @@
-import React from "react";
-import Missions from "./components/Missions";
+import React, { useState } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
     <div>
-      <h1>Lupi Futbol RPG</h1>
-      <Missions />
+      {!isLogged ? (
+        !isRegistered ? (
+          <Register onRegister={() => setIsRegistered(true)} />
+        ) : (
+          <Login onLogin={() => setIsLogged(true)} />
+        )
+      ) : (
+        <h2>🎮 Bienvenido a Lupi Futbol RPG</h2>
+      )}
     </div>
   );
 }
