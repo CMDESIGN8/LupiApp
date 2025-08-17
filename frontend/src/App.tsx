@@ -60,14 +60,15 @@ interface Club {
 
 const App = () => {
   // Accede a las variables de entorno
-  // Usamos un fallback a un objeto vacío para JSON.parse si la variable no está definida
   const rawAppId = import.meta.env.VITE_REACT_APP_APP_ID;
   const rawFirebaseConfig = import.meta.env.VITE_REACT_APP_FIREBASE_CONFIG;
   const rawInitialAuthToken = import.meta.env.VITE_REACT_APP_INITIAL_AUTH_TOKEN;
 
   const appId = rawAppId || 'default-lupi-app-id';
   const firebaseConfig = rawFirebaseConfig ? JSON.parse(rawFirebaseConfig) : {};
-  const initialAuthToken = rawInitialAuthToken || null;
+  // Aseguramos que initialAuthToken sea null si es una cadena vacía
+  const initialAuthToken = (rawInitialAuthToken && rawInitialAuthToken.trim() !== '') ? rawInitialAuthToken : null;
+
 
   // Estados con tipado explícito
   const [firestoreDb, setFirestoreDb] = useState<Firestore | null>(null);
@@ -95,9 +96,11 @@ const App = () => {
 
         setFirestoreDb(dbInstance);
 
+        // MODIFICACIÓN CLAVE AQUÍ: Condición para usar signInWithCustomToken
         if (initialAuthToken) {
           await signInWithCustomToken(authInstance, initialAuthToken);
         } else {
+          // Siempre intentamos la autenticación anónima si no hay un token personalizado válido
           await signInAnonymously(authInstance);
         }
 
