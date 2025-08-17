@@ -1,21 +1,20 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Configuración de tu Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyDvG4taMw7bn4_a7SJE4kJpr3VAKXM7iBI",
-  authDomain: "lupiapp-8.firebaseapp.com",
-  projectId: "lupiapp-8",
-  storageBucket: "lupiapp-8.firebasestorage.app",
-  messagingSenderId: "781776125623",
-  appId: "1:781776125623:web:5f1db9cf8abcf837bf9732",
-  measurementId: "G-0RRJBB9S92"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Exportar Auth y Firestore
+export const auth = getAuth(app);
+export const db = getFirestore(app);
