@@ -8,19 +8,14 @@ export default function Dashboard() {
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Detectar usuario logueado
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUsuario({ uid: user.uid, email: user.email });
-      } else {
-        setUsuario(null);
-      }
+      if (user) setUsuario({ uid: user.uid, email: user.email });
+      else setUsuario(null);
     });
     return () => unsubscribe();
   }, []);
 
-  // Cargar misiones del usuario
   useEffect(() => {
     if (!usuario) return;
 
@@ -33,7 +28,7 @@ export default function Dashboard() {
         setMisiones(lista);
         setLoading(false);
       } catch (error) {
-        console.error("Error al cargar misiones:", error);
+        console.error(error);
         setLoading(false);
       }
     };
@@ -41,14 +36,13 @@ export default function Dashboard() {
     fetchMisiones();
   }, [usuario]);
 
-  // Completar misión
   const completarMision = async (misionId) => {
     try {
       const misionRef = doc(db, "misiones", misionId);
       await updateDoc(misionRef, { completada: true });
       setMisiones(prev => prev.map(m => m.id === misionId ? { ...m, completada: true } : m));
     } catch (error) {
-      console.error("Error al completar misión:", error);
+      console.error(error);
     }
   };
 
@@ -58,7 +52,6 @@ export default function Dashboard() {
     <div className="p-8 space-y-8">
       <h1 className="text-3xl font-bold mb-6">Dashboard Lupi RPG</h1>
 
-      {/* Info usuario */}
       {usuario && (
         <div className="p-4 bg-blue-100 rounded shadow w-80">
           <h2 className="font-bold text-xl mb-2">Usuario</h2>
@@ -66,7 +59,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Misiones */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">Misiones</h2>
         {misiones.length === 0 ? (
@@ -96,7 +88,6 @@ export default function Dashboard() {
         )}
       </section>
 
-      {/* Carta FIFA */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">Tu carta FIFA</h2>
         <div className="p-4 bg-yellow-100 rounded shadow w-64 space-y-2">
