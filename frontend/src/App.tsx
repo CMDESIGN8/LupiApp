@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, Auth } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import type { FirebaseApp } from 'firebase/app';
+import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
+import type { Auth } from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -8,16 +10,13 @@ import {
   updateDoc,
   onSnapshot,
   collection,
-  Firestore,
-  DocumentData, // Importar DocumentData
-  QueryDocumentSnapshot, // Para tipar los docs de onSnapshot
 } from 'firebase/firestore';
+import type { Firestore, DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 
 // =====================================================================
 // === Definiciones de Tipos (Interfaces) para TypeScript ===
 // =====================================================================
 
-// Interfaz para los datos del usuario
 interface UserData {
   xp: number;
   level: number;
@@ -37,24 +36,22 @@ interface UserData {
   lastLogin: string;
 }
 
-// Interfaz para una misión
 interface Mission {
-  id: string; // ID del documento de la misión
+  id: string;
   name: string;
   description: string;
-  type: string; // Ej: "Diaria", "Logro", "Club"
+  type: string;
   xpReward: number;
   coinsReward: number;
-  badgeReward?: string; // Opcional
+  badgeReward?: string;
 }
 
-// Interfaz para un club
 interface Club {
-  id: string; // ID del documento del club
+  id: string;
   name: string;
   membersCount: number;
-  goal?: string; // Opcional
-  totalXP: number; // XP acumulado del club
+  goal?: string;
+  totalXP: number;
 }
 
 // =====================================================================
@@ -62,17 +59,18 @@ interface Club {
 // =====================================================================
 
 const App = () => {
-  // Accede a las variables de entorno definidas en Render
-  // Para entornos locales con Vite, se usa import.meta.env
-  // Asegúrate de que las variables de entorno están en formato JSON si es necesario
-  const appId = import.meta.env.VITE_REACT_APP_APP_ID || 'default-lupi-app-id';
-  const firebaseConfig = JSON.parse(import.meta.env.VITE_REACT_APP_FIREBASE_CONFIG || '{}');
-  const initialAuthToken = import.meta.env.VITE_REACT_APP_INITIAL_AUTH_TOKEN || null;
+  // Accede a las variables de entorno
+  // Usamos un fallback a un objeto vacío para JSON.parse si la variable no está definida
+  const rawAppId = import.meta.env.VITE_REACT_APP_APP_ID;
+  const rawFirebaseConfig = import.meta.env.VITE_REACT_APP_FIREBASE_CONFIG;
+  const rawInitialAuthToken = import.meta.env.VITE_REACT_APP_INITIAL_AUTH_TOKEN;
+
+  const appId = rawAppId || 'default-lupi-app-id';
+  const firebaseConfig = rawFirebaseConfig ? JSON.parse(rawFirebaseConfig) : {};
+  const initialAuthToken = rawInitialAuthToken || null;
 
   // Estados con tipado explícito
-  const [firebaseApp, setFirebaseApp] = useState<FirebaseApp | null>(null);
   const [firestoreDb, setFirestoreDb] = useState<Firestore | null>(null);
-  const [firebaseAuth, setFirebaseAuth] = useState<Auth | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [missions, setMissions] = useState<Mission[]>([]);
@@ -91,13 +89,11 @@ const App = () => {
           return;
         }
 
-        const appInstance = initializeApp(firebaseConfig);
-        const dbInstance = getFirestore(appInstance);
-        const authInstance = getAuth(appInstance);
+        const appInstance: FirebaseApp = initializeApp(firebaseConfig);
+        const dbInstance: Firestore = getFirestore(appInstance);
+        const authInstance: Auth = getAuth(appInstance);
 
-        setFirebaseApp(appInstance);
         setFirestoreDb(dbInstance);
-        setFirebaseAuth(authInstance);
 
         if (initialAuthToken) {
           await signInWithCustomToken(authInstance, initialAuthToken);
@@ -110,15 +106,12 @@ const App = () => {
             setUserId(user.uid);
             console.log('Usuario autenticado:', user.uid);
           } else {
-            // Este caso es menos común después de signInAnonymously exitoso,
-            // pero si ocurre (ej. si la sesión expira o no hay token),
-            // generamos un UUID para simular un usuario único.
             setUserId(crypto.randomUUID());
             console.log('Usuario anónimo generado (fallback):', userId);
           }
           setLoading(false);
         });
-      } catch (err: any) { // Usar 'any' para capturar errores genéricos
+      } catch (err: any) {
         console.error("Error al inicializar Firebase o autenticar:", err);
         setError(`Error al cargar la aplicación: ${err.message || "desconocido"}. Por favor, inténtelo de nuevo más tarde.`);
         setLoading(false);
@@ -135,7 +128,7 @@ const App = () => {
     const userDocRef = doc(firestoreDb, `artifacts/${appId}/users/${userId}/profile`, 'userData');
     const unsubscribeUserData = onSnapshot(userDocRef, (docSnap) => {
       if (docSnap.exists()) {
-        const data = docSnap.data() as UserData; // Casteo a UserData
+        const data = docSnap.data() as UserData;
         setUserData(data);
         console.log("Datos del usuario cargados/actualizados:", data);
         if (typeof data.xp === 'undefined' || typeof data.level === 'undefined' || typeof data.coins === 'undefined') {
@@ -180,7 +173,7 @@ const App = () => {
 
   const initializeNewUser = async (uid: string, database: Firestore) => {
     const userRef = doc(database, `artifacts/${appId}/users/${uid}/profile`, 'userData');
-    const initialData: UserData = { // Tipado explícito aquí
+    const initialData: UserData = {
       xp: 0,
       level: 1,
       coins: 0,
@@ -208,7 +201,7 @@ const App = () => {
     }
   };
 
-  const addXP = async (amount: number) => { // Tipado del parámetro
+  const addXP = async (amount: number) => {
     if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para añadir XP.");
       return;
@@ -219,7 +212,7 @@ const App = () => {
     let skillPointsEarned = userData.skillPoints;
     let coinsEarned = 0;
 
-    const xpToNextLevel = (level: number) => level * 1000; // Tipado del parámetro
+    const xpToNextLevel = (level: number) => level * 1000;
 
     while (newXP >= xpToNextLevel(newLevel)) {
       newXP -= xpToNextLevel(newLevel);
@@ -243,7 +236,7 @@ const App = () => {
     }
   };
 
-  const completeMission = async (missionId: string, xpReward: number, coinsReward: number, badgeReward: string | null = null) => { // Tipado de parámetros
+  const completeMission = async (missionId: string, xpReward: number, coinsReward: number, badgeReward: string | null = null) => {
     if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para completar misión.");
       return;
@@ -277,7 +270,7 @@ const App = () => {
     }
   };
 
-  const upgradeSkill = async (skillName: keyof UserData['skills']) => { // Tipado más específico
+  const upgradeSkill = async (skillName: keyof UserData['skills']) => {
     if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para mejorar habilidad.");
       return;
@@ -475,7 +468,7 @@ const App = () => {
                 </div>
                 <button
                   onClick={() => completeMission(mission.id, mission.xpReward, mission.coinsReward, mission.badgeReward || null)}
-                  disabled={userData?.completedMissions.includes(mission.id) || false} // Uso de optional chaining y fallback para disabled
+                  disabled={userData?.completedMissions.includes(mission.id) || false}
                   className={`mt-4 w-full px-5 py-2 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
                     userData?.completedMissions.includes(mission.id) ? 'btn-disabled' : 'btn-primary'
                   } focus:outline-none focus:ring-2 focus:ring-blue-400`}
