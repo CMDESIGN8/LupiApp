@@ -59,16 +59,19 @@ interface Club {
 // =====================================================================
 
 const App = () => {
-  // Accede a las variables de entorno
+  // Accede a las variables de entorno de Vite
   const rawAppId = import.meta.env.VITE_REACT_APP_APP_ID;
   const rawFirebaseConfig = import.meta.env.VITE_REACT_APP_FIREBASE_CONFIG;
   const rawInitialAuthToken = import.meta.env.VITE_REACT_APP_INITIAL_AUTH_TOKEN;
 
+  // Usa los valores de las variables de entorno, con fallbacks.
+  // Es crucial que 'initialAuthToken' sea null si no es un token válido.
   const appId = rawAppId || 'default-lupi-app-id';
   const firebaseConfig = rawFirebaseConfig ? JSON.parse(rawFirebaseConfig) : {};
-  // Aseguramos que initialAuthToken sea null si es una cadena vacía
-  const initialAuthToken = (rawInitialAuthToken && rawInitialAuthToken.trim() !== '') ? rawInitialAuthToken : null;
-
+  // Verifica si el token es una cadena no vacía y que no sea la palabra "null"
+  const initialAuthToken = (rawInitialAuthToken && typeof rawInitialAuthToken === 'string' && rawInitialAuthToken.trim() !== '' && rawInitialAuthToken.trim().toLowerCase() !== 'null')
+    ? rawInitialAuthToken.trim()
+    : null;
 
   // Estados con tipado explícito
   const [firestoreDb, setFirestoreDb] = useState<Firestore | null>(null);
@@ -96,11 +99,17 @@ const App = () => {
 
         setFirestoreDb(dbInstance);
 
-        // MODIFICACIÓN CLAVE AQUÍ: Condición para usar signInWithCustomToken
+        // MODIFICACIÓN CLAVE AQUÍ: Lógica mejorada para usar customToken o anónimo
         if (initialAuthToken) {
-          await signInWithCustomToken(authInstance, initialAuthToken);
+          try {
+            await signInWithCustomToken(authInstance, initialAuthToken);
+          } catch (customTokenError: any) {
+            console.warn("Error con token personalizado, intentando autenticación anónima:", customTokenError);
+            // Si el token personalizado falla (ej. formato inválido), intentamos anónima
+            await signInAnonymously(authInstance);
+          }
         } else {
-          // Siempre intentamos la autenticación anónima si no hay un token personalizado válido
+          // Si no hay token personalizado, o si es nulo/vacío, vamos directo a autenticación anónima
           await signInAnonymously(authInstance);
         }
 
@@ -109,6 +118,8 @@ const App = () => {
             setUserId(user.uid);
             console.log('Usuario autenticado:', user.uid);
           } else {
+            // Esto es un fallback en caso de que signInAnonymously también falle o el usuario se desconecte.
+            // Para la persistencia real, onAuthStateChanged debería darte un user.uid después de signInAnonymously.
             setUserId(crypto.randomUUID());
             console.log('Usuario anónimo generado (fallback):', userId);
           }
