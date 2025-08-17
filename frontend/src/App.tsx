@@ -333,40 +333,40 @@ const App = () => {
       <script src="https://cdn.tailwindcss.com"></script>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
       <style>
-{`
-  body { 
-    font-family: 'Orbitron', sans-serif; 
-    background: radial-gradient(circle at 20% 30%, #0f172a, #000);
-    color: #e2e8f0;
-  }
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap');
-
-  .neon-border {
-    border: 2px solid transparent;
-    background-image: linear-gradient(#0f172a, #0f172a), 
-                      linear-gradient(90deg, #3b82f6, #a855f7, #06b6d4, #22c55e);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    animation: neonGlow 4s linear infinite;
-  }
-
-  @keyframes neonGlow {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
-
-  .btn-neon {
-    background: linear-gradient(90deg, #3b82f6, #a855f7, #06b6d4);
-    box-shadow: 0 0 15px rgba(168,85,247,0.6), 0 0 30px rgba(6,182,212,0.4);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .btn-neon:hover {
-    transform: scale(1.07);
-    box-shadow: 0 0 20px rgba(168,85,247,0.9), 0 0 40px rgba(6,182,212,0.7);
-  }
-`}
-</style>
+        {`
+          body { font-family: 'Inter', sans-serif; }
+          .card-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+          }
+          .btn-primary {
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+          }
+          .btn-primary:hover {
+            background: linear-gradient(to right, #4f46e5, #9333ea);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+          }
+          .btn-secondary {
+            background: linear-gradient(to right, #06b6d4, #3b82f6);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+          }
+          .btn-secondary:hover {
+            background: linear-gradient(to right, #0891b2, #2563eb);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+          }
+          .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        `}
+      </style>
 
       <header className="text-center mb-12">
         <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 rounded-md p-2">
