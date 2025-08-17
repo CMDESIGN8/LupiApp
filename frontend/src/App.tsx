@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
+import { initializeApp, FirebaseApp } from 'firebase/app';
+import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, Auth } from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -8,38 +8,82 @@ import {
   updateDoc,
   onSnapshot,
   collection,
-  query,
-  where, // No se usa directamente en este ejemplo, pero es útil para filtros
-  addDoc, // No se usa directamente en este ejemplo, pero es útil para agregar documentos
-  getDocs, // No se usa directamente en este ejemplo, pero es útil para obtener documentos una vez
+  Firestore,
+  DocumentData, // Importar DocumentData
+  QueryDocumentSnapshot, // Para tipar los docs de onSnapshot
 } from 'firebase/firestore';
 
-// Accede a las variables de entorno definidas en Render
-// Para entornos locales (npm run dev), estas deben estar en un archivo .env.local
-// con el prefijo VITE_ si usas Vite, o REACT_APP_ si usas Create React App.
-// En Render, simplemente las configuras con el nombre REACT_APP_...
-const appId = process.env.REACT_APP_APP_ID || 'default-lupi-app-id'; // 'default-lupi-app-id' es un fallback local
-const firebaseConfig = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG || '{}'); // '{}' es un fallback local
-const initialAuthToken = process.env.REACT_APP_INITIAL_AUTH_TOKEN || null; // null es un fallback local
+// =====================================================================
+// === Definiciones de Tipos (Interfaces) para TypeScript ===
+// =====================================================================
 
-// Componente principal de la aplicación Lupi App
+// Interfaz para los datos del usuario
+interface UserData {
+  xp: number;
+  level: number;
+  coins: number;
+  badges: string[];
+  skills: {
+    'Fuerza': number;
+    'Resistencia': number;
+    'Técnica': number;
+    'Liderazgo': number;
+    'Comunidad': number;
+    'Estrategia': number;
+  };
+  skillPoints: number;
+  completedMissions: string[];
+  currentClub: string | null;
+  lastLogin: string;
+}
+
+// Interfaz para una misión
+interface Mission {
+  id: string; // ID del documento de la misión
+  name: string;
+  description: string;
+  type: string; // Ej: "Diaria", "Logro", "Club"
+  xpReward: number;
+  coinsReward: number;
+  badgeReward?: string; // Opcional
+}
+
+// Interfaz para un club
+interface Club {
+  id: string; // ID del documento del club
+  name: string;
+  membersCount: number;
+  goal?: string; // Opcional
+  totalXP: number; // XP acumulado del club
+}
+
+// =====================================================================
+// === Código Principal de la Aplicación ===
+// =====================================================================
+
 const App = () => {
-  // Estados para la instancia de Firebase, el usuario, y los datos del juego
-  const [app, setApp] = useState(null);
-  const [db, setDb] = useState(null);
-  const [auth, setAuth] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [missions, setMissions] = useState([]);
-  const [clubs, setClubs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Accede a las variables de entorno definidas en Render
+  // Para entornos locales con Vite, se usa import.meta.env
+  // Asegúrate de que las variables de entorno están en formato JSON si es necesario
+  const appId = import.meta.env.VITE_REACT_APP_APP_ID || 'default-lupi-app-id';
+  const firebaseConfig = JSON.parse(import.meta.env.VITE_REACT_APP_FIREBASE_CONFIG || '{}');
+  const initialAuthToken = import.meta.env.VITE_REACT_APP_INITIAL_AUTH_TOKEN || null;
+
+  // Estados con tipado explícito
+  const [firebaseApp, setFirebaseApp] = useState<FirebaseApp | null>(null);
+  const [firestoreDb, setFirestoreDb] = useState<Firestore | null>(null);
+  const [firebaseAuth, setFirebaseAuth] = useState<Auth | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [missions, setMissions] = useState<Mission[]>([]);
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   // --- 1. Inicialización de Firebase y Autenticación ---
   useEffect(() => {
     const initFirebase = async () => {
       try {
-        // Verifica que firebaseConfig tenga al menos una propiedad para evitar errores de inicialización
         if (Object.keys(firebaseConfig).length === 0) {
           console.error("Firebase config is empty. Please check your environment variables.");
           setError("Error de configuración de Firebase. Contacta al soporte.");
@@ -47,117 +91,101 @@ const App = () => {
           return;
         }
 
-        const firebaseApp = initializeApp(firebaseConfig);
-        const firestoreDb = getFirestore(firebaseApp);
-        const firebaseAuth = getAuth(firebaseApp);
+        const appInstance = initializeApp(firebaseConfig);
+        const dbInstance = getFirestore(appInstance);
+        const authInstance = getAuth(appInstance);
 
-        setApp(firebaseApp);
-        setDb(firestoreDb);
-        setAuth(firebaseAuth);
+        setFirebaseApp(appInstance);
+        setFirestoreDb(dbInstance);
+        setFirebaseAuth(authInstance);
 
-        // Autenticación con el token inicial o de forma anónima
         if (initialAuthToken) {
-          await signInWithCustomToken(firebaseAuth, initialAuthToken);
+          await signInWithCustomToken(authInstance, initialAuthToken);
         } else {
-          await signInAnonymously(firebaseAuth);
+          await signInAnonymously(authInstance);
         }
 
-        // Observar cambios en el estado de autenticación para obtener el userId
-        onAuthStateChanged(firebaseAuth, (user) => {
+        onAuthStateChanged(authInstance, (user) => {
           if (user) {
             setUserId(user.uid);
             console.log('Usuario autenticado:', user.uid);
           } else {
-            // Genera un ID de usuario anónimo si no hay token o el usuario no está autenticado
-            // Esto es un fallback, en producción siempre debería haber un user.uid después de signInAnonymously
+            // Este caso es menos común después de signInAnonymously exitoso,
+            // pero si ocurre (ej. si la sesión expira o no hay token),
+            // generamos un UUID para simular un usuario único.
             setUserId(crypto.randomUUID());
             console.log('Usuario anónimo generado (fallback):', userId);
           }
-          setLoading(false); // La carga se completa una vez que se resuelve la autenticación
+          setLoading(false);
         });
-      } catch (err) {
+      } catch (err: any) { // Usar 'any' para capturar errores genéricos
         console.error("Error al inicializar Firebase o autenticar:", err);
-        setError("Error al cargar la aplicación. Por favor, inténtelo de nuevo más tarde.");
+        setError(`Error al cargar la aplicación: ${err.message || "desconocido"}. Por favor, inténtelo de nuevo más tarde.`);
         setLoading(false);
       }
     };
 
     initFirebase();
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
   // --- 2. Carga de Datos del Usuario y Misiones ---
   useEffect(() => {
-    // Solo procede si la base de datos y el ID de usuario están disponibles y no hay errores previos
-    if (!db || !userId || error) return;
+    if (!firestoreDb || !userId || error) return;
 
-    // Escuchar cambios en los datos del usuario en tiempo real
-    // La ruta es artifacts/{appId}/users/{userId}/profile/userData
-    const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile`, 'userData');
+    const userDocRef = doc(firestoreDb, `artifacts/${appId}/users/${userId}/profile`, 'userData');
     const unsubscribeUserData = onSnapshot(userDocRef, (docSnap) => {
       if (docSnap.exists()) {
-        const data = docSnap.data();
+        const data = docSnap.data() as UserData; // Casteo a UserData
         setUserData(data);
         console.log("Datos del usuario cargados/actualizados:", data);
-        // Si es un usuario nuevo (o faltan campos vitales), inicializar datos
         if (typeof data.xp === 'undefined' || typeof data.level === 'undefined' || typeof data.coins === 'undefined') {
-          initializeNewUser(userId, db);
+          initializeNewUser(userId, firestoreDb);
         }
       } else {
-        // Inicializar datos para un nuevo usuario si el documento no existe
-        initializeNewUser(userId, db);
+        initializeNewUser(userId, firestoreDb);
       }
-    }, (err) => {
+    }, (err: any) => {
       console.error("Error al escuchar datos del usuario:", err);
-      setError("Error al cargar los datos de tu perfil. Verifica las reglas de seguridad.");
+      setError(`Error al cargar los datos de tu perfil: ${err.message || "desconocido"}. Verifica las reglas de seguridad.`);
     });
 
-    // Escuchar cambios en las misiones públicas en tiempo real
-    // La ruta es artifacts/{appId}/public/data/missions
-    const missionsColRef = collection(db, `artifacts/${appId}/public/data/missions`);
+    const missionsColRef = collection(firestoreDb, `artifacts/${appId}/public/data/missions`);
     const unsubscribeMissions = onSnapshot(missionsColRef, (snapshot) => {
-      const fetchedMissions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const fetchedMissions = snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => ({ id: doc.id, ...doc.data() } as Mission));
       setMissions(fetchedMissions);
       console.log("Misiones cargadas/actualizadas:", fetchedMissions);
-    }, (err) => {
+    }, (err: any) => {
       console.error("Error al escuchar misiones:", err);
-      setError("Error al cargar las misiones disponibles. Verifica las reglas de seguridad.");
+      setError(`Error al cargar las misiones disponibles: ${err.message || "desconocido"}. Verifica las reglas de seguridad.`);
     });
 
-    // Escuchar cambios en los clubes públicos en tiempo real
-    // La ruta es artifacts/{appId}/public/data/clubs
-    const clubsColRef = collection(db, `artifacts/${appId}/public/data/clubs`);
+    const clubsColRef = collection(firestoreDb, `artifacts/${appId}/public/data/clubs`);
     const unsubscribeClubs = onSnapshot(clubsColRef, (snapshot) => {
-      const fetchedClubs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const fetchedClubs = snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => ({ id: doc.id, ...doc.data() } as Club));
       setClubs(fetchedClubs);
       console.log("Clubes cargados/actualizados:", fetchedClubs);
-    }, (err) => {
+    }, (err: any) => {
       console.error("Error al escuchar clubes:", err);
-      setError("Error al cargar los clubes. Verifica las reglas de seguridad.");
+      setError(`Error al cargar los clubes: ${err.message || "desconocido"}. Verifica las reglas de seguridad.`);
     });
 
-    // Limpieza de listeners al desmontar el componente para evitar fugas de memoria
     return () => {
       unsubscribeUserData();
       unsubscribeMissions();
       unsubscribeClubs();
     };
-  }, [db, userId, appId, error]); // Dependencias para re-ejecutar el efecto
+  }, [firestoreDb, userId, appId, error]);
 
   // --- Funciones de Lógica del Juego ---
 
-  /**
-   * Inicializa los datos básicos para un nuevo usuario en Firestore.
-   * @param {string} uid - El ID único del usuario.
-   * @param {object} database - La instancia de Firestore.
-   */
-  const initializeNewUser = async (uid, database) => {
+  const initializeNewUser = async (uid: string, database: Firestore) => {
     const userRef = doc(database, `artifacts/${appId}/users/${uid}/profile`, 'userData');
-    const initialData = {
+    const initialData: UserData = { // Tipado explícito aquí
       xp: 0,
       level: 1,
-      coins: 0, // Aquí se gestionan las Lupicoins
-      badges: [], // Insignias obtenidas
-      skills: { // Habilidades del árbol de talentos
+      coins: 0,
+      badges: [],
+      skills: {
         'Fuerza': 0,
         'Resistencia': 0,
         'Técnica': 0,
@@ -165,89 +193,73 @@ const App = () => {
         'Comunidad': 0,
         'Estrategia': 0,
       },
-      skillPoints: 0, // Puntos para mejorar habilidades
-      completedMissions: [], // IDs de misiones ya completadas
-      currentClub: null, // ID del club al que pertenece
-      lastLogin: new Date().toISOString(), // Fecha del último login
+      skillPoints: 0,
+      completedMissions: [],
+      currentClub: null,
+      lastLogin: new Date().toISOString(),
     };
     try {
-      await setDoc(userRef, initialData); // Usa setDoc para crear o sobrescribir
-      setUserData(initialData); // Actualizar el estado con los datos iniciales
+      await setDoc(userRef, initialData);
+      setUserData(initialData);
       console.log('Datos iniciales del usuario creados para:', uid);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error al inicializar datos del usuario:', err);
-      setError('No se pudieron inicializar tus datos de usuario. Inténtalo de nuevo.');
+      setError(`No se pudieron inicializar tus datos de usuario: ${err.message || "desconocido"}.`);
     }
   };
 
-  /**
-   * Añade XP al usuario y gestiona la subida de nivel, otorgando Lupicoins y puntos de habilidad.
-   * @param {number} amount - Cantidad de XP a añadir.
-   */
-  const addXP = async (amount) => {
-    if (!userData || !db || !userId) {
+  const addXP = async (amount: number) => { // Tipado del parámetro
+    if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para añadir XP.");
       return;
     }
 
     let newXP = userData.xp + amount;
     let newLevel = userData.level;
-    let skillPointsEarned = userData.skillPoints || 0;
-    let coinsEarned = 0; // Podrías añadir recompensas de monedas por subir de nivel aquí
+    let skillPointsEarned = userData.skillPoints;
+    let coinsEarned = 0;
 
-    // Lógica de subida de nivel (ejemplo simple)
-    // Cada nivel requiere 1000 XP * el nivel actual.
-    const xpToNextLevel = (level) => level * 1000;
+    const xpToNextLevel = (level: number) => level * 1000; // Tipado del parámetro
 
     while (newXP >= xpToNextLevel(newLevel)) {
-      newXP -= xpToNextLevel(newLevel); // Resta el XP necesario para el nivel actual
-      newLevel += 1; // Sube de nivel
-      skillPointsEarned += 1; // Otorga 1 punto de habilidad por cada nivel
-      coinsEarned += 50; // Otorga 50 Lupicoins por cada nivel
+      newXP -= xpToNextLevel(newLevel);
+      newLevel += 1;
+      skillPointsEarned += 1;
+      coinsEarned += 50;
       console.log(`¡Felicitaciones! Has subido al Nivel ${newLevel}`);
-      // Aquí podrías agregar más lógica para desbloquear misiones o contenido
     }
 
-    // Actualizar los datos del usuario en Firestore
-    const userRef = doc(db, `artifacts/${appId}/users/${userId}/profile`, 'userData');
+    const userRef = doc(firestoreDb, `artifacts/${appId}/users/${userId}/profile`, 'userData');
     try {
       await updateDoc(userRef, {
         xp: newXP,
         level: newLevel,
         skillPoints: skillPointsEarned,
-        coins: userData.coins + coinsEarned, // Añade las monedas ganadas por subir de nivel
+        coins: userData.coins + coinsEarned,
       });
       console.log(`XP añadido: ${amount}. Nuevo XP: ${newXP}, Nivel: ${newLevel}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error al actualizar XP/Nivel:', err);
     }
   };
 
-  /**
-   * Completa una misión, otorgando XP, Lupicoins e insignias.
-   * @param {string} missionId - ID de la misión a completar.
-   * @param {number} xpReward - Recompensa de XP de la misión.
-   * @param {number} coinsReward - Recompensa de Lupicoins de la misión.
-   * @param {string} [badgeReward=null] - Nombre de la insignia a otorgar (opcional).
-   */
-  const completeMission = async (missionId, xpReward, coinsReward, badgeReward = null) => {
-    if (!userData || !db || !userId) {
+  const completeMission = async (missionId: string, xpReward: number, coinsReward: number, badgeReward: string | null = null) => { // Tipado de parámetros
+    if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para completar misión.");
       return;
     }
 
-    // Verificar si la misión ya está completada para este usuario
     if (userData.completedMissions.includes(missionId)) {
       console.log(`Misión ${missionId} ya completada por este usuario.`);
       return;
     }
 
-    await addXP(xpReward); // Añade XP y gestiona la subida de nivel
+    await addXP(xpReward);
 
-    const userRef = doc(db, `artifacts/${appId}/users/${userId}/profile`, 'userData');
+    const userRef = doc(firestoreDb, `artifacts/${appId}/users/${userId}/profile`, 'userData');
     const updatedCompletedMissions = [...userData.completedMissions, missionId];
-    let updatedCoins = userData.coins + coinsReward; // Suma las Lupicoins de la misión
-    let updatedBadges = userData.badges || []; // Asegura que sea un array
+    let updatedCoins = userData.coins + coinsReward;
+    let updatedBadges = userData.badges || [];
 
     if (badgeReward && !updatedBadges.includes(badgeReward)) {
       updatedBadges = [...updatedBadges, badgeReward];
@@ -260,46 +272,36 @@ const App = () => {
         badges: updatedBadges,
       });
       console.log(`Misión ${missionId} completada. Recompensas otorgadas: ${xpReward} XP, ${coinsReward} Lupicoins.`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error al completar misión:', err);
     }
   };
 
-  /**
-   * Permite al usuario mejorar una habilidad gastando puntos de habilidad.
-   * @param {string} skillName - Nombre de la habilidad a mejorar.
-   */
-  const upgradeSkill = async (skillName) => {
-    if (!userData || !db || !userId) {
+  const upgradeSkill = async (skillName: keyof UserData['skills']) => { // Tipado más específico
+    if (!userData || !firestoreDb || !userId) {
       console.log("Datos no disponibles para mejorar habilidad.");
       return;
     }
 
-    // Asegúrate de que el usuario tenga puntos de habilidad disponibles
-    if ((userData.skillPoints || 0) <= 0) {
+    if (userData.skillPoints <= 0) {
       console.log("No tienes puntos de habilidad para mejorar.");
-      // Aquí podrías mostrar un mensaje al usuario en la UI
       return;
     }
 
-    // Asegura que la habilidad existe y su nivel es un número
-    const currentSkillLevel = typeof userData.skills[skillName] === 'number' ? userData.skills[skillName] : 0;
-    const userRef = doc(db, `artifacts/${appId}/users/${userId}/profile`, 'userData');
+    const currentSkillLevel = userData.skills[skillName];
+    const userRef = doc(firestoreDb, `artifacts/${appId}/users/${userId}/profile`, 'userData');
 
     try {
-      // Incrementa el nivel de la habilidad y decrementa los puntos de habilidad
       await updateDoc(userRef, {
-        [`skills.${skillName}`]: currentSkillLevel + 1, // Sintaxis para actualizar campos anidados
-        skillPoints: (userData.skillPoints || 0) - 1,
+        [`skills.${skillName}`]: currentSkillLevel + 1,
+        skillPoints: userData.skillPoints - 1,
       });
       console.log(`Habilidad ${skillName} mejorada a nivel ${currentSkillLevel + 1}`);
-      // Aquí podrías desbloquear nuevas misiones relacionadas con la habilidad mejorada
-    } catch (err) {
+    } catch (err: any) {
       console.error(`Error al mejorar la habilidad ${skillName}:`, err);
-      setError(`No se pudo mejorar la habilidad ${skillName}.`);
+      setError(`No se pudo mejorar la habilidad ${skillName}. ${err.message || "desconocido"}`);
     }
   };
-
 
   // --- UI de la Aplicación (Componentes Visuales) ---
   if (loading) {
@@ -367,6 +369,7 @@ const App = () => {
         <div className="text-sm text-gray-500 mt-2">ID de Usuario: <span className="font-mono text-blue-300">{userId}</span></div>
       </header>
 
+      {/* Asegúrate de que userData no sea null antes de intentar acceder a sus propiedades */}
       {userData && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Tarjeta de Perfil del Jugador */}
@@ -402,16 +405,17 @@ const App = () => {
           {/* Tarjeta de Habilidades */}
           <div className="card-glass p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
             <h2 className="text-3xl font-bold text-purple-300 mb-4 text-center">Tus Habilidades</h2>
-            <p className="text-lg text-gray-300 mb-4 text-center">Puntos de Habilidad: {userData.skillPoints || 0}</p>
+            <p className="text-lg text-gray-300 mb-4 text-center">Puntos de Habilidad: {userData.skillPoints}</p>
             <div className="grid grid-cols-2 gap-4">
+              {/* Object.entries es seguro aquí ya que skills tiene claves fijas */}
               {Object.entries(userData.skills).map(([skill, level]) => (
                 <div key={skill} className="flex flex-col items-center">
                   <span className="text-md font-semibold text-gray-200">{skill}: {level}</span>
                   <button
-                    onClick={() => upgradeSkill(skill)}
-                    disabled={(userData.skillPoints || 0) <= 0}
+                    onClick={() => upgradeSkill(skill as keyof UserData['skills'])} // Casteo para TypeScript
+                    disabled={userData.skillPoints <= 0}
                     className={`mt-2 px-4 py-2 text-white text-sm font-bold rounded-full shadow-md transition-all duration-300 ${
-                      (userData.skillPoints || 0) <= 0 ? 'btn-disabled' : 'btn-secondary'
+                      userData.skillPoints <= 0 ? 'btn-disabled' : 'btn-secondary'
                     } focus:outline-none focus:ring-2 focus:ring-teal-400`}
                   >
                     Subir {skill}
@@ -426,7 +430,7 @@ const App = () => {
             <h2 className="text-3xl font-bold text-orange-300 mb-4 text-center">Insignias & Club</h2>
             <div className="mb-4">
               <h3 className="text-xl font-semibold text-gray-200 mb-2">Tus Insignias:</h3>
-              {userData.badges && userData.badges.length > 0 ? (
+              {userData.badges.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {userData.badges.map((badge, index) => (
                     <span key={index} className="bg-yellow-600 text-yellow-100 px-3 py-1 rounded-full text-sm font-medium shadow-md">
@@ -470,13 +474,13 @@ const App = () => {
                   <p className="text-sm text-gray-400">Recompensa: {mission.xpReward} XP, {mission.coinsReward} Lupicoins {mission.badgeReward && `, Insignia: ${mission.badgeReward}`}</p>
                 </div>
                 <button
-                  onClick={() => completeMission(mission.id, mission.xpReward, mission.coinsReward, mission.badgeReward)}
-                  disabled={userData && userData.completedMissions.includes(mission.id)}
+                  onClick={() => completeMission(mission.id, mission.xpReward, mission.coinsReward, mission.badgeReward || null)}
+                  disabled={userData?.completedMissions.includes(mission.id) || false} // Uso de optional chaining y fallback para disabled
                   className={`mt-4 w-full px-5 py-2 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 ${
-                    userData && userData.completedMissions.includes(mission.id) ? 'btn-disabled' : 'btn-primary'
+                    userData?.completedMissions.includes(mission.id) ? 'btn-disabled' : 'btn-primary'
                   } focus:outline-none focus:ring-2 focus:ring-blue-400`}
                 >
-                  {userData && userData.completedMissions.includes(mission.id) ? 'Misión Completada' : 'Completar Misión'}
+                  {userData?.completedMissions.includes(mission.id) ? 'Misión Completada' : 'Completar Misión'}
                 </button>
               </div>
             ))
@@ -494,7 +498,7 @@ const App = () => {
             clubs.map((club) => (
               <div key={club.id} className="card-glass p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold text-gray-100 mb-2">{club.name}</h3>
-                <p className="text-gray-300 mb-3">Miembros: {club.membersCount || 0}</p>
+                <p className="text-gray-300 mb-3">Miembros: {club.membersCount}</p>
                 <p className="text-gray-400">Objetivo: {club.goal || 'Sin objetivo definido'}</p>
                 <button
                   // Lógica para ver detalles del club o unirse (a implementar)
