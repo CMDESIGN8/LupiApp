@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase'; // ← ¡Añade esta importación!
+import { supabase } from '../lib/supabase'; // ← IMPORTANTE: Añadir esta línea
 import { playerService } from '../services/playerService';
 import './HomeScreen.css';
-
 
 export const HomeScreen = ({ session }) => {
   const [player, setPlayer] = useState(null);
@@ -18,7 +17,6 @@ export const HomeScreen = ({ session }) => {
       setPlayer(playerData);
     } catch (error) {
       console.error('Error loading player:', error);
-      // No mostrar error al usuario, solo dejar player como null
     } finally {
       setLoading(false);
     }
@@ -27,11 +25,22 @@ export const HomeScreen = ({ session }) => {
   const createPlayer = async () => {
     try {
       // Obtener username del perfil
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('username')
         .eq('id', session.user.id)
         .single();
+
+      if (profileError) {
+        console.error('Error fetching profile:', profileError);
+        // Usar nombre por defecto
+        const newPlayer = await playerService.createDefaultPlayer(
+          session.user.id, 
+          'Jugador'
+        );
+        setPlayer(newPlayer);
+        return;
+      }
 
       const newPlayer = await playerService.createDefaultPlayer(
         session.user.id, 
