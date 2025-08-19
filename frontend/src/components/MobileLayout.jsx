@@ -1,23 +1,21 @@
-import './MobileLayout.css'
-
 export const MobileLayout = ({ children }) => {
   return (
     <div className="mobile-container">
       <div className="mobile-screen">
         <div className="status-bar">
           <span>Lupi App</span>
-          <span>12:30</span>
+          <span>{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
         </div>
         <main className="mobile-content">
           {children}
         </main>
         <nav className="mobile-nav">
-          <button>🏠</button>
-          <button>👤</button>
-          <button>⚽</button>
-          <button>🛒</button>
+          <button>🏠 Inicio</button>
+          <button>👤 Perfil</button>
+          <button>⚽ Partidos</button>
+          <button>🛒 Tienda</button>
         </nav>
       </div>
     </div>
-  )
-}
+  );
+};
