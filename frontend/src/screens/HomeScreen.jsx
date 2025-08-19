@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { playerService } from '../services/playerService';
-import { authService } from '../services/authService'; // ← Importar authService
 import './HomeScreen.css';
 
-export const HomeScreen = ({ session, onSignOut }) => { // ← Añadir onSignOut prop
+export const HomeScreen = ({ session, onSignOut }) => {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -52,10 +51,12 @@ export const HomeScreen = ({ session, onSignOut }) => { // ← Añadir onSignOut
     }
   };
 
+  // ✅ FUNCIÓN CORREGIDA - Usando supabase directamente
   const handleSignOut = async () => {
     try {
-      await authService.signOut();
-      onSignOut(); // ← Llamar a la función padre para actualizar el estado
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      onSignOut();
     } catch (error) {
       console.error('Error signing out:', error);
       alert('Error al cerrar sesión: ' + error.message);
@@ -89,7 +90,7 @@ export const HomeScreen = ({ session, onSignOut }) => { // ← Añadir onSignOut
             <div className="logout-modal-buttons">
               <button 
                 className="logout-confirm-btn"
-                onClick={handleSignOut}
+                onClick={handleSignOut} // ✅ Usa la función corregida
               >
                 Sí, cerrar sesión
               </button>
@@ -110,7 +111,57 @@ export const HomeScreen = ({ session, onSignOut }) => { // ← Añadir onSignOut
         <small>Conectado como: {session.user.email}</small>
       </div>
 
-      {/* ... resto del código igual ... */}
+      {player ? (
+        <div className="player-stats">
+          <h3>Tus Estadísticas</h3>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <span className="stat-value">{player.experience}</span>
+              <span className="stat-label">Experiencia</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-value">{player.skill_points}</span>
+              <span className="stat-label">Puntos de Skill</span>
+            </div>
+          </div>
+
+          {player.player_skills && (
+            <div className="skills-section">
+              <h4>Habilidades</h4>
+              <div className="skills-list">
+                <div className="skill-item">
+                  <span>Fuerza: {player.player_skills.fuerza}</span>
+                </div>
+                <div className="skill-item">
+                  <span>Velocidad: {player.player_skills.velocidad}</span>
+                </div>
+                <div className="skill-item">
+                  <span>Técnica: {player.player_skills.tecnica}</span>
+                </div>
+                <div className="skill-item">
+                  <span>Defensa: {player.player_skills.defensa}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="no-player">
+          <p>¡Aún no tienes un personaje!</p>
+          <button className="create-player-btn" onClick={createPlayer}>
+            Crear Personaje
+          </button>
+        </div>
+      )}
+
+      <div className="quick-actions">
+        <h3>Acciones Rápidas</h3>
+        <div className="action-buttons">
+          <button className="action-btn">🏟️ Partidos</button>
+          <button className="action-btn">👥 Clubes</button>
+          <button className="action-btn">🛒 Tienda</button>
+        </div>
+      </div>
     </div>
   );
 };
