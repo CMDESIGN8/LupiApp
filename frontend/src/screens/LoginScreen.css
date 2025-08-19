@@ -2,28 +2,35 @@
   padding: 20px;
   max-width: 400px;
   margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .auth-header h1 {
   color: #007AFF;
   margin-bottom: 10px;
   font-size: 28px;
+  font-weight: bold;
 }
 
 .auth-header p {
   color: #666;
   font-size: 16px;
+  margin: 0;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .input-group {
@@ -35,6 +42,7 @@
 .input-group label {
   font-weight: 600;
   color: #333;
+  font-size: 14px;
 }
 
 .input-group input {
@@ -42,12 +50,14 @@
   border: 2px solid #e9ecef;
   border-radius: 10px;
   font-size: 16px;
+  background: white;
   transition: border-color 0.2s;
 }
 
 .input-group input:focus {
   outline: none;
   border-color: #007AFF;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
 .auth-button {
@@ -60,6 +70,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  margin-top: 10px;
 }
 
 .auth-button:hover:not(:disabled) {
@@ -75,8 +86,28 @@
   background: none;
   border: none;
   color: #007AFF;
-  margin-top: 20px;
   cursor: pointer;
   text-decoration: underline;
   font-size: 14px;
+  padding: 10px;
+  align-self: center;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 15px;
+  }
+  
+  .auth-header h1 {
+    font-size: 24px;
+  }
+  
+  .input-group input {
+    padding: 12px;
+  }
+  
+  .auth-button {
+    padding: 12px;
+  }
 }
