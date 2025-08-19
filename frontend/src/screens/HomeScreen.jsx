@@ -3,7 +3,6 @@ import { supabase } from '../lib/supabase'; // ← ¡Añade esta importación!
 import { playerService } from '../services/playerService';
 import './HomeScreen.css';
 
-export const HomeScreen = ({ session }) => {
 
 export const HomeScreen = ({ session }) => {
   const [player, setPlayer] = useState(null);
