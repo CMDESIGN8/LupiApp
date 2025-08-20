@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import './LoginScreen.css';
+import '/src/screens/LoginScreen.css';
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');

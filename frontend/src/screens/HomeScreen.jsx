@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { playerService } from '../services/playerService';
-import './HomeScreen.css';
+import '/src/screens/HomeScreen.css';
 
 export const HomeScreen = ({ session, onSignOut }) => {
   const [player, setPlayer] = useState(null);
