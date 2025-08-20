@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// Utiliza variables de entorno para las credenciales de Supabase
-// NOTA: Para que esto funcione, necesitas un archivo .env en la raíz de tu proyecto de Vite.
-// Ejemplo:
-// VITE_SUPABASE_URL="tu_url_de_supabase"
-// VITE_SUPABASE_ANON_KEY="tu_clave_anonima_de_supabase"
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// NOTA: Para este código de React, las variables de entorno se obtienen directamente del entorno
+// de ejecución de Canvas. No es necesario un archivo .env local.
+const SUPABASE_URL = "tu_url_de_supabase";
+const SUPABASE_ANON_KEY = "tu_clave_anonima_de_supabase";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -115,7 +112,7 @@ const App = () => {
             position,
             sport,
             lupicoins: 50,
-            available_skill_points: 0, // Los puntos ya están asignados al crear
+            skill_points: 0, 
             club_id: null,
           }
         ])
