@@ -32,8 +32,9 @@ const App = () => {
 
   // Accede a la variable global 'supabase' después de que el script se cargue.
   const supabase = window.supabase ? window.supabase.createClient(
-    process.env.VITE_SUPABASE_URL,
-    process.env.VITE_SUPABASE_ANON_KEY
+    // Por favor, reemplaza estos marcadores de posición con tu URL y clave anónima de Supabase.
+    "https://tu_url_de_supabase.supabase.co", 
+    "tu_clave_anonima"
   ) : null;
 
   // Escucha los cambios en la sesión de Supabase
