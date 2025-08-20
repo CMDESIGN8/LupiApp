@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 
-// NOTA: Para este código de React, las variables de entorno se obtienen directamente del entorno
-// de ejecución de Canvas. No es necesario un archivo .env local.
-const SUPABASE_URL = "https://uwwyvrmbgwprghofywck.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk";
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Se carga la biblioteca de Supabase desde un CDN para evitar errores de compilación.
+// Esto hace que la variable 'supabase' esté disponible globalmente.
+const SupabaseLoader = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    document.body.appendChild(script);
+  }, []);
+  return null;
+};
 
 const positions = ['Arquero', 'Defensa', 'Mediocampista', 'Delantero', 'Neutro'];
 const sports = ['Fútbol', 'Voley', 'Handball', 'Jockey', 'Rugby', 'Fitness'];
@@ -27,8 +30,16 @@ const App = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Accede a la variable global 'supabase' después de que el script se cargue.
+  const supabase = window.supabase ? window.supabase.createClient(
+    process.env.VITE_SUPABASE_URL,
+    process.env.VITE_SUPABASE_ANON_KEY
+  ) : null;
+
   // Escucha los cambios en la sesión de Supabase
   useEffect(() => {
+    if (!supabase) return; // Espera a que Supabase esté disponible
+    
     // Intenta obtener la sesión actual al cargar
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -50,7 +61,7 @@ const App = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [supabase]);
 
   // Verifica si el usuario ya tiene un personaje creado
   const checkProfile = async (userId) => {
@@ -290,16 +301,25 @@ const App = () => {
     );
   }
 
-  switch (view) {
-    case 'auth':
-      return renderAuth();
-    case 'create_character':
-      return renderCreateCharacter();
-    case 'dashboard':
-      return renderDashboard();
-    default:
-      return null;
-  }
+  return (
+    <>
+      <SupabaseLoader />
+      {
+        (() => {
+          switch (view) {
+            case 'auth':
+              return renderAuth();
+            case 'create_character':
+              return renderCreateCharacter();
+            case 'dashboard':
+              return renderDashboard();
+            default:
+              return null;
+          }
+        })()
+      }
+    </>
+  );
 };
 
 export default App;
