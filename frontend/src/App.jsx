@@ -3,21 +3,8 @@ import { useState, useEffect } from 'react';
 // Se carga la biblioteca de Supabase desde un CDN.
 const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
 
-// Cargar el script de Supabase al inicio, antes de que se renderice cualquier componente React
-const loadSupabaseScript = () => {
-  const script = document.createElement('script');
-  script.src = SUPABASE_CDN;
-  script.onload = () => {
-    // La variable 'window.supabase' ahora está disponible globalmente
-    console.log('Supabase script loaded successfully');
-  };
-  script.onerror = () => {
-    console.error('Failed to load Supabase script');
-  };
-  document.head.appendChild(script);
-};
-
-loadSupabaseScript();
+// Usar una variable global para el cliente de Supabase para asegurar que solo se cree una instancia.
+let supabaseClient = null;
 
 const positions = ['Arquero', 'Defensa', 'Mediocampista', 'Delantero', 'Neutro'];
 const sports = ['Fútbol', 'Voley', 'Handball', 'Jockey', 'Rugby', 'Fitness'];
@@ -37,39 +24,46 @@ const App = () => {
   const [skills, setSkills] = useState(skillNames.reduce((acc, skill) => ({ ...acc, [skill]: 50 }), {}));
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [supabaseClient, setSupabaseClient] = useState(null);
+  const [isSupabaseReady, setIsSupabaseReady] = useState(false);
 
-  // Inicializa el cliente de Supabase una sola vez
+  // Inicializa el cliente de Supabase y carga el script del CDN una sola vez.
   useEffect(() => {
-    // Se usa un temporizador para dar tiempo a que el script del CDN se cargue
-    const initClient = setTimeout(() => {
-      if (window.supabase && !supabaseClient) {
-        // Por favor, reemplaza estos marcadores de posición con tu URL y clave anónima de Supabase.
-        const client = window.supabase.createClient(
-          "https://uwwyvrmbgwprghofywck.supabase.co", 
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk"
-        );
-        setSupabaseClient(client);
-      } else {
-        // Si el script de Supabase no está disponible, se intenta de nuevo.
-        console.warn('Supabase script not yet available, retrying...');
-        // Llamada recursiva para reintentar la inicialización
-        initClient(); 
+    // Si el cliente ya existe, no se hace nada.
+    if (supabaseClient) {
+      setIsSupabaseReady(true);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = SUPABASE_CDN;
+    script.onload = () => {
+      // Se crea el cliente de Supabase solo si el script se ha cargado.
+      if (!supabaseClient) {
+        // Credenciales de Supabase proporcionadas por el usuario.
+        const SUPABASE_URL = "https://uwwyvrmbgwprghofywck.supabase.co"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk";
+
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        setIsSupabaseReady(true);
       }
-    }, 500); // Espera 500ms antes de intentar de nuevo
-    
-    return () => clearTimeout(initClient);
-  }, [supabaseClient]);
+    };
+    script.onerror = () => {
+      setError('Failed to load Supabase script.');
+      setLoading(false);
+    };
+    document.head.appendChild(script);
+  }, []);
 
   // Escucha los cambios en la sesión de Supabase
   useEffect(() => {
-    if (!supabaseClient) {
+    if (!isSupabaseReady) {
       setLoading(false);
       return;
     }
     
     // Intenta obtener la sesión actual al cargar
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    const getSession = async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
       setSession(session);
       if (session) {
         checkProfile(session.user.id);
@@ -77,7 +71,9 @@ const App = () => {
         setView('auth');
         setLoading(false);
       }
-    });
+    };
+
+    getSession();
 
     // Suscribe a los cambios de autenticación
     const { data: { subscription } } = supabaseClient.auth.onAuthStateChange((_event, session) => {
@@ -91,7 +87,7 @@ const App = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabaseClient]);
+  }, [isSupabaseReady]);
 
   // Verifica si el usuario ya tiene un personaje creado
   const checkProfile = async (userId) => {
