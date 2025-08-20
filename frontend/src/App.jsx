@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
 
-// Se carga la biblioteca de Supabase desde un CDN para evitar errores de compilación.
-// Esto hace que la variable 'supabase' esté disponible globalmente.
-const SupabaseLoader = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-    document.body.appendChild(script);
-  }, []);
-  return null;
+// Se carga la biblioteca de Supabase desde un CDN.
+const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+
+// Cargar el script de Supabase al inicio, antes de que se renderice cualquier componente React
+const loadSupabaseScript = () => {
+  const script = document.createElement('script');
+  script.src = SUPABASE_CDN;
+  script.onload = () => {
+    // La variable 'window.supabase' ahora está disponible globalmente
+    console.log('Supabase script loaded successfully');
+  };
+  script.onerror = () => {
+    console.error('Failed to load Supabase script');
+  };
+  document.head.appendChild(script);
 };
+
+loadSupabaseScript();
 
 const positions = ['Arquero', 'Defensa', 'Mediocampista', 'Delantero', 'Neutro'];
 const sports = ['Fútbol', 'Voley', 'Handball', 'Jockey', 'Rugby', 'Fitness'];
@@ -19,7 +27,7 @@ const initialSkillPoints = 5;
 const App = () => {
   const [session, setSession] = useState(null);
   const [view, setView] = useState('auth'); // 'auth', 'create_character', 'dashboard'
-  const [loading, setLoading] = useState(true); // Se inicia en true para el chequeo inicial
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -29,23 +37,39 @@ const App = () => {
   const [skills, setSkills] = useState(skillNames.reduce((acc, skill) => ({ ...acc, [skill]: 50 }), {}));
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [supabaseClient, setSupabaseClient] = useState(null);
 
-  // Accede a la variable global 'supabase' después de que el script se cargue.
-  const supabase = window.supabase ? window.supabase.createClient(
-    // Por favor, reemplaza estos marcadores de posición con tu URL y clave anónima de Supabase.
-    "https://uwwyvrmbgwprghofywck.supabase.co", 
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk"
-  ) : null;
+  // Inicializa el cliente de Supabase una sola vez
+  useEffect(() => {
+    // Se usa un temporizador para dar tiempo a que el script del CDN se cargue
+    const initClient = setTimeout(() => {
+      if (window.supabase && !supabaseClient) {
+        // Por favor, reemplaza estos marcadores de posición con tu URL y clave anónima de Supabase.
+        const client = window.supabase.createClient(
+          "https://uwwyvrmbgwprghofywck.supabase.co", 
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk"
+        );
+        setSupabaseClient(client);
+      } else {
+        // Si el script de Supabase no está disponible, se intenta de nuevo.
+        console.warn('Supabase script not yet available, retrying...');
+        // Llamada recursiva para reintentar la inicialización
+        initClient(); 
+      }
+    }, 500); // Espera 500ms antes de intentar de nuevo
+    
+    return () => clearTimeout(initClient);
+  }, [supabaseClient]);
 
   // Escucha los cambios en la sesión de Supabase
   useEffect(() => {
-    if (!supabase) {
+    if (!supabaseClient) {
       setLoading(false);
-      return; // Espera a que Supabase esté disponible
+      return;
     }
     
     // Intenta obtener la sesión actual al cargar
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session) {
         checkProfile(session.user.id);
@@ -56,7 +80,7 @@ const App = () => {
     });
 
     // Suscribe a los cambios de autenticación
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
         checkProfile(session.user.id);
@@ -67,12 +91,12 @@ const App = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, [supabaseClient]);
 
   // Verifica si el usuario ya tiene un personaje creado
   const checkProfile = async (userId) => {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('players')
       .select('*')
       .eq('id', userId)
@@ -88,9 +112,13 @@ const App = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!supabaseClient) {
+      setError('Supabase client not available.');
+      return;
+    }
     setLoading(true);
     setError('');
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) {
       setError(error.message);
     } else {
@@ -101,9 +129,13 @@ const App = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!supabaseClient) {
+      setError('Supabase client not available.');
+      return;
+    }
     setLoading(true);
     setError('');
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabaseClient.auth.signUp({ email, password });
     if (error) {
       setError(error.message);
     } else {
@@ -114,12 +146,16 @@ const App = () => {
 
   const handleCreateAccount = async (e) => {
     e.preventDefault();
+    if (!supabaseClient || !session) {
+      setError('Supabase client or session not available.');
+      return;
+    }
     setLoading(true);
     setError('');
   
     try {
       // 1. Crear el registro del jugador
-      const { data: playerData, error: playerError } = await supabase
+      const { data: playerData, error: playerError } = await supabaseClient
         .from('players')
         .insert([
           {
@@ -144,7 +180,7 @@ const App = () => {
         skill_value,
       }));
   
-      const { data: skillsData, error: skillsError } = await supabase
+      const { data: skillsData, error: skillsError } = await supabaseClient
         .from('player_skills')
         .insert(skillInserts)
         .select();
@@ -290,7 +326,7 @@ const App = () => {
       <h1 className="text-4xl font-bold text-stone-800">¡Bienvenido a Lupi App!</h1>
       <p className="text-xl text-stone-600 mt-4">Tu personaje ha sido creado. ¡Pronto estará disponible el dashboard!</p>
       <button
-        onClick={() => supabase.auth.signOut()}
+        onClick={() => supabaseClient.auth.signOut()}
         className="mt-8 bg-red-500 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-600 transition"
       >
         Cerrar Sesión
@@ -308,7 +344,6 @@ const App = () => {
 
   return (
     <>
-      <SupabaseLoader />
       {
         (() => {
           switch (view) {
