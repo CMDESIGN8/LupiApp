@@ -19,7 +19,7 @@ const initialSkillPoints = 5;
 const App = () => {
   const [session, setSession] = useState(null);
   const [view, setView] = useState('auth'); // 'auth', 'create_character', 'dashboard'
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Se inicia en true para el chequeo inicial
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -33,13 +33,16 @@ const App = () => {
   // Accede a la variable global 'supabase' después de que el script se cargue.
   const supabase = window.supabase ? window.supabase.createClient(
     // Por favor, reemplaza estos marcadores de posición con tu URL y clave anónima de Supabase.
-    "https://tu_url_de_supabase.supabase.co", 
-    "tu_clave_anonima"
+    "https://uwwyvrmbgwprghofywck.supabase.co", 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk"
   ) : null;
 
   // Escucha los cambios en la sesión de Supabase
   useEffect(() => {
-    if (!supabase) return; // Espera a que Supabase esté disponible
+    if (!supabase) {
+      setLoading(false);
+      return; // Espera a que Supabase esté disponible
+    }
     
     // Intenta obtener la sesión actual al cargar
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -48,6 +51,7 @@ const App = () => {
         checkProfile(session.user.id);
       } else {
         setView('auth');
+        setLoading(false);
       }
     });
 
@@ -58,6 +62,7 @@ const App = () => {
         checkProfile(session.user.id);
       } else {
         setView('auth');
+        setLoading(false);
       }
     });
 
@@ -155,7 +160,6 @@ const App = () => {
     }
   };
   
-
   const handleSkillChange = (skill, value) => {
     const newPoints = availablePoints - value;
     if (newPoints >= 0) {
