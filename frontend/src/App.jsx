@@ -3,8 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 
 // NOTA: Para este código de React, las variables de entorno se obtienen directamente del entorno
 // de ejecución de Canvas. No es necesario un archivo .env local.
-const SUPABASE_URL = "tu_url_de_supabase";
-const SUPABASE_ANON_KEY = "tu_clave_anonima_de_supabase";
+const SUPABASE_URL = "https://uwwyvrmbgwprghofywck.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3d3l2cm1iZ3dwcmdob2Z5d2NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI0NzcsImV4cCI6MjA3MTE4ODQ3N30.Usix_ahH37C-Qx7bAt5vDdKTnpWLCntte9DPkw1dtBk";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
