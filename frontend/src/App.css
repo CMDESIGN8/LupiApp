@@ -1,25 +1,26 @@
 /* --- Global Styles & Variables --- */
     :root {
-      --primary-color: #2563eb;
-      --primary-hover: #1d4ed8;
-      --secondary-color: #e5e7eb;
-      --secondary-hover: #d1d5db;
-      --success-color: #16a34a;
-      --success-hover: #15803d;
-      --danger-color: #dc2626;
-      --danger-hover: #b91c1c;
-      --warning-color: #f59e0b;
-      --warning-hover: #d97706;
-      --purple-color: #9333ea;
-      --purple-hover: #7e22ce;
-      --background-color: #f3f4f6;
-      --card-background: #ffffff;
-      --text-color: #1f2937;
-      --text-light: #6b7280;
-      --border-color: #d1d5db;
-      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --border-radius: 0.5rem;
-    }
+  --primary-color: #0d47a1;       /* Azul profundo - identidad */
+  --primary-hover: #1565c0;
+  --secondary-color: #1e293b;     /* Azul oscuro metálico */
+  --secondary-hover: #334155;
+  --success-color: #22c55e;       /* Verde progreso */
+  --success-hover: #16a34a;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+  --warning-color: #facc15;       /* Dorado brillante */
+  --warning-hover: #eab308;
+  --purple-color: #7c3aed;        /* Poder / magia */
+  --purple-hover: #6d28d9;
+  --background-color: #0f172a;    /* Fondo tipo estadio/futurista */
+  --card-background: #1e293b;     /* Tarjetas deportivas */
+  --text-color: #f1f5f9;
+  --text-light: #94a3b8;
+  --border-color: #334155;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --border-radius: 0.75rem;
+  --glow: 0 0 12px rgba(37, 99, 235, 0.7); /* efecto glow tech */
+}
 
     body {
       margin: 0;
