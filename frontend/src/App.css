@@ -251,7 +251,7 @@
       margin-bottom: 0.5rem;
     }
 
-    .info-value { color: #1e40af; font-weight: 500; }
+    .info-value { color: #3cff00; font-weight: 500; }
     .points-value { color: var(--success-color); font-weight: 600; }
 
     .wallet-info {
