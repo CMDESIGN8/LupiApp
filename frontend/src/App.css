@@ -1,211 +1,101 @@
-/* 🎨 Paleta Lupi */
+/* Paleta Lupi */
 :root {
-  --azul-lupi: #1E1B4B;
-  --celeste-lupi: #00E5FF;
-  --neon-lupi: #00FF85;
-  --negro: #0D0D0D;
-  --blanco: #FFFFFF;
-  --gris-suave: #F4F4F4;
-  --gris-oscuro: #1A1A1A;
+  --primary: #00e6b8;   /* verde agua brillante */
+  --secondary: #00aaff; /* azul eléctrico */
+  --dark: #0a0f1c;      /* fondo oscuro */
+  --light: #f4faff;     /* casi blanco */
+  --accent: #ffde59;    /* amarillo de acento */
 }
 
-/* General */
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, var(--negro), var(--gris-oscuro));
-  color: var(--blanco);
+/* Fondo general deportivo/tecnológico */
+.container {
   min-height: 100vh;
-  margin: 0;
-}
-
-/* Contenedor general */
-.dashboard-container {
+  background: linear-gradient(135deg, var(--dark) 30%, #101b33 100%);
+  color: var(--light);
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
 }
 
-/* Caja principal */
-.dashboard-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid var(--azul-lupi);
-  border-radius: 20px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 900px;
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
-}
-
-/* Títulos */
-.dashboard-title {
-  font-size: 2.2rem;
-  font-weight: 800;
+/* Header */
+.header {
   text-align: center;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, var(--celeste-lupi), var(--neon-lupi));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 3rem;
+  animation: fadeInDown 1s ease;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
   text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(0, 230, 184, 0.7);
 }
 
-/* Alertas */
-.alert-info {
-  background: rgba(0, 229, 255, 0.15);
-  border: 1px solid var(--celeste-lupi);
-  color: var(--celeste-lupi);
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-}
-
-/* Secciones internas */
-.section-box {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--azul-lupi);
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: inset 0 0 10px rgba(30, 27, 75, 0.3);
-}
-
-/* Subtítulos */
-.section-title {
-  display: flex;
-  align-items: center;
+.subtitle {
   font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--celeste-lupi);
-  margin-bottom: 0.8rem;
+  color: var(--secondary);
+  margin-top: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 170, 255, 0.6);
 }
 
-/* Etiquetas y valores */
-.section-box p {
-  margin: 0.2rem 0;
-}
-
-.label {
-  font-weight: 500;
-  color: var(--blanco);
-}
-
-.value {
-  color: var(--celeste-lupi);
-  font-weight: 600;
-}
-
-/* XP bar */
-.xp-bar-container {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-  overflow: hidden;
-  height: 8px;
-}
-
-.xp-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--celeste-lupi), var(--neon-lupi));
-  transition: width 0.5s ease-in-out;
-}
-
-/* Skills */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.skill-card {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--azul-lupi);
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.skill-name {
-  color: var(--blanco);
-}
-
-.skill-value {
-  color: var(--celeste-lupi);
-  font-weight: 700;
-}
-
-/* Botón de subir */
-.btn-upgrade {
-  background: var(--azul-lupi);
-  color: var(--blanco);
-  border-radius: 50%;
-  border: none;
-  padding: 0.3rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-upgrade:hover {
-  background: var(--neon-lupi);
-  color: var(--negro);
-  transform: scale(1.1);
-}
-
-/* Botones generales */
-.action-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-top: 1.5rem;
-}
-
-.action-button {
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--blanco);
-}
-
-.action-button:hover {
-  transform: translateY(-2px);
-}
-
-/* Colores para cada acción */
-.bg-train { background: var(--neon-lupi); color: var(--negro); }
-.bg-market { background: #FFC107; color: var(--negro); }
-.bg-transfer { background: #8E24AA; }
-.bg-search { background: var(--celeste-lupi); color: var(--negro); }
-.bg-missions { background: #4CAF50; }
-.bg-leaderboard { background: #2196F3; }
-.bg-inventory { background: #FF9800; }
-.bg-chat { background: #607D8B; }
-.bg-logout { background: #E53935; }
-
-/* Tabla de clasificación */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.table thead {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.table th, .table td {
-  padding: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.table tr:hover {
+/* Cards */
+.card {
   background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 230, 184, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 30px rgba(0, 230, 184, 0.5);
+}
+
+.card-content {
+  font-size: 1rem;
+  color: var(--light);
+  line-height: 1.5;
+}
+
+/* Botón estilo deportivo/tecnológico */
+.button {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: var(--dark);
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 230, 184, 0.6);
+}
+
+.button:hover {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  box-shadow: 0 0 25px rgba(0, 170, 255, 0.8);
+  transform: scale(1.05);
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
