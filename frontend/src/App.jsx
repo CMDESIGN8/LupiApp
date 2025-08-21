@@ -1006,13 +1006,13 @@ const App = () => {
                     <DollarSign size={16} />{lupiCoins}
                   </span>
                 </div>
-                <div className="mt-4">
+                <div className="exp-bar">
                   <p className="text-sm text-gray-500">
                     Experiencia ({playerData.experience}/{nextLevelXp})
                   </p>
-                  <div className="w-full bg-gray-300 rounded-full h-2 mt-1">
+                  <div className="exp-bar-fill">
                     <div
-                      className="bg-blue-500 h-2 rounded-full"
+                      className="exp-bar-fill"
                       style={{ width: `${xpPercentage}%` }}
                     ></div>
                   </div>
