@@ -981,7 +981,7 @@ const App = () => {
     }, {}) : {};
 
     return (
-      <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4 font-sans">
+      <div className="dashboard">
         <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-xl border border-gray-300">
           <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">Dashboard</h2>
           {message && (
