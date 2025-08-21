@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { playerService } from '../services/playerService';
-import '/src/screens/HomeScreen.css';
-
+import { CreatePlayerScreen } from './CreatePlayerScreen'; // ← ¡Agrega esta importación!
+import './HomeScreen.css';
 
 export const HomeScreen = ({ session, onSignOut }) => {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [showCreateScreen, setShowCreateScreen] = useState(false); // ← Estado para mostrar pantalla de creación
 
   useEffect(() => {
     loadPlayerData();
@@ -24,53 +25,11 @@ export const HomeScreen = ({ session, onSignOut }) => {
     }
   };
 
-  const createPlayer = async () => {
-    try {
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', session.user.id)
-        .single();
-
-      if (profileError) {
-        const newPlayer = await playerService.createDefaultPlayer(
-          session.user.id, 
-          'Jugador'
-        );
-        setPlayer(newPlayer);
-        return;
-      }
-
-      const newPlayer = await playerService.createDefaultPlayer(
-        session.user.id, 
-        profile?.username || 'Jugador'
-      );
-      setPlayer(newPlayer);
-    } catch (error) {
-      console.error('Error creating player:', error);
-      alert('Error al crear personaje: ' + error.message);
-    }
+  const handlePlayerCreated = (newPlayer) => {
+    setPlayer(newPlayer);
+    setShowCreateScreen(false); // ← Volver a la pantalla principal
   };
 
-
-  // Agrega este estado
-const [showCreateScreen, setShowCreateScreen] = useState(false);
-
-// Agrega esta función
-const handlePlayerCreated = (newPlayer) => {
-  setPlayer(newPlayer);
-  setShowCreateScreen(false);
-};
-
-// Modifica el render para mostrar la pantalla correcta
-if (showCreateScreen) {
-  return <CreatePlayerScreen 
-    session={session} 
-    onPlayerCreated={handlePlayerCreated}
-  />;
-}
-
-  // ✅ FUNCIÓN CORREGIDA - Usando supabase directamente
   const handleSignOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -81,6 +40,14 @@ if (showCreateScreen) {
       alert('Error al cerrar sesión: ' + error.message);
     }
   };
+
+  // ← Si showCreateScreen es true, mostrar la pantalla de creación
+  if (showCreateScreen) {
+    return <CreatePlayerScreen 
+      session={session} 
+      onPlayerCreated={handlePlayerCreated} 
+    />;
+  }
 
   if (loading) {
     return <div className="loading">Cargando datos del jugador...</div>;
@@ -109,7 +76,7 @@ if (showCreateScreen) {
             <div className="logout-modal-buttons">
               <button 
                 className="logout-confirm-btn"
-                onClick={handleSignOut} // ✅ Usa la función corregida
+                onClick={handleSignOut}
               >
                 Sí, cerrar sesión
               </button>
@@ -167,10 +134,13 @@ if (showCreateScreen) {
       ) : (
         <div className="no-player">
           <p>¡Aún no tienes un personaje!</p>
-          // En el botón de crear personaje, cambia a:
-<button className="create-player-btn" onClick={() => setShowCreateScreen(true)}>
-  Crear Personaje
-</button>
+          {/* ← Botón modificado para abrir pantalla de creación */}
+          <button 
+            className="create-player-btn" 
+            onClick={() => setShowCreateScreen(true)}
+          >
+            Crear Personaje
+          </button>
         </div>
       )}
 
