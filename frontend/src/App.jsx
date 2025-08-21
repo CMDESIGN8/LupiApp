@@ -990,7 +990,7 @@ const App = () => {
             </div>
           )}
           {playerData ? (
-            <div className="space-y-6">
+            <div className="section player-info">
               <div className="bg-gray-100 p-4 rounded-lg shadow-inner border border-gray-300">
                 <h3 className="text-xl font-semibold flex items-center gap-2 mb-2 text-blue-600">
                   <Star size={20} /> Información del Jugador
