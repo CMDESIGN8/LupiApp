@@ -20,6 +20,7 @@ import {
   DollarSign,
   MessageCircleMore
 } from 'lucide-react';
+import "./App.css"
 
 // Se carga la biblioteca de Supabase
 const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';

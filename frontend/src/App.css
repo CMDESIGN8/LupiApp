@@ -1,77 +1,211 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 🎨 Paleta Lupi */
+:root {
+  --azul-lupi: #1E1B4B;
+  --celeste-lupi: #00E5FF;
+  --neon-lupi: #00FF85;
+  --negro: #0D0D0D;
+  --blanco: #FFFFFF;
+  --gris-suave: #F4F4F4;
+  --gris-oscuro: #1A1A1A;
+}
 
-.loading-container {
+/* General */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--negro), var(--gris-oscuro));
+  color: var(--blanco);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Contenedor general */
+.dashboard-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Caja principal */
+.dashboard-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--azul-lupi);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+/* Títulos */
+.dashboard-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--celeste-lupi), var(--neon-lupi));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+/* Alertas */
+.alert-info {
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--celeste-lupi);
+  color: var(--celeste-lupi);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Secciones internas */
+.section-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--azul-lupi);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 10px rgba(30, 27, 75, 0.3);
+}
+
+/* Subtítulos */
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--celeste-lupi);
+  margin-bottom: 0.8rem;
+}
+
+/* Etiquetas y valores */
+.section-box p {
+  margin: 0.2rem 0;
+}
+
+.label {
+  font-weight: 500;
+  color: var(--blanco);
+}
+
+.value {
+  color: var(--celeste-lupi);
+  font-weight: 600;
+}
+
+/* XP bar */
+.xp-bar-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.xp-bar-fill {
   height: 100%;
-  gap: 20px;
+  background: linear-gradient(90deg, var(--celeste-lupi), var(--neon-lupi));
+  transition: width 0.5s ease-in-out;
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007AFF;
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.skill-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--azul-lupi);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  color: var(--blanco);
+}
+
+.skill-value {
+  color: var(--celeste-lupi);
+  font-weight: 700;
+}
+
+/* Botón de subir */
+.btn-upgrade {
+  background: var(--azul-lupi);
+  color: var(--blanco);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  border: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.btn-upgrade:hover {
+  background: var(--neon-lupi);
+  color: var(--negro);
+  transform: scale(1.1);
 }
 
-* {
-  box-sizing: border-box;
+/* Botones generales */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.action-button {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--blanco);
 }
 
-/* Mejoras de touch para móviles */
-button, .btn {
-  min-height: 44px;
-  min-width: 44px;
-  touch-action: manipulation;
-  font-family: inherit;
+.action-button:hover {
+  transform: translateY(-2px);
 }
 
-input, select, textarea {
-  font-size: 16px;
-  font-family: inherit;
+/* Colores para cada acción */
+.bg-train { background: var(--neon-lupi); color: var(--negro); }
+.bg-market { background: #FFC107; color: var(--negro); }
+.bg-transfer { background: #8E24AA; }
+.bg-search { background: var(--celeste-lupi); color: var(--negro); }
+.bg-missions { background: #4CAF50; }
+.bg-leaderboard { background: #2196F3; }
+.bg-inventory { background: #FF9800; }
+.bg-chat { background: #607D8B; }
+.bg-logout { background: #E53935; }
+
+/* Tabla de clasificación */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
-input:focus, select:focus, textarea:focus {
-  outline: none;
+.table thead {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Scroll personalizado */
-::-webkit-scrollbar {
-  width: 6px;
+.table th, .table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+.table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
