@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { playerService } from '../services/playerService';
 import '/src/screens/HomeScreen.css';
 
+
 export const HomeScreen = ({ session, onSignOut }) => {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,6 +51,24 @@ export const HomeScreen = ({ session, onSignOut }) => {
       alert('Error al crear personaje: ' + error.message);
     }
   };
+
+
+  // Agrega este estado
+const [showCreateScreen, setShowCreateScreen] = useState(false);
+
+// Agrega esta función
+const handlePlayerCreated = (newPlayer) => {
+  setPlayer(newPlayer);
+  setShowCreateScreen(false);
+};
+
+// Modifica el render para mostrar la pantalla correcta
+if (showCreateScreen) {
+  return <CreatePlayerScreen 
+    session={session} 
+    onPlayerCreated={handlePlayerCreated}
+  />;
+}
 
   // ✅ FUNCIÓN CORREGIDA - Usando supabase directamente
   const handleSignOut = async () => {
@@ -148,9 +167,10 @@ export const HomeScreen = ({ session, onSignOut }) => {
       ) : (
         <div className="no-player">
           <p>¡Aún no tienes un personaje!</p>
-          <button className="create-player-btn" onClick={createPlayer}>
-            Crear Personaje
-          </button>
+          // En el botón de crear personaje, cambia a:
+<button className="create-player-btn" onClick={() => setShowCreateScreen(true)}>
+  Crear Personaje
+</button>
         </div>
       )}
 
