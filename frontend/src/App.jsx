@@ -1010,12 +1010,12 @@ const App = () => {
                   <p className="text-sm text-gray-500">
                     Experiencia ({playerData.experience}/{nextLevelXp})
                   </p>
-                 
+                  <div className="exp-bar-fill">
                     <div
-                      className="exp-bar-fill"
+                      className="bg-blue-500 h-2 rounded-full"
                       style={{ width: `${xpPercentage}%` }}
                     ></div>
-                  
+                  </div>
                 </div>
               </div>
   
@@ -1024,7 +1024,7 @@ const App = () => {
                   <Trophy size={20} /> Habilidades
                 </h3>
                 <p className="text-sm text-gray-500 mb-4">Puntos disponibles: <span className="text-green-600">{playerData.skill_points}</span></p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="skills">
                   {playerData.skills.map(skill => {
                     const bonusItem = equippedItems[skill.skill_name];
                     const bonus = bonusItem ? bonusItem.bonus_value : 0;
