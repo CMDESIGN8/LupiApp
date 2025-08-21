@@ -1006,11 +1006,11 @@ const App = () => {
                     <DollarSign size={16} />{lupiCoins}
                   </span>
                 </div>
-                <div className="exp-bar">
+                <div className="mt-4">
                   <p className="text-sm text-gray-500">
                     Experiencia ({playerData.experience}/{nextLevelXp})
                   </p>
-                  <div className="exp-bar-fill">
+                  <div className="w-full bg-gray-300 rounded-full h-2 mt-1">
                     <div
                       className="bg-blue-500 h-2 rounded-full"
                       style={{ width: `${xpPercentage}%` }}
@@ -1019,7 +1019,7 @@ const App = () => {
                 </div>
               </div>
   
-              <div className="section">
+              <div className="bg-gray-100 p-4 rounded-lg shadow-inner border border-gray-300">
                 <h3 className="text-xl font-semibold flex items-center gap-2 mb-2 text-blue-600">
                   <Trophy size={20} /> Habilidades
                 </h3>
@@ -1030,7 +1030,7 @@ const App = () => {
                     const bonus = bonusItem ? bonusItem.bonus_value : 0;
                     const totalValue = skill.skill_value + bonus;
                     return (
-                      <div key={skill.skill_name} className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm border border-gray-200">
+                      <div key={skill.skill_name} className="skill">
                         <span className="text-gray-800">{skill.skill_name}:</span>
                         <div className="flex items-center gap-2">
                           <span className="text-blue-600 font-bold">{totalValue}</span>
