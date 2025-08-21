@@ -1010,16 +1010,16 @@ const App = () => {
                   <p className="text-sm text-gray-500">
                     Experiencia ({playerData.experience}/{nextLevelXp})
                   </p>
-                  <div className="exp-bar-fill">
+                 
                     <div
                       className="exp-bar-fill"
                       style={{ width: `${xpPercentage}%` }}
                     ></div>
-                  </div>
+                  
                 </div>
               </div>
   
-              <div className="bg-gray-100 p-4 rounded-lg shadow-inner border border-gray-300">
+              <div className="section">
                 <h3 className="text-xl font-semibold flex items-center gap-2 mb-2 text-blue-600">
                   <Trophy size={20} /> Habilidades
                 </h3>
