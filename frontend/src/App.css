@@ -1,7 +1,7 @@
 /* --- Global Styles & Variables --- */
     :root {
-  --primary-color: #0d47a1;       /* Azul profundo - identidad */
-  --primary-hover: #1565c0;
+  --primary-color: #0768f8;       /* Azul profundo - identidad */
+  --primary-hover: #114f96;
   --secondary-color: #1e293b;     /* Azul oscuro metálico */
   --secondary-hover: #334155;
   --success-color: #22c55e;       /* Verde progreso */
@@ -170,7 +170,7 @@
     .button-danger { background-color: var(--danger-color); }
     .button-danger:hover { background-color: var(--danger-hover); }
 
-    .button-warning { background-color: var(--warning-color); }
+    .button-warning { background-color: var(--purple-color); }
     .button-warning:hover { background-color: var(--warning-hover); }
 
     .button-purple { background-color: var(--purple-color); }
