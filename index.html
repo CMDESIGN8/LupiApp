@@ -312,90 +312,88 @@
 
     <script type="module">
         import * as THREE from 'three';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-        // --- Configuración de la Escena ---
-        const canvasContainer = document.getElementById('canvas-container');
-        const canvas = document.getElementById('lupiCanvas');
-        const scene = new THREE.Scene();
+// --- Configuración de la Escena ---
+const canvasContainer = document.getElementById('canvas-container');
+const canvas = document.getElementById('lupiCanvas');
+const scene = new THREE.Scene();
 
-        // --- Cámara ---
-        const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-        camera.position.set(0, 1, 3.5); 
+// --- Cámara (más cercana) ---
+const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+camera.position.set(0, 1, 2.5); // Más cercana al modelo
 
-        // --- Renderer ---
-        const renderer = new THREE.WebGLRenderer({ 
-            canvas: canvas,
-            alpha: true, // Fondo transparente
-            antialias: true 
-        });
-        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        
-        // --- Controles de órbita ---
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.enableZoom = false; // Desactivar zoom
-        controls.enablePan = false; // Desactivar paneo
-        controls.autoRotate = true; // Rotación automática
-        controls.autoRotateSpeed = 2.0;
+// --- Renderer ---
+const renderer = new THREE.WebGLRenderer({ 
+    canvas: canvas,
+    alpha: true,
+    antialias: true 
+});
+renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 
-        // --- Luces ---
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const primaryLight = new THREE.PointLight(0x8a2be2, 5, 100);
-        primaryLight.position.set(-5, 5, 5);
-        scene.add(primaryLight);
-        const secondaryLight = new THREE.PointLight(0x00ff88, 5, 100);
-        secondaryLight.position.set(5, -5, 5);
-        scene.add(secondaryLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(0, 10, 5);
-        scene.add(directionalLight);
+// --- Controles de órbita ---
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.enableZoom = false;
+controls.enablePan = false;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 2.0;
 
-        // --- Cargar modelo GLB ---
-        const loader = new GLTFLoader();
-        // --- ¡IMPORTANTE! ---
-        // Debes cambiar la siguiente URL a la ubicación de tu propio archivo 'lupi.glb'.
-        const modelURL = './lupi.glb'; 
-        
-        loader.load(modelURL, (gltf) => {
+// --- Luces ---
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+const primaryLight = new THREE.PointLight(0x8a2be2, 5, 100);
+primaryLight.position.set(-5, 5, 5);
+scene.add(primaryLight);
+const secondaryLight = new THREE.PointLight(0x00ff88, 5, 100);
+secondaryLight.position.set(5, -5, 5);
+scene.add(secondaryLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(0, 10, 5);
+scene.add(directionalLight);
+
+// --- Cargar modelo GLB con tamaño aumentado ---
+const loader = new GLTFLoader();
+const modelURL = './lupi.glb'; 
+
+loader.load(modelURL, (gltf) => {
     const model = gltf.scene;
-
-    // 🔹 Escala más grande
-    model.scale.set(1.8, 1.8, 1.8);
-
-    // 🔹 Ajuste de posición vertical (centrado en pantalla)
-    model.position.y = -1;
-
-    // 🔹 Opcional: centrar bounding box para mejor vista
+    
+    // 🔹 Escala aumentada
+    model.scale.set(2.5, 2.5, 2.5);
+    
+    // 🔹 Ajuste de posición para centrado óptimo
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
-    model.position.sub(center.multiplyScalar(1));
-
+    
+    model.position.x = -center.x;
+    model.position.y = -center.y;
+    model.position.z = -center.z;
+    
     scene.add(model);
 }, undefined, (error) => {
     console.error('Un error ocurrió al cargar el modelo:', error);
 });
 
-        // --- Loop de Animación ---
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
+// --- Loop de Animación ---
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
 
-        // --- Manejo de redimensionamiento de ventana ---
-        function onWindowResize() {
-            camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        }
-        window.addEventListener('resize', onWindowResize, false);
-        onWindowResize();
+// --- Manejo de redimensionamiento ---
+function onWindowResize() {
+    camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+}
+window.addEventListener('resize', onWindowResize, false);
+onWindowResize();
     </script>
 </body>
 </html>
