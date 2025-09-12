@@ -150,6 +150,58 @@
         details div {
             padding: 1rem;
         }
+
+        /* Mejoras para el contenedor 3D - FONDO MÁS CLARO */
+        #canvas-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 
+                        0 0 40px rgba(0, 204, 255, 0.2);
+            /* Fondo más claro para mejor contraste */
+            background: linear-gradient(45deg, #1a1648 0%, #25216e 100%);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #canvas-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(100, 100, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #canvas-container:hover {
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6), 
+                        0 0 60px rgba(0, 204, 255, 0.3);
+        }
+
+        #lupiCanvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rotate-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(4px);
+            z-index: 3;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
@@ -174,7 +226,7 @@
                     Tu pasión transforma tu club.
                 </h2>
                 <p class="text-lg md:text-xl text-lupi-text-secondary max-w-prose">
-                    ¿Sabías que la solución para los clubes de barrio no está en una gran marca, sino en su propia comunidad? 🤔 LupiApp hace realidad la economía circular de tu club.
+                    ¿Sabías que la solución para los clubes de barrio no está en una gran marca, sino en su propia comunidad? 💬 LupiApp hace realidad la economía circular de tu club.
                 </p>
                 <div class="pt-4">
                     <a href="#features" class="lupi-button">
@@ -187,7 +239,7 @@
             <div class="lg:w-1/2 w-full h-80 lg:h-full">
                 <div id="canvas-container" class="w-full h-full relative">
                      <canvas id="lupiCanvas"></canvas>
-                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-lupi-text-secondary/50">Arrastra para rotar</div>
+                     <div class="rotate-hint">Arrastra para rotar</div>
                 </div>
             </div>
 
@@ -312,111 +364,218 @@
 
     <script type="module">
         import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-// --- Configuración de la Escena ---
-const canvasContainer = document.getElementById('canvas-container');
-const canvas = document.getElementById('lupiCanvas');
-const scene = new THREE.Scene();
+        // Variables globales
+        let model, mixer, clock;
 
-// --- Cámara (más cercana) ---
-const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-camera.position.set(0, 1, 2.5); // Más cercana al modelo
+        // --- Configuración de la Escena ---
+        const canvasContainer = document.getElementById('canvas-container');
+        const canvas = document.getElementById('lupiCanvas');
+        const scene = new THREE.Scene();
+        
+        // Fondo de escena más claro para mejor contraste
+        scene.background = new THREE.Color(0x1a1648);
 
-// --- Renderer ---
-const renderer = new THREE.WebGLRenderer({ 
-    canvas: canvas,
-    alpha: true,
-    antialias: true 
-});
-renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+        // --- Cámara (ajustada para mejor visualización) ---
+        const camera = new THREE.PerspectiveCamera(35, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+        camera.position.set(0, 0.5, 3.5);
 
-// --- Controles de órbita ---
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-controls.enableZoom = false;
-controls.enablePan = false;
-controls.autoRotate = false;
-controls.autoRotateSpeed = 2.0;
+        // --- Renderer ---
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: canvas,
+            alpha: true,
+            antialias: true 
+        });
+        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2; // Aumentar exposición para más brillo
 
-   // --- Sistema de luces MEJORADO (más iluminación) ---
-        // 1. Luz ambiental principal (aumentada)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+        // --- Controles de órbita ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enableZoom = true;
+        controls.zoomSpeed = 0.5;
+        controls.enablePan = false;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.0;
+        controls.minDistance = 2.5;
+        controls.maxDistance = 5.0;
+
+        // --- SISTEMA DE ILUMINACIÓN MEJORADO (MUCHO MÁS CLARO) ---
+        
+        // 1. Luz ambiental principal (muy aumentada)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
         scene.add(ambientLight);
         
-        // 2. Luces direccionales principales (aumentadas)
-        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+        // 2. Luces direccionales principales (muy aumentadas)
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 2.5);
         directionalLight1.position.set(5, 10, 7);
+        directionalLight1.castShadow = true;
         scene.add(directionalLight1);
         
-        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.2);
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2.0);
         directionalLight2.position.set(-5, 5, 5);
         scene.add(directionalLight2);
         
         // 3. Luces de color (aumentadas)
-        const primaryLight = new THREE.PointLight(0x8a2be2, 25, 15);
+        const primaryLight = new THREE.PointLight(0x8a2be2, 30, 15);
         primaryLight.position.set(-3, 3, 4);
         scene.add(primaryLight);
         
-        const secondaryLight = new THREE.PointLight(0x00ff88, 25, 15);
+        const secondaryLight = new THREE.PointLight(0x00ff88, 30, 15);
         secondaryLight.position.set(3, -2, 4);
         scene.add(secondaryLight);
         
         // 4. Luces de relleno adicionales
-        const fillLight1 = new THREE.DirectionalLight(0x4477ff, 0.8);
+        const fillLight1 = new THREE.DirectionalLight(0x4477ff, 1.2);
         fillLight1.position.set(0, 0, -5);
         scene.add(fillLight1);
         
-        const fillLight2 = new THREE.DirectionalLight(0xff44aa, 0.6);
+        const fillLight2 = new THREE.DirectionalLight(0xff44aa, 1.0);
         fillLight2.position.set(0, -5, 0);
         scene.add(fillLight2);
         
         // 5. Luz hemisférica para iluminación ambiental general
-        const hemisphereLight = new THREE.HemisphereLight(0x4433ff, 0x11ff33, 1.5);
+        const hemisphereLight = new THREE.HemisphereLight(0x4433ff, 0x11ff33, 2.0);
         scene.add(hemisphereLight);
 
-// --- Cargar modelo GLB con tamaño aumentado ---
-const loader = new GLTFLoader();
-const modelURL = './lupi.glb'; 
+        // 6. Luz adicional desde abajo para eliminar sombras oscuras
+        const bottomLight = new THREE.DirectionalLight(0x5555ff, 1.5);
+        bottomLight.position.set(0, 10, 0);
+        scene.add(bottomLight);
 
-loader.load(modelURL, (gltf) => {
-    const model = gltf.scene;
-    
-    // 🔹 Escala aumentada
-    model.scale.set(4, 4, 4);
-    
-    // 🔹 Ajuste de posición para centrado óptimo
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
-    
-    model.position.x = -center.x;
-    model.position.y = -center.y;
-    model.position.z = -center.z;
-    
-    scene.add(model);
-}, undefined, (error) => {
-    console.error('Un error ocurrió al cargar el modelo:', error);
-});
+        // --- Cargar modelo GLB ---
+        const loader = new GLTFLoader();
+        const modelURL = './lupi.glb'; // Asegúrate de que esta ruta sea correcta
+        clock = new THREE.Clock();
 
-// --- Loop de Animación ---
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-}
-animate();
+        // Mostrar placeholder mientras carga
+        showPlaceholder();
 
-// --- Manejo de redimensionamiento ---
-function onWindowResize() {
-    camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-}
-window.addEventListener('resize', onWindowResize, false);
-onWindowResize();
+        loader.load(modelURL, 
+            (gltf) => {
+                // Eliminar placeholder
+                const placeholder = scene.getObjectByName('placeholder');
+                if (placeholder) scene.remove(placeholder);
+                
+                model = gltf.scene;
+                
+                // Ajustar escala y posición
+                model.scale.set(1.2, 1.2, 1.2);
+                
+                // Centrar el modelo
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                
+                model.position.x = -center.x;
+                model.position.y = -center.y;
+                model.position.z = -center.z;
+                
+                // Aumentar la emisividad del material para que brille más
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        // Aumentar la intensidad de los materiales
+                        if (child.material) {
+                            child.material.emissive = new THREE.Color(0x333333);
+                            child.material.emissiveIntensity = 0.2;
+                            child.material.needsUpdate = true;
+                        }
+                    }
+                });
+                
+                // Configurar animaciones si existen
+                if (gltf.animations && gltf.animations.length) {
+                    mixer = new THREE.AnimationMixer(model);
+                    gltf.animations.forEach((clip) => {
+                        mixer.clipAction(clip).play();
+                    });
+                }
+                
+                scene.add(model);
+                
+                // Ajustar controles después de cargar el modelo
+                controls.reset();
+            }, 
+            // Mientras carga
+            (xhr) => {
+                const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
+                console.log(`Modelo ${percent}% cargado`);
+            },
+            // Manejo de errores
+            (error) => {
+                console.error('Error al cargar el modelo:', error);
+                // Mantener el placeholder si hay error
+            }
+        );
+
+        // Función para mostrar un placeholder mientras carga el modelo
+        function showPlaceholder() {
+            const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0x8a2be2,
+                transparent: true,
+                opacity: 0.7,
+                emissive: 0x4a0a9a,
+                emissiveIntensity: 0.8, // Aumentado para más brillo
+                specular: 0x00ff88
+            });
+            
+            const placeholder = new THREE.Mesh(geometry, material);
+            placeholder.name = 'placeholder';
+            scene.add(placeholder);
+            
+            // Animación del placeholder
+            const placeholderAnimation = () => {
+                if (placeholder) {
+                    placeholder.rotation.y += 0.01;
+                    placeholder.rotation.x = Math.sin(Date.now() * 0.001) * 0.1;
+                }
+            };
+            
+            // Actualizar en el bucle de animación
+            const originalAnimate = animate;
+            animate = () => {
+                placeholderAnimation();
+                originalAnimate();
+            };
+        }
+
+        // --- Loop de Animación ---
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Actualizar animaciones del modelo
+            if (mixer) {
+                mixer.update(clock.getDelta());
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // --- Manejo de redimensionamiento ---
+        function onWindowResize() {
+            camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+        }
+        
+        // Debounce para el redimensionamiento
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(onWindowResize, 250);
+        }, false);
+        
+        // Inicializar
+        onWindowResize();
     </script>
 </body>
 </html>
