@@ -674,29 +674,41 @@
 
 
 
-    // --- Luces ---
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-
-    scene.add(ambientLight);
-
-    const primaryLight = new THREE.PointLight(0x8a2be2, 5, 100);
-
-    primaryLight.position.set(-5, 5, 5);
-
-    scene.add(primaryLight);
-
-    const secondaryLight = new THREE.PointLight(0x00ff88, 5, 100);
-
-    secondaryLight.position.set(5, -5, 5);
-
-    scene.add(secondaryLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-
-    directionalLight.position.set(0, 10, 5);
-
-    scene.add(directionalLight);
+    // --- Sistema de luces MEJORADO (más iluminación) ---
+        // 1. Luz ambiental principal (aumentada)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+        scene.add(ambientLight);
+        
+        // 2. Luces direccionales principales (aumentadas)
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight1.position.set(5, 10, 7);
+        scene.add(directionalLight1);
+        
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight2.position.set(-5, 5, 5);
+        scene.add(directionalLight2);
+        
+        // 3. Luces de color (aumentadas)
+        const primaryLight = new THREE.PointLight(0x8a2be2, 25, 15);
+        primaryLight.position.set(-3, 3, 4);
+        scene.add(primaryLight);
+        
+        const secondaryLight = new THREE.PointLight(0x00ff88, 25, 15);
+        secondaryLight.position.set(3, -2, 4);
+        scene.add(secondaryLight);
+        
+        // 4. Luces de relleno adicionales
+        const fillLight1 = new THREE.DirectionalLight(0x4477ff, 0.8);
+        fillLight1.position.set(0, 0, -5);
+        scene.add(fillLight1);
+        
+        const fillLight2 = new THREE.DirectionalLight(0xff44aa, 0.6);
+        fillLight2.position.set(0, -5, 0);
+        scene.add(fillLight2);
+        
+        // 5. Luz hemisférica para iluminación ambiental general
+        const hemisphereLight = new THREE.HemisphereLight(0x4433ff, 0x11ff33, 1.5);
+        scene.add(hemisphereLight);
 
 
 
