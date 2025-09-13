@@ -678,90 +678,7 @@
 
     // --- Luces ---
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LupiApp - Transforma tu Club</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-    <!-- Estilos personalizados y variables de LupiApp -->
-    <style>
-        /* Variables CSS globales - Tema LUPI */
-        :root {
-          /* Colores principales */
-          --lupi-primary: #8a2be2;
-          --lupi-secondary: #00ff88;
-          --lupi-accent: #ff00aa;
-          --lupi-dark: #0a0420;
-          --lupi-darker: #050210;
-          --lupi-card: #13103a;
-          --lupi-text: #ffffff;
-          --lupi-text-secondary: #b3b3ff;
-          
-          /* Colores azules/cian para neon */
-          --neon-blue: #00ccff;
-          --neon-cyan: #00ffcc;
-          --neon-dark-blue: #0066ff;
-          --neon-bg-dark: #0a1a2f;
-          --neon-bg-darker: #051322;
-          
-          /* Tamaños */
-          --border-radius: 12px;
-          --border-radius-sm: 8px;
-          --spacing-xs: 4px;
-          --spacing-sm: 8px;
-          --spacing-md: 16px;
-          --spacing-lg: 24px;
-          --spacing-xl: 32px;
-          
-          /* Sombras y efectos */
-          --shadow-glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-          --shadow-glow-accent: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
-        }
-
-        /* Animaciones globales */
-        @keyframes pulse {
-          0% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
-          50% { transform: scale(1.05); box-shadow: 0 0 20px var(--lupi-secondary), 0 0 40px var(--lupi-secondary); }
-          100% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
-        }
-
-        @keyframes glow {
-          from { text-shadow: 0 0 5px var(--lupi-text), 0 0 10px var(--lupi-text), 0 0 15px var(--neon-blue); }
-          to { text-shadow: 0 0 10px var(--lupi-text), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
-        }
-        
-        /* Estilos base */
-        body {
-          background: linear-gradient(135deg, var(--neon-bg-darker) 0%, var(--neon-bg-dark) 100%);
-          color: var(--lupi-text);
-          font-family: 'Inter', sans-serif;
-          scroll-behavior: smooth;
-        }
-
-        /* Clases personalizadas */
-        .lupi-card {
-            background-color: var(--lupi-card);
-            border: 1px solid var(--lupi-primary);
-            border-radius: var(--border-radius);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .lupi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
-        }
-
-        .lupi-card-cyan {
             border-color: var(--neon-blue);
             box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
         }
@@ -955,92 +872,13 @@
         <!-- NUEVA SECCIÓN: Cómo Funciona -->
         <section class="w-full max-w-5xl mx-auto py-16 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-12 section-title">Es tan fácil como 1, 2, 3</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="space-y-4">
-                    <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-primary));">🕹️</div>
-                    <h3 class="text-xl font-bold">1. Juega y Compite</h3>
-                    <p class="text-lupi-text-secondary">Completa misiones, adivina jugadas y participa en desafíos para ganar LupiCoins.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-secondary));">✨</div>
-                    <h3 class="text-xl font-bold">2. Ayuda a tu Club</h3>
-                    <p class="text-lupi-text-secondary">Cada LupiCoin que ganas contribuye a metas colectivas para mejorar las instalaciones.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-accent));">🎁</div>
-                    <h3 class="text-xl font-bold">3. Canjea Premios</h3>
-                    <p class="text-lupi-text-secondary">Usa tus LupiCoins para obtener indumentaria, cuotas gratis y más premios reales.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- NUEVA SECCIÓN: Testimonios -->
-        <section class="w-full max-w-6xl mx-auto py-16">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="lupi-card p-8 flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/050210/00ff88?text=JP" alt="Foto de Juan Pérez" class="w-20 h-20 rounded-full mb-4 border-2 border-lupi-secondary">
-                    <p class="text-lupi-text-secondary italic">"Desde que usamos LupiApp, pudimos renovar las redes de las canchas. ¡Todo gracias al compromiso de nuestros socios!"</p>
-                    <h4 class="font-bold mt-4">Juan Pérez</h4>
-                    <p class="text-sm text-lupi-primary">Presidente, Club "Los Pumas"</p>
-                </div>
-                <div class="lupi-card p-8 flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/050210/8a2be2?text=SG" alt="Foto de Sofía Gómez" class="w-20 h-20 rounded-full mb-4 border-2 border-lupi-primary">
-                    <p class="text-lupi-text-secondary italic">"¡Es genial! Me divierto con las misiones y ya canjeé mis LupiCoins por la nueva camiseta de mi club. ¡Aguante LupiApp!"</p>
-                    <h4 class="font-bold mt-4">Sofía Gómez</h4>
-                    <p class="text-sm text-lupi-primary">Socia #112</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- NUEVA SECCIÓN: FAQ -->
-        <section class="w-full max-w-4xl mx-auto py-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title">Preguntas Frecuentes</h2>
-            <div class="lupi-card lupi-card-cyan p-4 md:p-8">
-                <details>
-                    <summary class="font-bold">¿Tiene algún costo para el club?</summary>
-                    <div class="text-lupi-text-secondary">No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
-                </details>
-                <details>
-                    <summary class="font-bold">¿Cómo se financian las mejoras del club?</summary>
-                    <div class="text-lupi-text-secondary">A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
-                </details>
-                 <details>
-                    <summary class="font-bold">¿Qué tipo de premios puedo canjear?</summary>
-                    <div class="text-lupi-text-secondary">Podrás canjear indumentaria oficial de tu club (remeras, shorts), merchandising, pago de cuotas sociales, acceso a eventos especiales y mucho más.</div>
-                </details>
-                <details>
-                    <summary class="font-bold">¿Mis datos personales están seguros?</summary>
-                    <div class="text-lupi-text-secondary">Absolutamente. La seguridad y privacidad de nuestros usuarios es nuestra máxima prioridad. Utilizamos protocolos de encriptación avanzados para proteger toda tu información.</div>
-                </details>
-            </div>
-        </section>
-
-        <!-- NUEVA SECCIÓN: CTA Final -->
-        <section id="cta" class="w-full max-w-4xl mx-auto py-16 text-center lupi-card lupi-card-cyan bg-gradient-to-r from-[#00ccff] to-neon-dark-blue p-8 md:p-12">
-             <h2 class="text-3xl md:text-4xl font-black mb-4">Lleva a tu club al siguiente nivel.</h2>
-             <p class="text-lupi-text-secondary mb-8 max-w-2xl mx-auto">Únete a la revolución de los clubes de barrio. Recibe notificaciones sobre nuestro lanzamiento y sé de los primeros en transformar tu pasión en acción.</p>
-             <div class="flex justify-center">
-                 <button class="lupi-button">Apúntame a la lista</button>
-             </div>
-        </section>
-
-
-        <!-- Footer -->
-        <footer class="w-full max-w-6xl mx-auto text-center py-8 mt-8 text-lupi-text-secondary/70">
-            <p>&copy; 2024 LupiApp. Todos los derechos reservados.</p>
-        </footer>
-        
-    </div>
 
     <!-- Three.js y GLTFLoader -->
     <script type="importmap">
         {
             "imports": {
                 "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
-            }
-        }
-    </script>
+                "three/addons/": "https://cd
 
     <script type="module">
         import * as THREE from 'three';
