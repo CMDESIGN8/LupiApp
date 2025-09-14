@@ -1,780 +1,793 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+        <!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LupiApp - Transforma tu Club</title>
+        <title>LupiApp - Transforma tu Club</title>
 
 
 
-<!-- Tailwind CSS -->
+        <!-- Tailwind CSS -->
 
-<script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
 
 
 
-<!-- Google Fonts: Inter -->
+        <!-- Google Fonts: Inter -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 
 
 
-<!-- Estilos personalizados y variables de LupiApp -->
+        <!-- Estilos personalizados y variables de LupiApp -->
 
-<style>
+        <style>
 
-    /* Variables CSS globales - Tema LUPI */
+            /* Variables CSS globales - Tema LUPI */
+        :root {
+          /* Colores principales */
+          --lupi-primary: #8a2be2;
+          --lupi-secondary: #00ff88;
+          --lupi-accent: #ff00aa;
+          --lupi-dark: #0a0420;
+          --lupi-darker: #050210;
+          --lupi-card: #13103a;
+          --lupi-text: #ffffff;
+          --lupi-text-secondary: #b3b3ff;
 
-    :root {
+          /* Colores azules/cian para neon */
+          --neon-blue: #00ccff;
+          --neon-cyan: #00ffcc;
+          --neon-dark-blue: #0066ff;
+          --neon-bg-dark: #0a1a2f;
+          --neon-bg-darker: #051322;
 
-      /* Colores principales */
+          /* Tamaños */
+          --border-radius: 16px;
+          --border-radius-sm: 8px;
+          --spacing-xs: 4px;
+          --spacing-sm: 8px;
+          --spacing-md: 16px;
+          --spacing-lg: 24px;
+          --spacing-xl: 32px;
 
-      --lupi-primary: #8a2be2;
-
-      --lupi-secondary: #00ff88;
-
-      --lupi-accent: #ff00aa;
-
-      --lupi-dark: #0a0420;
-
-      --lupi-darker: #050210;
-
-      --lupi-card: #13103a;
-
-      --lupi-text: #ffffff;
-
-      --lupi-text-secondary: #b3b3ff;
-
-
-
-      /* Colores azules/cian para neon */
-
-      --neon-blue: #00ccff;
-
-      --neon-cyan: #00ffcc;
-
-      --neon-dark-blue: #0066ff;
-
-      --neon-bg-dark: #0a1a2f;
-
-      --neon-bg-darker: #051322;
-
-
-
-      /* Tamaños */
-
-      --border-radius: 12px;
-
-      --border-radius-sm: 8px;
-
-      --spacing-xs: 4px;
-
-      --spacing-sm: 8px;
-
-      --spacing-md: 16px;
-
-      --spacing-lg: 24px;
-
-      --spacing-xl: 32px;
-
-
-
-      /* Sombras y efectos */
-
-      --shadow-glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-
-      --shadow-glow-accent: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
-
-    }
-
-
-
-    /* Animaciones globales */
-
-    @keyframes pulse {
-
-      0% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
-
-      50% { transform: scale(1.05); box-shadow: 0 0 20px var(--lupi-secondary), 0 0 40px var(--lupi-secondary); }
-
-      100% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
-
-    }
-
-
-
-    @keyframes glow {
-
-      from { text-shadow: 0 0 5px var(--lupi-text), 0 0 10px var(--lupi-text), 0 0 15px var(--neon-blue); }
-
-      to { text-shadow: 0 0 10px var(--lupi-text), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
-
-    }
-
-
-
-    /* Estilos base */
-
-    body {
-
-      background: linear-gradient(135deg, var(--neon-bg-darker) 0%, var(--neon-bg-dark) 100%);
-
-      color: var(--lupi-text);
-
-      font-family: 'Inter', sans-serif;
-
-      scroll-behavior: smooth;
-
-    }
-
-
-
-    /* Clases personalizadas */
-
-    .lupi-card {
-
-        background-color: var(--lupi-card);
-
-        border: 1px solid var(--lupi-primary);
-
-        border-radius: var(--border-radius);
-
-        box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    }
-
-    .lupi-card:hover {
-
-        transform: translateY(-5px);
-
-        box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
-
-    }
-
-
-
-    .lupi-card-cyan {
-
-        border-color: var(--neon-blue);
-
-        box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
-
-    }
-
-    .lupi-card-cyan:hover {
-
-        box-shadow: 0 0 30px rgba(0, 204, 255, 0.6);
-
-    }
-
-    .lupi-card-cyan details > summary {
-
-        border-bottom-color: var(--neon-blue);
-
-    }
-
-
-
-    .lupi-title {
-
-        animation: glow 1.5s ease-in-out infinite alternate;
-
-    }
-
-
-
-    .section-title {
-
-        color: var(--lupi-secondary);
-
-        text-shadow: 0 0 10px var(--lupi-secondary);
-
-    }
-
-
-
-    .lupi-button {
-
-        background-color: var(--lupi-secondary);
-
-        color: var(--lupi-darker);
-
-        border-radius: var(--border-radius-sm);
-
-        font-weight: bold;
-
-        text-transform: uppercase;
-
-        padding: 12px 24px;
-
-        transition: all 0.3s ease;
-
-        animation: pulse 2s infinite;
-
-        border: none;
-
-    }
-
-
-
-    .lupi-button:hover {
-
-        animation-play-state: paused;
-
-        transform: scale(1.05);
-
-        box-shadow: 0 0 25px var(--lupi-secondary);
-
-    }
-
-
-
-    #lupiCanvas {
-
-        width: 100%;
-
-        height: 100%;
-
-        cursor: grab;
-
-    }
-
-    #lupiCanvas:active {
-
-        cursor: grabbing;
-
-    }
-
-
-
-    /* Estilo para FAQ */
-
-    details > summary {
-
-        list-style: none;
-
-        cursor: pointer;
-
-        padding: 1rem;
-
-        border-bottom: 1px solid var(--lupi-primary);
-
-    }
-
-    details > summary::-webkit-details-marker {
-
-        display: none;
-
-    }
-
-    details > summary::after {
-
-        content: '+';
-
-        float: right;
-
-        font-size: 1.5rem;
-
-        color: var(--lupi-secondary);
-
-    }
-
-    details[open] > summary::after {
-
-        content: '−';
-
-    }
-
-    details div {
-
-        padding: 1rem;
-
-    }
-
-</style>
-
-</head><body class="antialiased overflow-x-hidden"><!-- Contenedor principal -->
-
-<div class="min-h-screen w-full p-4 md:p-8 flex flex-col items-center">
-
-
-
-    <!-- Header -->
-
-    <header class="w-full max-w-6xl mx-auto flex justify-between items-center py-4">
-
-        <h1 class="text-3xl font-bold text-white">Lupi<span style="color: var(--lupi-secondary);">App</span></h1>
-
-        <a href="#cta" class="lupi-button text-sm !px-6 !py-2 !animation-none">
-
-            Únete ahora
-
-        </a>
-
-    </header>
-
-
-
-    <!-- Sección Hero -->
-
-    <main class="w-full max-w-6xl mx-auto flex-grow flex flex-col lg:flex-row items-center justify-center text-center lg:text-left gap-8 py-12">
-
-
-
-        <!-- Contenido de texto -->
-
-        <div class="lg:w-1/2 space-y-6 z-10">
-
-            <h2 class="text-4xl md:text-6xl font-black lupi-title">
-
-                Tu pasión transforma tu club.
-
-            </h2>
-
-            <p class="text-lg md:text-xl text-lupi-text-secondary max-w-prose">
-
-                ¿Sabías que la solución para los clubes de barrio no está en una gran marca, sino en su propia comunidad? 🤔 LupiApp hace realidad la economía circular de tu club.
-
-            </p>
-
-            <div class="pt-4">
-
-                <a href="#features" class="lupi-button">
-
-                    ¡Quiero ser parte!
-
-                </a>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Visor 3D -->
-
-        <div class="lg:w-1/2 w-full h-80 lg:h-full">
-
-            <div id="canvas-container" class="w-full h-full relative">
-
-                 <canvas id="lupiCanvas"></canvas>
-
-                 <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-lupi-text-secondary/50">Arrastra para rotar</div>
-
-            </div>
-
-        </div>
-
-
-
-    </main>
-
-
-
-    <!-- Sección de Características -->
-
-    <section id="features" class="w-full max-w-6xl mx-auto py-16">
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-
-
-            <div class="lupi-card p-8">
-
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><span class="text-5xl">🏆</span> PARA EL CLUB</h3>
-
-                <p class="text-lupi-text-secondary mb-6 text-sm">Asociación 100% Gratis</p>
-
-                <ul class="space-y-4">
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span><strong>Recibe donaciones</strong> de materiales.</span></li>
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Accede a un <strong>marketplace oficial</strong> con tu marca.</span></li>
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span><strong>Financiamos mejoras</strong> en instalaciones.</span></li>
-
-                     <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Todo se desbloquea al <strong>subir de nivel</strong> en la app.</span></li>
-
-                </ul>
-
-            </div>
-
-
-
-            <div class="lupi-card p-8">
-
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><span class="text-5xl">🎮</span> PARA EL SOCIO</h3>
-
-                <ul class="space-y-4">
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Creá tu <strong>personaje virtual.</strong></span></li>
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Completá <strong>misiones divertidas.</strong></span></li>
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Ganá <strong>Lupicoins</strong> y subí de nivel.</span></li>
-
-                    <li class="flex items-start gap-3"><span style="color: var(--lupi-secondary);">✓</span><span>Canjeá tus Lupicoins por <strong>premios REALES.</strong></span></li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- NUEVA SECCIÓN: Cómo Funciona -->
-
-    <section class="w-full max-w-5xl mx-auto py-16 text-center">
-
-        <h2 class="text-3xl md:text-4xl font-bold mb-12 section-title">Es tan fácil como 1, 2, 3</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-
-            <div class="space-y-4">
-
-                <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-primary));">🕹️</div>
-
-                <h3 class="text-xl font-bold">1. Juega y Compite</h3>
-
-                <p class="text-lupi-text-secondary">Completa misiones, adivina jugadas y participa en desafíos para ganar LupiCoins.</p>
-
-            </div>
-
-            <div class="space-y-4">
-
-                <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-secondary));">✨</div>
-
-                <h3 class="text-xl font-bold">2. Ayuda a tu Club</h3>
-
-                <p class="text-lupi-text-secondary">Cada LupiCoin que ganas contribuye a metas colectivas para mejorar las instalaciones.</p>
-
-            </div>
-
-            <div class="space-y-4">
-
-                <div class="text-6xl mb-4" style="filter: drop-shadow(0 0 10px var(--lupi-accent));">🎁</div>
-
-                <h3 class="text-xl font-bold">3. Canjea Premios</h3>
-
-                <p class="text-lupi-text-secondary">Usa tus LupiCoins para obtener indumentaria, cuotas gratis y más premios reales.</p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- NUEVA SECCIÓN: Testimonios -->
-
-    <section class="w-full max-w-6xl mx-auto py-16">
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <div class="lupi-card p-8 flex flex-col items-center text-center">
-
-                <img src="https://placehold.co/80x80/050210/00ff88?text=JP" alt="Foto de Juan Pérez" class="w-20 h-20 rounded-full mb-4 border-2 border-lupi-secondary">
-
-                <p class="text-lupi-text-secondary italic">"Desde que usamos LupiApp, pudimos renovar las redes de las canchas. ¡Todo gracias al compromiso de nuestros socios!"</p>
-
-                <h4 class="font-bold mt-4">Juan Pérez</h4>
-
-                <p class="text-sm text-lupi-primary">Presidente, Club "Los Pumas"</p>
-
-            </div>
-
-            <div class="lupi-card p-8 flex flex-col items-center text-center">
-
-                <img src="https://placehold.co/80x80/050210/8a2be2?text=SG" alt="Foto de Sofía Gómez" class="w-20 h-20 rounded-full mb-4 border-2 border-lupi-primary">
-
-                <p class="text-lupi-text-secondary italic">"¡Es genial! Me divierto con las misiones y ya canjeé mis LupiCoins por la nueva camiseta de mi club. ¡Aguante LupiApp!"</p>
-
-                <h4 class="font-bold mt-4">Sofía Gómez</h4>
-
-                <p class="text-sm text-lupi-primary">Socia #112</p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- NUEVA SECCIÓN: FAQ -->
-
-    <section class="w-full max-w-4xl mx-auto py-16">
-
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center section-title">Preguntas Frecuentes</h2>
-
-        <div class="lupi-card lupi-card-cyan p-4 md:p-8">
-
-            <details>
-
-                <summary class="font-bold">¿Tiene algún costo para el club?</summary>
-
-                <div class="text-lupi-text-secondary">No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
-
-            </details>
-
-            <details>
-
-                <summary class="font-bold">¿Cómo se financian las mejoras del club?</summary>
-
-                <div class="text-lupi-text-secondary">A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
-
-            </details>
-
-             <details>
-
-                <summary class="font-bold">¿Qué tipo de premios puedo canjear?</summary>
-
-                <div class="text-lupi-text-secondary">Podrás canjear indumentaria oficial de tu club (remeras, shorts), merchandising, pago de cuotas sociales, acceso a eventos especiales y mucho más.</div>
-
-            </details>
-
-            <details>
-
-                <summary class="font-bold">¿Mis datos personales están seguros?</summary>
-
-                <div class="text-lupi-text-secondary">Absolutamente. La seguridad y privacidad de nuestros usuarios es nuestra máxima prioridad. Utilizamos protocolos de encriptación avanzados para proteger toda tu información.</div>
-
-            </details>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- NUEVA SECCIÓN: CTA Final -->
-
-    <section id="cta" class="w-full max-w-4xl mx-auto py-16 text-center lupi-card lupi-card-cyan bg-gradient-to-r from-[#00ccff] to-neon-dark-blue p-8 md:p-12">
-
-         <h2 class="text-3xl md:text-4xl font-black mb-4">Lleva a tu club al siguiente nivel.</h2>
-
-         <p class="text-lupi-text-secondary mb-8 max-w-2xl mx-auto">Únete a la revolución de los clubes de barrio. Recibe notificaciones sobre nuestro lanzamiento y sé de los primeros en transformar tu pasión en acción.</p>
-
-         <div class="flex justify-center">
-
-             <button class="lupi-button">Apúntame a la lista</button>
-
-         </div>
-
-    </section>
-
-
-
-
-
-    <!-- Footer -->
-
-    <footer class="w-full max-w-6xl mx-auto text-center py-8 mt-8 text-lupi-text-secondary/70">
-
-        <p>&copy; 2024 LupiApp. Todos los derechos reservados.</p>
-
-    </footer>
-
-
-
-</div>
-
-
-
-<!-- Three.js y GLTFLoader -->
-
-<script type="importmap">
-
-    {
-
-        "imports": {
-
-            "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
-
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
-
+          /* Sombras y efectos */
+          --shadow-glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+          --shadow-glow-accent: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+          --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-    }
+        /* Animaciones globales */
+        @keyframes pulse {
+          0% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
+          50% { transform: scale(1.05); box-shadow: 0 0 20px var(--lupi-secondary), 0 0 40px var(--lupi-secondary); }
+          100% { transform: scale(1); box-shadow: 0 0 10px var(--lupi-secondary), 0 0 20px var(--lupi-secondary); }
+        }
 
-</script>
+        @keyframes glow {
+          from { text-shadow: 0 0 5px var(--lupi-text), 0 0 10px var(--lupi-text), 0 0 15px var(--neon-blue); }
+          to { text-shadow: 0 0 10px var(--lupi-text), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+        }
 
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
 
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }   
 
-<script type="module">
+            /* Estilos base */
 
-    import * as THREE from 'three';
+            body {
+                color: var(--lupi-text);
+                font-family: 'Inter', sans-serif;
+                scroll-behavior: smooth;
+                background-image: url(/Lupi.jpeg) , linear-gradient(135deg, var(--neon-bg-darker) 0%, var(--neon-bg-dark) 100%);
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-attachment: fixed;
+                background-blend-mode: overlay; /* o soft-light, multiply, screen, según efecto */
+                background-attachment: scroll;
+            }
 
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+/* Efecto de partículas de fondo */
+        .particles-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          overflow: hidden;
+        }
 
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        .particle {
+          position: absolute;
+          background: var(--lupi-primary);
+          border-radius: 50%;
+          opacity: 0.3;
+          animation: float 15s infinite ease-in-out;
+        }
 
 
+            /* Clases personalizadas */
 
-    // --- Configuración de la Escena ---
+            .lupi-card {
 
-    const canvasContainer = document.getElementById('canvas-container');
+                background-color: var(--lupi-card);
 
-    const canvas = document.getElementById('lupiCanvas');
+                border: 1px solid var(--lupi-primary);
 
-    const scene = new THREE.Scene();
+                border-radius: var(--border-radius);
 
+                box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
 
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    // --- Cámara ---
+            }
 
-    const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+            .lupi-card:hover {
 
-    camera.position.set(0, 0.5, 5);
+                transform: translateY(-5px);
 
+                box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
 
+            }
 
-    // --- Renderer ---
 
-    const renderer = new THREE.WebGLRenderer({ 
 
-        canvas: canvas,
+            .lupi-card-cyan {
 
-        alpha: true, // Fondo transparente
+                border-color: var(--neon-blue);
 
-        antialias: true 
+                box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
 
-    });
+            }
 
-    renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+            .lupi-card-cyan:hover {
 
-    renderer.setPixelRatio(window.devicePixelRatio);
+                box-shadow: 0 0 30px rgba(0, 204, 255, 0.6);
 
+            }
 
+            .lupi-card-cyan details > summary {
 
-    // --- Controles de órbita ---
+                border-bottom-color: var(--neon-blue);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+            }
 
-    controls.enableDamping = true;
 
-    controls.dampingFactor = 0.05;
 
-    controls.enableZoom = false; // Desactivar zoom
+            .lupi-title {
 
-    controls.enablePan = false; // Desactivar paneo
+                animation: glow 1.5s ease-in-out infinite alternate;
 
-    controls.autoRotate = true; // Rotación automática
+            }
 
-    controls.autoRotateSpeed = 2.0;
 
 
+            .section-title {
 
-    // --- Sistema de luces MEJORADO (más iluminación) ---
-        // 1. Luz ambiental principal (aumentada)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-        scene.add(ambientLight);
-        
-        // 2. Luces direccionales principales (aumentadas)
-        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight1.position.set(5, 10, 7);
-        scene.add(directionalLight1);
-        
-        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.2);
-        directionalLight2.position.set(-5, 5, 5);
-        scene.add(directionalLight2);
-        
-        // 3. Luces de color (aumentadas)
-        const primaryLight = new THREE.PointLight(0x8a2be2, 25, 15);
-        primaryLight.position.set(-3, 3, 4);
-        scene.add(primaryLight);
-        
-        const secondaryLight = new THREE.PointLight(0x00ff88, 25, 15);
-        secondaryLight.position.set(3, -2, 4);
-        scene.add(secondaryLight);
-        
-        // 4. Luces de relleno adicionales
-        const fillLight1 = new THREE.DirectionalLight(0x4477ff, 0.8);
-        fillLight1.position.set(0, 0, -5);
-        scene.add(fillLight1);
-        
-        const fillLight2 = new THREE.DirectionalLight(0xff44aa, 0.6);
-        fillLight2.position.set(0, -5, 0);
-        scene.add(fillLight2);
-        
-        // 5. Luz hemisférica para iluminación ambiental general
-        const hemisphereLight = new THREE.HemisphereLight(0x4433ff, 0x11ff33, 1.5);
-        scene.add(hemisphereLight);
+                color: var(--lupi-secondary);
 
+                text-shadow: 0 0 10px var(--lupi-secondary);
 
+            }
 
-    // --- Cargar modelo GLB ---
 
-    const loader = new GLTFLoader();
 
-    // --- ¡IMPORTANTE! ---
+            .lupi-button {
 
-    // Debes cambiar la siguiente URL a la ubicación de tu propio archivo 'lupi.glb'.
+                background-color: var(--lupi-secondary);
 
-    const modelURL = './lupi.glb'; 
+                color: var(--lupi-darker);
 
+                border-radius: var(--border-radius-sm);
 
+                font-weight: bold;
 
-    loader.load(modelURL, (gltf) => {
+                text-transform: uppercase;
 
-        const model = gltf.scene;
+                padding: 12px 24px;
 
-        model.scale.set(0.5, 0.5, 0.5); 
-        model.scale.set(4.5, 4.5, 4.5); 
+                transition: all 0.3s ease;
 
-        model.position.y = -1.5; 
+                animation: pulse 2s infinite;
 
-        scene.add(model);
+                border: none;
 
-    }, undefined, (error) => {
+            }
 
-        console.error('Un error ocurrió al cargar el modelo:', error);
 
-    });
 
+            .lupi-button:hover {
 
+                animation-play-state: paused;
 
-    // --- Loop de Animación ---
+                transform: scale(1.05);
 
-    function animate() {
+                box-shadow: 0 0 25px var(--lupi-secondary);
 
-        requestAnimationFrame(animate);
+            }
 
-        controls.update();
 
-        renderer.render(scene, camera);
 
-    }
+            #lupiCanvas {
 
-    animate();
+                width: 100%;
 
+                height: 350px;
 
+                cursor: grab;
 
-    // --- Manejo de redimensionamiento de ventana ---
+            }
 
-    function onWindowResize() {
+            #lupiCanvas:active {
 
-        camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+                cursor: grabbing;
 
-        camera.updateProjectionMatrix();
+            }
 
-        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+        #lupiCanvas {
+            width: 100%;          /* Ocupa todo el ancho del contenedor */
+            height: auto;         /* Ajusta altura automáticamente */
+            max-height: 400px;    /* Opcional: limita altura máxima */
+            aspect-ratio: 16/9;   /* Mantiene proporción del visor */
+            cursor: grab;
+            display: block;
+            margin: 0 auto;       /* Centrado horizontal */
+        }
 
-    }
+        #lupiCanvas:active {
+            cursor: grabbing;
+        }
 
-    window.addEventListener('resize', onWindowResize, false);
 
-    onWindowResize();
 
-</script>
+            /* Estilo para FAQ */
+        details {
+          position: relative;
+          border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+          transition: all 0.3s ease;
+        }
 
-</body></html>
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.5rem 1rem;
+            position: relative;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        details > summary:hover {
+          background: rgba(138, 43, 226, 0.1);
+        }
+
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details > summary::after {
+            content: '+';
+            position: absolute;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--lupi-secondary);
+            transition: all 0.3s ease;
+        }
+
+        details[open] > summary::after {
+            content: '−';
+            transform: rotate(180deg);
+        }
+
+        details[open] > summary {
+          border-bottom: 1px solid var(--lupi-primary);
+        }
+
+        details div {
+            padding: 1.5rem;
+            background: rgba(19, 16, 58, 0.5);
+            border-left: 3px solid var(--lupi-secondary);
+            margin: 0 0 1rem 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+
+            /* Mejoras para elementos de la sección de características */
+        .feature-icon {
+          font-size: 3.5rem;
+          filter: drop-shadow(0 0 10px currentColor);
+          animation: float 3s infinite ease-in-out;
+        }
+
+        .testimonial-img {
+          transition: all 0.3s ease;
+          box-shadow: 0 0 20px currentColor;
+        }
+
+        .testimonial-img:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 30px currentColor;
+        }
+
+        /* Mejora del footer */
+        .footer {
+          background: linear-gradient(to top, var(--lupi-darker) 0%, #0a0630 100%);
+          font-size: 0.9rem;
+          border-top: 1px solid var(--lupi-primary);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .footer::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, var(--lupi-primary), var(--lupi-secondary), var(--lupi-primary));
+          animation: shimmer 3s infinite linear;
+        }
+
+        /* Mejora para los checkmarks */
+        .checkmark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--lupi-secondary);
+            flex-shrink: 0;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+          .lupi-card {
+            margin: 0 0.5rem;
+          }
+          
+          #lupiCanvas {
+            height: 250px;
+          }
+          body {
+                color: var(--lupi-text);
+                font-family: 'Inter', sans-serif;
+                scroll-behavior: smooth;
+                background-image: url(/Lupi.jpeg) , linear-gradient(135deg, var(--neon-bg-darker) 0%, var(--neon-bg-dark) 100%);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-blend-mode: overlay; /* o soft-light, multiply, screen, según efecto */
+            }
+        }
+
+        </style>
+
+        </head><body class="antialiased overflow-x-hidden"><!-- Contenedor principal -->
+            <!-- Efecto de partículas de fondo -->
+        <div class="particles-container" id="particles"></div>
+        <div class="min-h-screen w-full p-4 md:p-8 flex flex-col items-center">
+
+            <!-- Header -->
+
+            <header class="w-full max-w-6xl mx-auto flex justify-between items-center py-4">
+                <h1 class="text-3xl font-bold text-white">Lupi<span style="color: var(--lupi-secondary);">App</span></h1>
+                <a href="#cta" class="lupi-button text-sm !px-6 !py-2 !animation-none">
+                    Únete ahora
+                </a>
+            </header>
+
+                <!-- Sección Hero - OCUPA TODA LA PANTALLA -->
+        <main class="w-full flex-grow flex items-center justify-center hero-section" style="min-height: calc(100vh - 80px);">
+    <div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center text-center lg:text-left gap-8 py-12 px-4 md:px-8">
+                <!-- Contenido de texto -->
+        <div class="lg:w-full space-y-6 z-10 flex flex-col items-center lg:items-start">
+                    <h2 class="text-4xl md:text-6xl font-black lupi-title">
+                        Tu pasión transforma tu club.
+                    </h2>
+                    <p class="text-lg md:text-xl text-lupi-text-secondary max-w-prose">
+                        ¿Sabías que la solución para los clubes de barrio no está en una gran marca, sino en su propia comunidad? 🤔 LupiApp hace realidad la economía circular de tu club.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#features" class="lupi-button">
+                            ¡Quiero ser parte!
+                        </a>
+                    </div>
+                </div>
+            </main>
+
+             <!-- Sección de Características -->
+        <section id="features" class="w-full max-w-6xl mx-auto py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="lupi-card p-8">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><span class="text-5xl feature-icon" style="color: var(--lupi-secondary);">🏟️</span> PARA EL CLUB</h3>
+                    <p class="text-lupi-text-secondary mb-6 text-sm uppercase tracking-wider font-semibold">Asociación 100% Gratis</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span><strong>Recibe donaciones</strong> de materiales.</span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Accede a un <strong>marketplace oficial</strong> con tu marca.</span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span><strong>Financiamos mejoras</strong> en instalaciones.</span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Todo se desbloquea al <strong>subir de nivel</strong> en la app.</span></li>
+                    </ul>
+                </div>
+
+                <div class="lupi-card p-8">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><span class="text-5xl feature-icon" style="color: var(--lupi-primary);">🎮</span> PARA EL SOCIO</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Creá tu <strong>personaje virtual.</strong></span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Completá <strong>misiones divertidas.</strong></span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Ganá <strong>Lupicoins</strong> y subí de nivel.</span></li>
+                        <li class="flex items-start gap-3"><span class="checkmark">✓</span><span>Canjeá tus Lupicoins por <strong>premios REALES.</strong></span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Cómo Funciona -->
+        <section class="w-full max-w-5xl mx-auto py-16 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 section-title">Es tan fácil como 1, 2, 3</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="lupi-card p-6">
+                    <div class="text-6xl mb-4 feature-icon" style="color: var(--lupi-primary);">🕹️</div>
+                    <h3 class="text-xl font-bold">1. Juega y Compite</h3>
+                    <p class="text-lupi-text-secondary">Completa misiones, adivina jugadas y participa en desafíos para ganar LupiCoins.</p>
+                </div>
+                <div class="lupi-card p-6">
+                    <div class="text-6xl mb-4 feature-icon" style="color: var(--lupi-secondary);">✨</div>
+                    <h3 class="text-xl font-bold">2. Ayuda a tu Club</h3>
+                    <p class="text-lupi-text-secondary">Cada LupiCoin que ganas contribuye a metas colectivas para mejorar las instalaciones.</p>
+                </div>
+                <div class="lupi-card p-6">
+                    <div class="text-6xl mb-4 feature-icon" style="color: var(--lupi-accent);">🎁</div>
+                    <h3 class="text-xl font-bold">3. Canjea Premios</h3>
+                    <p class="text-lupi-text-secondary">Usa tus LupiCoins para obtener indumentaria, cuotas gratis y más premios reales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Testimonios -->
+        <section class="w-full max-w-6xl mx-auto py-16">
+            <h2 class="text-3xl md:text-4xl font-black mb-12 text-center section-title">Nuestra comunidad ya está subiendo de nivel</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="lupi-card p-8 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/13103a/00ff88?text=JP" alt="Avatar de Juan Pérez" class="w-24 h-24 rounded-full mb-4 ring-2 ring-offset-2 ring-offset-lupi-dark ring-lupi-secondary transition-transform hover:scale-105">
+                    <p class="text-lupi-text-secondary italic">"¡Desbloqueamos las nuevas luces de la cancha! Es increíble ver cómo el club se transforma con cada misión completada."</p>
+                    <h4 class="font-black mt-4">Juan Pérez, Lvl 15</h4>
+                    <p class="text-sm text-lupi-primary">Presidente del Club "Los Pumas"</p>
+                </div>
+                <div class="lupi-card p-8 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/13103a/8a2be2?text=SG" alt="Avatar de Sofía Gómez" class="w-24 h-24 rounded-full mb-4 ring-2 ring-offset-2 ring-offset-lupi-dark ring-lupi-primary transition-transform hover:scale-105">
+                    <p class="text-lupi-text-secondary italic">"Mi avatar es genial, las misiones son super divertidas y ya canjeé mis Lupicoins por la nueva remera. ¡Soy fan!"</p>
+                    <h4 class="font-black mt-4">Sofía Gómez, Lvl 11</h4>
+                    <p class="text-sm text-lupi-primary">Socia destacada</p>
+                </div>
+            </div>
+        </section>
+
+
+
+            <!-- NUEVA SECCIÓN: FAQ --> 
+
+        <section class="w-full max-w-6xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="lupi-card p-4 md:p-8 flex flex-col justify-center items-center">
+                <h3 class="text-xl font-bold mb-4 text-center section-title">¡CONOCE A TU HÉROE!</h3>
+                <div id="canvas-container" class="w-full h-full relative">
+                    <canvas id="lupiCanvas"></canvas>
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-lupi-text-secondary/50">
+                        Arrastra para rotar
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lupi-card p-4 md:p-8">
+                <h3 class="text-xl md:text-2xl font-black mb-6 text-center lg:text-left section-title">Preguntas de la Misión</h3>
+                <details>
+            <summary class="font-bold">¿Tiene algún costo para el club?</summary>
+            <div class="text-lupi-text-secondary">No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
+            </details>
+            <details>
+            <summary class="font-bold">¿Cómo se financian las mejoras del club?</summary>
+            <div class="text-lupi-text-secondary">A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
+            </details>
+            <details>
+            <summary class="font-bold">¿Qué tipo de premios puedo canjear?</summary>
+            <div class="text-lupi-text-secondary">Podrás canjear indumentaria oficial de tu club (remeras, shorts), merchandising, pago de cuotas sociales, acceso a eventos especiales y mucho más.</div>
+            </details>
+            <details>
+            <summary class="font-bold">¿Mis datos personales están seguros?</summary>
+            <div class="text-lupi-text-secondary">Absolutamente. La seguridad y privacidad de nuestros usuarios es nuestra máxima prioridad. Utilizamos protocolos de encriptación avanzados para proteger toda tu información.</div>
+            </details>
+            </div>
+        </section>
+
+
+
+            <!-- NUEVA SECCIÓN: CTA Final -->
+        <section id="cta" class="w-full max-w-4xl mx-auto py-16 text-center lupi-card lupi-card-cyan bg-gradient-to-r from-[#00ccff] to-neon-dark-blue p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-black mb-4">Lleva a tu club al siguiente nivel.</h2>
+            <p class="text-lupi-text-secondary mb-8 max-w-2xl mx-auto">
+                    La aventura de tu club te espera. Descarga LupiApp y conviértete en el MVP de tu comunidad.
+                </p>
+            <div class="flex justify-center">
+                <button class="lupi-button">Apúntame a la lista</button>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#" class="bg-white hover:bg-gray-200 text-lupi-dark font-bold py-3 px-8 rounded-full transition-colors flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.6a9.6 9.6 0 100-19.2 9.6 9.6 0 000 19.2z" fill="#000"/><path d="M12 4.4a7.6 7.6 0 100 15.2 7.6 7.6 0 000-15.2z" fill="#fff"/><path d="M12 9.4c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM12 12.9v1.6a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1.6a2.5 2.5 0 015 0v1.6a1 1 0 01-1 1h-1a1 1 0 01-1-1z" fill="#000"/></svg>
+                        App Store
+                    </a>
+                    <a href="#" class="cta-button !py-3 !px-8 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.6a9.6 9.6 0 100-19.2 9.6 9.6 0 000 19.2z" fill="#000"/><path d="M12 4.4a7.6 7.6 0 100 15.2 7.6 7.6 0 000-15.2z" fill="#fff"/><path d="M12 9.4c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM12 12.9v1.6a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1.6a2.5 2.5 0 015 0v1.6a1 1 0 01-1 1h-1a1 1 0 01-1-1z" fill="#000"/></svg>
+                        Google Play
+                    </a>
+                </div>
+        </section>
+
+
+
+            <!-- FOOTER -->
+        <footer class="footer text-white py-10 mt-12">
+            <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">LupiApp</h3>
+                    <p class="text-gray-400">El patrocinador digital de tu club de barrio.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Mapa de Misiones</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#how-it-works" class="hover:text-white transition-colors">Cómo Empezar</a></li>
+                        <li><a href="#features" class="hover:text-white transition-colors">Poderes de la App</a></li>
+                        <li><a href="#cta-download" class="hover:text-white transition-colors">Descarga la App</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Soporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Conéctate</h3>
+                    <p class="text-gray-400">📩 inversiones@lupiapp.com</p>
+                    <p class="text-gray-400">🌐 @LupiApp en redes sociales</p>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-10 text-sm">
+                © 2025 LupiApp · Todos los derechos reservados
+            </div>
+        </footer>
+
+
+
+        </div>
+
+
+
+        <!-- Three.js y GLTFLoader -->
+
+        <script type="importmap">
+
+            {
+
+                "imports": {
+
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+
+                }
+
+            }
+
+        </script>
+
+
+
+        <script type="module">
+
+            import * as THREE from 'three';
+
+            import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+
+
+            // --- Configuración de la Escena ---
+
+            const canvasContainer = document.getElementById('canvas-container');
+
+            const canvas = document.getElementById('lupiCanvas');
+
+            const scene = new THREE.Scene();
+
+
+
+            // --- Cámara ---
+
+            const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+
+            camera.position.set(0, 0.5, 5);
+
+
+
+            // --- Renderer ---
+
+            const renderer = new THREE.WebGLRenderer({ 
+
+                canvas: canvas,
+
+                alpha: true, // Fondo transparente
+
+                antialias: true 
+
+            });
+
+            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+
+
+            // --- Controles de órbita ---
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+
+            controls.enableDamping = true;
+
+            controls.dampingFactor = 0.05;
+
+            controls.enableZoom = false; // Desactivar zoom
+
+            controls.enablePan = false; // Desactivar paneo
+
+            controls.autoRotate = true; // Rotación automática
+
+            controls.autoRotateSpeed = 2.0;
+
+
+
+
+
+            // --- Sistema de luces MEJORADO (más iluminación) ---
+                // 1. Luz ambiental principal (aumentada)
+                const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+                scene.add(ambientLight);
+                
+                // 2. Luces direccionales principales (aumentadas)
+                const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+                directionalLight1.position.set(5, 10, 7);
+                scene.add(directionalLight1);
+                
+                const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.2);
+                directionalLight2.position.set(-5, 5, 5);
+                scene.add(directionalLight2);
+                
+                // 3. Luces de color (aumentadas)
+                const primaryLight = new THREE.PointLight(0x8a2be2, 25, 15);
+                primaryLight.position.set(-3, 3, 4);
+                scene.add(primaryLight);
+                
+                const secondaryLight = new THREE.PointLight(0x00ff88, 25, 15);
+                secondaryLight.position.set(3, -2, 4);
+                scene.add(secondaryLight);
+                
+                // 4. Luces de relleno adicionales
+                const fillLight1 = new THREE.DirectionalLight(0x4477ff, 0.8);
+                fillLight1.position.set(0, 0, -5);
+                scene.add(fillLight1);
+                
+                const fillLight2 = new THREE.DirectionalLight(0xff44aa, 0.6);
+                fillLight2.position.set(0, -5, 0);
+                scene.add(fillLight2);
+                
+                // 5. Luz hemisférica para iluminación ambiental general
+                const hemisphereLight = new THREE.HemisphereLight(0x4433ff, 0x11ff33, 1.5);
+                scene.add(hemisphereLight);
+
+
+
+            // --- Cargar modelo GLB ---
+
+            const loader = new GLTFLoader();
+
+            // --- ¡IMPORTANTE! ---
+
+            // Debes cambiar la siguiente URL a la ubicación de tu propio archivo 'lupi.glb'.
+
+            const modelURL = './lupi.glb'; 
+
+
+
+            loader.load(modelURL, (gltf) => {
+
+                const model = gltf.scene;
+
+                model.scale.set(5, 5, 5); 
+
+                model.position.y = 0;   // sube el modelo en el eje Y
+                model.position.x = 0;   // opcional, mover lateral
+                model.position.z = 0;   // opcional, mover profundidad 
+                model.rotation.y = Math.PI / -2; // Rotar 90 grados si mira de costado
+                
+
+                scene.add(model);
+
+            }, undefined, (error) => {
+
+                console.error('Un error ocurrió al cargar el modelo:', error);
+
+            });
+
+
+
+            // --- Loop de Animación ---
+
+            function animate() {
+
+                requestAnimationFrame(animate);
+
+                controls.update();
+
+                renderer.render(scene, camera);
+
+            }
+
+            animate();
+
+
+
+            // --- Manejo de redimensionamiento de ventana ---
+
+            function onWindowResize() {
+
+                camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+            }
+
+            window.addEventListener('resize', onWindowResize, false);
+
+            onWindowResize();
+
+        </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posición aleatoria
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Color aleatorio (entre los colores de la marca)
+                const colors = ['#8a2be2', '#00ff88', '#00ccff', '#ff00aa'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Animación con delay aleatorio
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        });
+    </script>
+
+        </body></html>
