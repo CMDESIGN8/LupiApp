@@ -351,6 +351,13 @@
             flex-shrink: 0;
         }
 
+          .stadium-icon {
+            filter: drop-shadow(0 0 10px rgba(0, 188, 212, 0.5));
+        }
+        .joystick-icon {
+            filter: drop-shadow(0 0 10px rgba(176, 44, 255, 0.5));
+        }
+
         /* Responsive improvements */
         @media (max-width: 768px) {
           .lupi-card {
@@ -447,7 +454,8 @@
                     
                     <div class="relative z-10 flex flex-col items-center text-center">
                         
-                        <div class="mb-5">
+                        <div class="mb-5 stadium-icon">
+                            <!-- Icono de estadio -->
                             <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M49.9997 14.6667C49.9997 10.1487 41.9408 6.66669 31.9997 6.66669C22.0586 6.66669 13.9997 10.1487 13.9997 14.6667" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M52.8871 21.054C51.8633 19.18 49.9997 14.6667 49.9997 14.6667M49.9997 14.6667V49.3333C49.9997 53.8513 41.9408 57.3333 31.9997 57.3333C22.0586 57.3333 13.9997 53.8513 13.9997 49.3333V14.6667" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -486,7 +494,8 @@
                     
                     <div class="relative z-10 flex flex-col items-center text-center">
                         
-                        <div class="mb-5">
+                        <div class="mb-5 joystick-icon">
+                            <!-- Icono de joystick -->
                             <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M50.6667 24H13.3333C8.92538 24 5.33333 27.5921 5.33333 32V40C5.33333 44.4079 8.92538 48 13.3333 48H50.6667C55.0746 48 58.6667 44.4079 58.6667 40V32C58.6667 27.5921 55.0746 24 50.6667 24Z" stroke="#B02CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21.3333 36H29.3333" stroke="#B02CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
