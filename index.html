@@ -604,7 +604,7 @@
     <!-- SECTION FAQ -->
 
     <section class="w-full max-w-6xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
-  <canvas id="particlesCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+  <canvas id="particlesCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- Héroe 3D -->
   <div class="lupi-card p-6 md:p-8 flex flex-col justify-center items-center bg-[#0a0a1f]/70 backdrop-blur-md border border-[#00ff88]/40 rounded-2xl transition-all duration-300 hover:border-[#00ff88]/80 hover:shadow-2xl hover:shadow-[#00ff88]/30">
@@ -955,63 +955,6 @@
             }
         });
     </script>
-    <script>
-const canvas = document.getElementById('particlesCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
 
-class Particle {
-  constructor(x, y, color) {
-    this.x = x;
-    this.y = y;
-    this.radius = Math.random() * 3 + 1;
-    this.color = color;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
-  }
-
-  draw() {
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = this.color;
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    // Rebotar en los bordes
-    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-    this.draw();
-  }
-}
-
-// Generar partículas
-const particles = [];
-const colors = ['#00ff88', '#ff00aa'];
-for (let i = 0; i < 60; i++) {
-  particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height, colors[Math.floor(Math.random() * colors.length)]));
-}
-
-// Animación
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => p.update());
-  requestAnimationFrame(animate);
-}
-animate();
-
-// Ajustar canvas al redimensionar
-window.addEventListener('resize', () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-});
-</script>
-
-        </body></html>
+        </body>
+        </html>
