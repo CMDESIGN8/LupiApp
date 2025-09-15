@@ -351,11 +351,37 @@
             flex-shrink: 0;
         }
 
-          .stadium-icon {
+           .stadium-icon {
             filter: drop-shadow(0 0 10px rgba(0, 188, 212, 0.5));
         }
         .joystick-icon {
             filter: drop-shadow(0 0 10px rgba(176, 44, 255, 0.5));
+        }
+        .checkbox-empty {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #B02CFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .checkbox-empty-inner {
+            width: 12px;
+            height: 12px;
+            background-color: #B02CFF;
+            border-radius: 50%;
+        }
+        .checkbox-checked {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #B02CFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         /* Responsive improvements */
@@ -455,12 +481,12 @@
                     <div class="relative z-10 flex flex-col items-center text-center">
                         
                         <div class="mb-5 stadium-icon">
-                            <!-- Icono de estadio -->
-                            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M49.9997 14.6667C49.9997 10.1487 41.9408 6.66669 31.9997 6.66669C22.0586 6.66669 13.9997 10.1487 13.9997 14.6667" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M52.8871 21.054C51.8633 19.18 49.9997 14.6667 49.9997 14.6667M49.9997 14.6667V49.3333C49.9997 53.8513 41.9408 57.3333 31.9997 57.3333C22.0586 57.3333 13.9997 53.8513 13.9997 49.3333V14.6667" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <ellipse cx="32" cy="32" rx="22" ry="9.33333" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M13.9997 14.6667C13.9997 19.1847 22.0586 22.6667 31.9997 22.6667C41.9408 22.6667 49.9997 19.1847 49.9997 14.6667" stroke="#00BCD4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- Icono de estadio personalizado según la imagen -->
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M60 20C60 15 48.5 10 35 10C21.5 10 10 15 10 20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M64 26C62.5 23.5 60 20 60 20M60 20V60C60 65 48.5 70 35 70C21.5 70 10 65 10 60V20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <ellipse cx="35" cy="40" rx="25" ry="10" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M10 20C10 25 21.5 30 35 30C48.5 30 60 25 60 20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
 
@@ -495,13 +521,13 @@
                     <div class="relative z-10 flex flex-col items-center text-center">
                         
                         <div class="mb-5 joystick-icon">
-                            <!-- Icono de joystick -->
-                            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M50.6667 24H13.3333C8.92538 24 5.33333 27.5921 5.33333 32V40C5.33333 44.4079 8.92538 48 13.3333 48H50.6667C55.0746 48 58.6667 44.4079 58.6667 40V32C58.6667 27.5921 55.0746 24 50.6667 24Z" stroke="#B02CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M21.3333 36H29.3333" stroke="#B02CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M25.3333 32V40" stroke="#B02CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M42.6667 38.6667C43.4031 38.6667 44 38.0697 44 37.3333C44 36.597 43.4031 36 42.6667 36C41.9303 36 41.3333 36.597 41.3333 37.3333C41.3333 38.0697 41.9303 38.6667 42.6667 38.6667Z" fill="#B02CFF"/>
-                                <path d="M49.3333 33.3333C50.0697 33.3333 50.6667 32.7364 50.6667 32C50.6667 31.2636 50.0697 30.6667 49.3333 30.6667C48.597 30.6667 48 31.2636 48 32C48 32.7364 48.597 33.3333 49.3333 33.3333Z" fill="#B02CFF"/>
+                            <!-- Icono de joystick personalizado según la imagen -->
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="15" y="25" width="50" height="30" rx="5" stroke="#B02CFF" stroke-width="2"/>
+                                <line x1="25" y1="40" x2="35" y2="40" stroke="#B02CFF" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="30" y1="35" x2="30" y2="45" stroke="#B02CFF" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="50" cy="45" r="3" fill="#B02CFF"/>
+                                <circle cx="60" cy="35" r="3" fill="#B02CFF"/>
                             </svg>
                         </div>
 
@@ -510,31 +536,31 @@
                         
                         <ul class="space-y-4 text-gray-200 w-full mt-6 text-left">
                             <li class="flex items-start gap-3">
-                                <div class="h-6 w-6 flex items-center justify-center rounded-full border-2 border-[#B02CFF] mt-0.5 flex-shrink-0">
-                                    <div class="h-3 w-3 rounded-full bg-[#B02CFF]"></div>
+                                <div class="checkbox-empty">
+                                    <div class="checkbox-empty-inner"></div>
                                 </div>
                                 <span>Forja tu <strong>avatar único</strong> y define tu identidad digital.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="h-6 w-6 flex items-center justify-center rounded-full border-2 border-[#B02CFF] mt-0.5 flex-shrink-0">
-                                    <svg class="h-3 w-3 text-[#B02CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
                                 <span>Supera <strong>misiones y desafíos</strong> emocionantes cada día.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="h-6 w-6 flex items-center justify-center rounded-full border-2 border-[#B02CFF] mt-0.5 flex-shrink-0">
-                                    <svg class="h-3 w-3 text-[#B02CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
                                 <span>Acumula <strong>Lupicoins y XP</strong> para subir de nivel.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="h-6 w-6 flex items-center justify-center rounded-full border-2 border-[#B02CFF] mt-0.5 flex-shrink-0">
-                                    <svg class="h-3 w-3 text-[#B02CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
                                 <span>Canjea tus ganancias por <strong>recompensas y premios REALES</strong>.</span>
