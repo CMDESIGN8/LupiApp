@@ -384,6 +384,25 @@
             flex-shrink: 0;
         }
 
+        .glow-img-multi {
+  animation: glowColors 6s infinite alternate;
+}
+
+@keyframes glowColors {
+  0% {
+    filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff);
+  }
+  33% {
+    filter: drop-shadow(0 0 10px #a020f0) drop-shadow(0 0 25px #a020f0);
+  }
+  66% {
+    filter: drop-shadow(0 0 10px #00ff88) drop-shadow(0 0 25px #00ff88);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff);
+  }
+}
+
         /* Responsive improvements */
         @media (max-width: 768px) {
           .lupi-card {
@@ -484,7 +503,7 @@
                         
                         <div class="mb-5 stadium-icon">
   <!-- Icono de estadio desde imagen en assets -->
-  <img src="assets/estadio.png" alt="Estadio" width="200" height="200">
+ <img src="assets/estadio.png" alt="Estadio" width="200" height="200" class="glow-img-multi">
 </div>
 
                         <h3 class="text-2xl font-bold tracking-wide">POTENCIA TU CLUB</h3>
