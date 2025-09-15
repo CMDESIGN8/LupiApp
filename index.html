@@ -81,6 +81,8 @@
 .motion-safe\:animate-fadeInUp { animation: fadeInUp 0.8s ease forwards; }
 .delay-150 { animation-delay: 0.15s; }
 
+
+
             /* Estilos base */
 
             body {
@@ -267,7 +269,8 @@
         }
 
         details > summary:hover {
-          background: rgba(138, 43, 226, 0.1);
+          color: var(--lupi-secondary);
+  text-shadow: 0 0 8px var(--lupi-secondary);
         }
 
         details > summary::-webkit-details-marker {
@@ -415,6 +418,17 @@
   100% {
     filter: drop-shadow(0 0 10px #b84cff) drop-shadow(0 0 20px #b84cff);
   }
+}
+
+.lupi-button-neon {
+  background: var(--lupi-secondary);
+  box-shadow: 0 0 5px var(--lupi-secondary), 0 0 15px var(--lupi-secondary);
+  animation: neonFlicker 2s infinite;
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.5; }
 }
 
         /* Responsive improvements */
