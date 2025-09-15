@@ -351,217 +351,38 @@
             flex-shrink: 0;
         }
 
-          section#features {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Título principal */
-    .title-container {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .title-container h2 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      margin-bottom: 0.75rem;
-      color: white;
-    }
-
-    .title-container p {
-      font-size: 1.1rem;
-      color: #ccc;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-
-    /* Tarjetas */
-    .cards-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      border-radius: 1.5rem;
-      padding: 2rem;
-      border: 2px solid transparent;
-      position: relative;
-      transition: all 0.4s ease;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      border-color: rgba(0, 188, 212, 0.6); /* Cyan */
-      box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
-    }
-
-    .card.purple {
-      border-color: rgba(176, 44, 255, 0.6);
-      transition: all 0.4s ease;
-    }
-
-    .card.purple:hover {
-      border-color: rgba(176, 44, 255, 0.8);
-      box-shadow: 0 0 20px rgba(176, 44, 255, 0.3);
-    }
-
-    /* Borde neón */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: 1.5rem;
-      background: linear-gradient(45deg, transparent, rgba(0, 188, 212, 0.6), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card.purple::before {
-      background: linear-gradient(45deg, transparent, rgba(176, 44, 255, 0.6), transparent);
-    }
-
-    /* Iconos */
-    .icon-container {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .stadium-icon,
-    .joystick-icon {
-      width: 80px;
-      height: 80px;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .stadium-icon {
-      stroke: #00BCD4;
-    }
-
-    .joystick-icon {
-      stroke: #B02CFF;
-    }
-
-    /* Títulos de tarjeta */
-    .card-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
-      color: #00BCD4;
-    }
-
-    .card.purple .card-title {
-      color: #B02CFF;
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #00BCD4;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(0, 188, 212, 0.3);
-      text-align: center;
-    }
-
-    .card.purple .subtitle {
-      color: #B02CFF;
-      border-bottom-color: rgba(176, 44, 255, 0.3);
-    }
-
-    /* Lista */
-    .list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      text-align: left;
-    }
-
-    .list li {
-      margin: 0.75rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .checkmark {
-      width: 14px;
-      height: 14px;
-      position: relative;
-    }
-
-    .checkmark::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 14px;
-      height: 14px;
-      border: 2px solid transparent;
-      border-top: 2px solid #00BCD4;
-      border-right: 2px solid #00BCD4;
-      transform: rotate(45deg);
-      clip-path: polygon(0 0, 14px 0, 14px 14px, 0 14px);
-    }
-
-    .card.purple .checkmark::after {
-      border-color: #B02CFF;
-    }
-
-    .list span {
-      color: #eee;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    /* Botón */
-    .cta-button {
-      display: inline-block;
-      background: linear-gradient(90deg, #B02CFF, #00BCD4);
-      color: white;
-      font-size: 1.2rem;
-      font-weight: 700;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
-      margin: 0 auto;
-      display: block;
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 25px rgba(0, 188, 212, 0.4);
-    }
+           .stadium-icon {
+            filter: drop-shadow(0 0 10px rgba(0, 188, 212, 0.5));
+        }
+        .joystick-icon {
+            filter: drop-shadow(0 0 10px rgba(176, 44, 255, 0.5));
+        }
+        .checkbox-empty {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #B02CFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .checkbox-empty-inner {
+            width: 12px;
+            height: 12px;
+            background-color: #B02CFF;
+            border-radius: 50%;
+        }
+        .checkbox-checked {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #B02CFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
         /* Responsive improvements */
         @media (max-width: 768px) {
@@ -643,68 +464,119 @@
 
 
              <!-- Sección de Características -->
-        <section id="features">
-  <!-- Título -->
-  <div class="title-container">
-    <h2>Dos Mundos, Un Mismo Juego</h2>
-    <p>Descubre cómo Lupi transforma la experiencia para tu club y para ti.<br>Sube de nivel, gana y haz historia.</p>
-  </div>
+        <section id="features" class="w-full py-20 sm:py-24">
+        <div class="max-w-6xl mx-auto px-4">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-[#00BCD4] text-4xl md:text-5xl font-bold tracking-tight">Dos Mundos, Un Mismo Juego</h2>
+                <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">Descubre cómo Lupi transforma la experiencia para tu club y para ti. Sube de nivel, gana y haz historia.</p>
+            </div>
 
-  <!-- Tarjetas -->
-  <div class="cards-container">
-    <!-- Tarjeta 1: Potencia tu club -->
-    <div class="card">
-      <div class="icon-container">
-        <svg class="stadium-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-          <path d="M40 20C40 15 30 10 20 10C10 10 5 15 5 20" />
-          <path d="M75 20C75 25 65 30 55 30C45 30 35 25 35 20" />
-          <path d="M75 20V60C75 65 65 70 55 70C45 70 35 65 35 60V20" />
-          <path d="M5 20V60C5 65 15 70 25 70C35 70 45 65 45 60V20" />
-          <ellipse cx="40" cy="40" rx="20" ry="10" />
-          <path d="M5 40C5 45 15 50 25 50C35 50 45 45 45 40" />
-          <path d="M35 40C35 45 45 50 55 50C65 50 75 45 75 40" />
-        </svg>
-      </div>
-      <h3 class="card-title">Potencia tu club</h3>
-      <p class="subtitle">Alianza Estratégica Gratuita</p>
-      <ul class="list">
-        <li><span class="checkmark"></span><span>Recibe refuerzos y donaciones</span></li>
-        <li><span class="checkmark"></span><span>Lanza tu marketplace oficial</span></li>
-        <li><span class="checkmark"></span><span>Lanza tus mejoras épicas</span></li>
-        <li><span class="checkmark"></span><span>Desbloquea mejoras épicas</span></li>
-        <li><span class="checkmark"></span><span>Sube de nivel para desbloquear todo potencial</span></li>
-      </ul>
-    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
 
-    <!-- Tarjeta 2: Comienza tu leyenda -->
-    <div class="card purple">
-      <div class="icon-container">
-        <svg class="joystick-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="25" width="50" height="30" rx="5" />
-          <line x1="25" y1="40" x2="35" y2="40" />
-          <line x1="30" y1="35" x2="30" y2="45" />
-          <circle cx="50" cy="45" r="3" />
-          <circle cx="60" cy="35" r="3" />
-          <path d="M45 20C45 15 50 10 55 10C60 10 65 15 65 20" />
-          <path d="M45 20C45 25 50 30 55 30C60 30 65 25 65 20" />
-          <path d="M55 20C55 25 50 30 45 30C40 30 35 25 35 20" />
-          <path d="M55 20C55 15 50 10 45 10C40 10 35 15 35 20" />
-        </svg>
-      </div>
-      <h3 class="card-title">Comienza tu leyenda</h3>
-      <p class="subtitle">Forja tu avatar único</p>
-      <ul class="list">
-        <li><span class="checkmark"></span><span>Forja tu avatar único</span></li>
-        <li><span class="checkmark"></span><span>Supera misiones y desafíos</span></li>
-        <li><span class="checkmark"></span><span>Acumula Lupicoins y XP</span></li>
-        <li><span class="checkmark"></span><span>Canjea tus ganancias por premios REALES</span></li>
-      </ul>
-    </div>
-  </div>
+                <!-- Columna izquierda: Potencia tu club -->
+                <div class="group relative bg-[#10101c]/60 backdrop-blur-md border border-[#00BCD4]/40 rounded-2xl p-8 transition-all duration-300 hover:border-[#00BCD4]/80 hover:shadow-2xl hover:shadow-[#00BCD4]/20">
+                    <div class="absolute -inset-px bg-[#00BCD4] rounded-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-300" style="filter: blur(15px);"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center text-center">
+                        
+                        <div class="mb-5 stadium-icon">
+                            <!-- Icono de estadio personalizado según la imagen -->
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M60 20C60 15 48.5 10 35 10C21.5 10 10 15 10 20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M64 26C62.5 23.5 60 20 60 20M60 20V60C60 65 48.5 70 35 70C21.5 70 10 65 10 60V20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <ellipse cx="35" cy="40" rx="25" ry="10" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M10 20C10 25 21.5 30 35 30C48.5 30 60 25 60 20" stroke="#00BCD4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
 
-  <!-- Botón CTA -->
-  <a href="#download-link" class="cta-button">¡Descarga la App y Únete al Juego!</a>
-</section>
+                        <h3 class="text-2xl font-bold tracking-wide">POTENCIA TU CLUB</h3>
+                        <p class="text-[#00BCD4] text-xs uppercase tracking-widest font-semibold mt-2 pb-4 border-b border-[#00BCD4]/30 w-full">Alianza Estratégica Gratuita</p>
+                        
+                        <ul class="space-y-4 text-gray-200 w-full mt-6 text-left">
+                            <li class="flex items-center gap-3">
+                                <svg class="h-6 w-6 text-[#00BCD4] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Recibe <strong>refuerzos y donaciones</strong> para crecer sin límites.</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="h-6 w-6 text-[#00BCD4] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Lanza tu <strong>marketplace oficial</strong> y expande tu marca.</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                 <svg class="h-6 w-6 text-[#00BCD4] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Desbloquea <strong>mejoras épicas</strong> para tus instalaciones.</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                 <svg class="h-6 w-6 text-[#00BCD4] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Sube de nivel en la app para <strong>desbloquear todo el potencial</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Columna derecha: Comienza tu leyenda -->
+                <div class="group relative bg-[#10101c]/60 backdrop-blur-md border border-[#B02CFF]/40 rounded-2xl p-8 transition-all duration-300 hover:border-[#B02CFF]/80 hover:shadow-2xl hover:shadow-[#B02CFF]/20">
+                    <div class="absolute -inset-px bg-[#B02CFF] rounded-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-300" style="filter: blur(15px);"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center text-center">
+                        
+                        <div class="mb-5 joystick-icon">
+                            <!-- Icono de joystick personalizado según la imagen -->
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="15" y="25" width="50" height="30" rx="5" stroke="#B02CFF" stroke-width="2"/>
+                                <line x1="25" y1="40" x2="35" y2="40" stroke="#B02CFF" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="30" y1="35" x2="30" y2="45" stroke="#B02CFF" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="50" cy="45" r="3" fill="#B02CFF"/>
+                                <circle cx="60" cy="35" r="3" fill="#B02CFF"/>
+                            </svg>
+                        </div>
+
+                        <h3 class="text-2xl font-bold tracking-wide">COMIENZA TU LEYENDA</h3>
+                        <p class="text-[#B02CFF] text-xs uppercase tracking-widest font-semibold mt-2 pb-4 border-b border-[#B02CFF]/30 w-full">Forja tu avatar único</p>
+                        
+                        <ul class="space-y-4 text-gray-200 w-full mt-6 text-left">
+                            <li class="flex items-start gap-3">
+                                <div class="checkbox-empty">
+                                    <div class="checkbox-empty-inner"></div>
+                                </div>
+                                <span>Forja tu <strong>avatar único</strong> y define tu identidad digital.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span>Supera <strong>misiones y desafíos</strong> emocionantes cada día.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span>Acumula <strong>Lupicoins y XP</strong> para subir de nivel.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="checkbox-checked">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span>Canjea tus ganancias por <strong>recompensas y premios REALES</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="#download-link" class="inline-block bg-gradient-to-r from-[#B02CFF] to-[#00BCD4] text-white font-bold text-lg py-4 px-10 rounded-full transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#B02CFF]/40">
+                    ¡Descarga la App y Únete al Juego!
+                </a>
+            </div>
+        </div>
+    </section>
 
         <!-- NUEVA SECCIÓN: Cómo Funciona -->
         <section class="w-full max-w-5xl mx-auto py-16 text-center">
