@@ -601,39 +601,47 @@
         </div>
     </section>
 
-    <!-- NUEVA SECCIÓN: FAQ --> 
+    <section class="w-full max-w-6xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
+  
+  <!-- Héroe 3D -->
+  <div class="lupi-card p-6 md:p-8 flex flex-col justify-center items-center bg-[#0a0a1f]/70 backdrop-blur-md border border-[#00ff88]/40 rounded-2xl transition-all duration-300 hover:border-[#00ff88]/80 hover:shadow-2xl hover:shadow-[#00ff88]/30">
+    <h3 class="text-2xl md:text-3xl font-extrabold mb-6 text-lupi-secondary drop-shadow-[0_0_8px_#00ff88] text-center">¡CONOCE A TU HÉROE!</h3>
+    <div id="canvas-container" class="w-full h-80 relative">
+      <canvas id="lupiCanvas" class="rounded-xl"></canvas>
+      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-lupi-text-secondary/50 animate-pulse">
+        Arrastra para rotar
+      </div>
+    </div>
+  </div>
 
-        <section class="w-full max-w-6xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="lupi-card p-4 md:p-8 flex flex-col justify-center items-center bg-[#10101c]/60 backdrop-blur-md border border-[#00BCD4]/40 transition-all duration-300 hover:border-[#00BCD4]/80 hover:shadow-2xl hover:shadow-[#00BCD4]/20">
-                <h3 class="text-xl font-bold mb-4 text-center section-title">¡CONOCE A TU HÉROE!</h3>
-                <div id="canvas-container" class="w-full h-full relative">
-                    <canvas id="lupiCanvas"></canvas>
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-lupi-text-secondary/50">
-                        Arrastra para rotar
-                    </div>
-                </div>
-            </div>
-            
-            <div class="lupi-card p-4 md:p-8 bg-[#10101c]/60 backdrop-blur-md border border-[#00BCD4]/40 transition-all duration-300 hover:border-[#00BCD4]/80 hover:shadow-2xl hover:shadow-[#00BCD4]/20">
-                <h3 class="text-xl md:text-2xl font-black mb-6 text-center lg:text-left section-title">Preguntas Frecuentes</h3>
-                <details>
-            <summary class="font-bold">¿Tiene algún costo para el club?</summary>
-            <div class="text-lupi-text-secondary">No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
-            </details>
-            <details>
-            <summary class="font-bold">¿Cómo se financian las mejoras del club?</summary>
-            <div class="text-lupi-text-secondary">A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
-            </details>
-            <details>
-            <summary class="font-bold">¿Qué tipo de premios puedo canjear?</summary>
-            <div class="text-lupi-text-secondary">Podrás canjear indumentaria oficial de tu club (remeras, shorts), merchandising, pago de cuotas sociales, acceso a eventos especiales y mucho más.</div>
-            </details>
-            <details>
-            <summary class="font-bold">¿Mis datos personales están seguros?</summary>
-            <div class="text-lupi-text-secondary">Absolutamente. La seguridad y privacidad de nuestros usuarios es nuestra máxima prioridad. Utilizamos protocolos de encriptación avanzados para proteger toda tu información.</div>
-            </details>
-            </div>
-        </section>
+  <!-- FAQ Gamer -->
+  <div class="lupi-card p-6 md:p-8 bg-[#0a0a1f]/70 backdrop-blur-md border border-[#ff00aa]/40 rounded-2xl transition-all duration-300 hover:border-[#ff00aa]/80 hover:shadow-2xl hover:shadow-[#ff00aa]/30">
+    <h3 class="text-2xl md:text-3xl font-extrabold mb-6 text-lupi-accent drop-shadow-[0_0_10px_#ff00aa] text-center lg:text-left">Preguntas Frecuentes</h3>
+
+    <div class="flex flex-col gap-4">
+      <details class="bg-[#10101c]/50 rounded-lg p-4 border border-[#ff00aa]/30 hover:border-[#ff00aa]/70 transition-all duration-200">
+        <summary class="font-bold cursor-pointer text-white text-lg">¿Tiene algún costo para el club?</summary>
+        <div class="text-lupi-text-secondary mt-2 text-sm md:text-base">No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
+      </details>
+
+      <details class="bg-[#10101c]/50 rounded-lg p-4 border border-[#ff00aa]/30 hover:border-[#ff00aa]/70 transition-all duration-200">
+        <summary class="font-bold cursor-pointer text-white text-lg">¿Cómo se financian las mejoras del club?</summary>
+        <div class="text-lupi-text-secondary mt-2 text-sm md:text-base">A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
+      </details>
+
+      <details class="bg-[#10101c]/50 rounded-lg p-4 border border-[#ff00aa]/30 hover:border-[#ff00aa]/70 transition-all duration-200">
+        <summary class="font-bold cursor-pointer text-white text-lg">¿Qué tipo de premios puedo canjear?</summary>
+        <div class="text-lupi-text-secondary mt-2 text-sm md:text-base">Podrás canjear indumentaria oficial de tu club, merchandising, pago de cuotas sociales, acceso a eventos especiales y más.</div>
+      </details>
+
+      <details class="bg-[#10101c]/50 rounded-lg p-4 border border-[#ff00aa]/30 hover:border-[#ff00aa]/70 transition-all duration-200">
+        <summary class="font-bold cursor-pointer text-white text-lg">¿Mis datos personales están seguros?</summary>
+        <div class="text-lupi-text-secondary mt-2 text-sm md:text-base">La seguridad y privacidad de nuestros usuarios es prioridad. Utilizamos protocolos de encriptación avanzados para proteger tu información.</div>
+      </details>
+    </div>
+  </div>
+
+</section>
 
         <!-- NUEVA SECCIÓN: Cómo Funciona -->
         <section class="w-full max-w-5xl mx-auto py-16 text-center">
