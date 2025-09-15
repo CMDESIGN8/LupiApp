@@ -390,21 +390,40 @@
 
                 <!-- Sección Hero - OCUPA TODA LA PANTALLA -->
         <main class="w-full flex-grow flex items-center justify-center hero-section" style="min-height: calc(100vh - 80px);">
-    <div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center text-center lg:text-left gap-8 py-12 px-4 md:px-8">
-                <!-- Contenido de texto -->
-        <div class="lg:w-full space-y-6 z-10 flex flex-col items-center lg:items-start">
-                    <h2 class="text-4xl md:text-6xl font-black lupi-title">
-                        Tu pasión transforma tu club.
-                    </h2>
-                   <p class="text-lg md:text-2xl text-lupi-text-secondary max-w-prose mb-4 font-semibold">
-                Convierte tu apoyo en **acción real**. Juega misiones, sube de nivel y desbloquea mejoras épicas para tu club.
-            </p>
-                    <div class="pt-4">
-                        <a href="#features" class="lupi-button">
-                            ¡Quiero ser parte!
-                        </a>
-                    </div>
-                </div>
+    <section class="relative bg-gradient-to-br from-purple-900 via-indigo-950 to-black text-white py-20 px-6 overflow-hidden">
+  <!-- Fondo con brillo -->
+  <div class="absolute inset-0">
+    <div class="bg-[radial-gradient(circle_at_center,rgba(138,43,226,0.4)_0%,transparent_70%)]"></div>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto text-center z-10">
+    <!-- Logo o Mascota -->
+    <img src="Lupi.png" alt="Lupi App Mascot" class="mx-auto mb-6 w-40 drop-shadow-lg animate-bounce" />
+
+    <!-- Título Principal -->
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+      Transforma tu Club con <span class="text-lime-400">Lupi App</span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+      Gestiona socios, cobros, actividades y crea experiencias únicas. 
+      Conecta, premia y haz crecer tu comunidad con un solo clic.
+    </p>
+
+    <!-- Call To Action -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#demo" 
+         class="px-8 py-4 rounded-2xl text-lg font-semibold bg-lime-400 text-black hover:bg-lime-500 transition shadow-lg">
+         🚀 Probar Demo Gratis
+      </a>
+      <a href="#inversores" 
+         class="px-8 py-4 rounded-2xl text-lg font-semibold border border-lime-400 text-lime-400 hover:bg-lime-400 hover:text-black transition">
+         📈 Soy Inversor
+      </a>
+    </div>
+  </div>
+</section>
             </main>
 
              <!-- Sección de Características -->
