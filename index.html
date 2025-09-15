@@ -384,22 +384,17 @@
             flex-shrink: 0;
         }
 
-        .glow-img-multi {
-  animation: glowColors 6s infinite alternate;
+        .glow-img {
+  filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff);
+  animation: glowPulse 2s infinite alternate;
 }
 
-@keyframes glowColors {
+@keyframes glowPulse {
   0% {
-    filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff);
-  }
-  33% {
-    filter: drop-shadow(0 0 10px #a020f0) drop-shadow(0 0 25px #a020f0);
-  }
-  66% {
-    filter: drop-shadow(0 0 10px #00ff88) drop-shadow(0 0 25px #00ff88);
+    filter: drop-shadow(0 0 5px #00eaff) drop-shadow(0 0 10px #00eaff);
   }
   100% {
-    filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff);
+    filter: drop-shadow(0 0 20px #00eaff) drop-shadow(0 0 40px #00eaff);
   }
 }
 
@@ -503,7 +498,7 @@
                         
                         <div class="mb-5 stadium-icon">
   <!-- Icono de estadio desde imagen en assets -->
- <img src="assets/estadio.png" alt="Estadio" width="200" height="200" class="glow-img-multi">
+ <img src="assets/estadio.png" alt="Estadio" width="200" height="200" class="glow-img">
 </div>
 
                         <h3 class="text-2xl font-bold tracking-wide">POTENCIA TU CLUB</h3>
