@@ -398,6 +398,25 @@
   }
 }
 
+.glow-joystick {
+  animation: glowJoystick 6s infinite alternate;
+}
+
+@keyframes glowJoystick {
+  0% {
+    filter: drop-shadow(0 0 10px #b84cff) drop-shadow(0 0 20px #b84cff);
+  }
+  33% {
+    filter: drop-shadow(0 0 15px #8a2be2) drop-shadow(0 0 30px #8a2be2);
+  }
+  66% {
+    filter: drop-shadow(0 0 15px #da70d6) drop-shadow(0 0 30px #da70d6);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px #b84cff) drop-shadow(0 0 20px #b84cff);
+  }
+}
+
         /* Responsive improvements */
         @media (max-width: 768px) {
           .lupi-card {
@@ -533,7 +552,7 @@
                         
                         <div class="mb-5 joystick-icon">
                             <!-- Icono de joystick personalizado según la imagen -->
-                            <img src="assets/joystick.png" alt="Estadio" width="200" height="200">
+                         <img src="assets/joystick.png" alt="Joystick" width="200" height="200" class="glow-joystick">
                         </div>
 
                         <h3 class="text-2xl font-bold tracking-wide">COMIENZA TU LEYENDA</h3>
