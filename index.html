@@ -79,7 +79,7 @@
                             </li>
                             <li>
                                 <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 01118 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                                 <span>Sube de nivel en la app para <strong>desbloquear todo el potencial</strong>.</span>
                             </li>
@@ -127,74 +127,108 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="features-cta">
-                    <a href="#download-link" class="download-button">¡Descarga la App y Únete al Juego!</a>
-                </div>
             </div>
         </section>
 
-        <!-- Sección FAQ y 3D -->
-        <section class="faq-3d-section">
-            <div class="container">
-                <!-- Héroe 3D -->
-                <div class="hero-3d-card">
-                    <h3>¡CONOCE A TU HÉROE!</h3>
-                    <div id="canvas-container" class="canvas-container">
-                        <canvas id="lupiCanvas"></canvas>
-                        <div class="canvas-hint">Arrastra para rotar</div>
-                    </div>
-                </div>
+<div id="waves" class="pmp-module__sc-1376hvl-0 giFHZl pmp-module__sc-zklm10-2 lfaJhZ"></div>
 
-                <!-- FAQ -->
-                <div class="faq-card">
-                    <h3>Preguntas Frecuentes</h3>
-                    <div class="faq-list">
-                        <details>
-                            <summary>¿Tiene algún costo para el club?</summary>
-                            <div>No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
-                        </details>
-                        <details>
-                            <summary>¿Cómo se financian las mejoras del club?</summary>
-                            <div>A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
-                        </details>
-                        <details>
-                            <summary>¿Qué tipo de premios puedo canjear?</summary>
-                            <div>Podrás canjear indumentaria oficial de tu club, merchandising, pago de cuotas sociales, acceso a eventos especiales y más.</div>
-                        </details>
-                        <details>
-                            <summary>¿Mis datos personales están seguros?</summary>
-                            <div>La seguridad y privacidad de nuestros usuarios es prioridad. Utilizamos protocolos de encriptación avanzados para proteger tu información.</div>
-                        </details>
-                    </div>
-                </div>
+<!-- SECCIÓN: Storytelling Timeline -->
+<section class="how-it-works relative py-20">
+  <canvas id="particles-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <h2 class="how-title">Vive la Experiencia Lupi</h2>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item left">
+        <div class="step-card">
+          <div class="step-icon">⚽</div>
+          <h3>Todo empieza en tu Club</h3>
+          <p>Juan es socio de un club de barrio. Antes pagaba su cuota en efectivo y nunca sabía si estaba al día. Ahora, con <span class="highlight">Lupi App</span>, recibe recordatorios, paga en segundos y ve todas sus actividades desde el celular.</p>
+        </div>
+        <div class="story-image-container">
+          <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Jugador de fútbol pateando una pelota en un club de barrio">
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="step-card">
+          <div class="step-icon">🎮</div>
+          <h3>Lupi lo invita a jugar</h3>
+          <p>Cada vez que cumple una misión o participa en un evento, Lupi le regala <span class="highlight">Lupicoins</span>. Juan se divierte, compite con sus amigos y ayuda a su club a crecer.</p>
+        </div>
+        <div class="story-image-container">
+          <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Jóvenes jugando videojuegos y compitiendo">
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="step-card">
+          <div class="step-icon">🏆</div>
+          <h3>Recompensas Reales</h3>
+          <p>Con sus Lupicoins, Juan canjea indumentaria oficial, descuentos en la cuota y participa en sorteos exclusivos. Cada acción suya suma al <span class="highlight">progreso colectivo del club</span>.</p>
+        </div>
+        <div class="story-image-container">
+          <img src="https://images.unsplash.com/photo-1517502884422-41ea048c15a3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Medallas y trofeos como recompensas deportivas">
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="step-card">
+          <div class="step-icon">🚀</div>
+          <h3>Un Club que Crece</h3>
+          <p>Gracias a Lupi App, el club mejora su organización, recauda más y motiva a los chicos a estar dentro de la cancha en vez de en la calle. Todos ganan: el club, los socios y la comunidad.</p>
+        </div>
+        <div class="story-image-container">
+          <img src="https://images.unsplash.com/photo-1599589639833-96a5b28b615c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Comunidad de jóvenes celebrando en un club">
+        </div>
+      </div>
+    </div>
+
+    <div class="features-cta mt-10">
+      <a href="#download-link" class="download-button">¡Descarga Lupi App y sé parte de la historia!</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sección FAQ y 3D -->
+<section class="faq-3d-section">
+    <div class="container faq-3d-container">
+        <!-- Héroe 3D -->
+        <div class="hero-3d-card">
+            <h3>¡CONOCE A TU HÉROE!</h3>
+            <div id="canvas-container" class="canvas-container">
+                <canvas id="lupiCanvas"></canvas>
+                <div class="canvas-hint">Arrastra para rotar</div>
             </div>
-        </section>
+        </div>
 
-        <!-- Sección Cómo Funciona -->
-        <section class="how-it-works">
-            <div class="container">
-                <h2>Es tan fácil como 1, 2, 3</h2>
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-icon">🕹️</div>
-                        <h3>1. Juega y Compite</h3>
-                        <p>Completa misiones, adivina jugadas y participa en desafíos para ganar LupiCoins.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon">✨</div>
-                        <h3>2. Ayuda a tu Club</h3>
-                        <p>Cada LupiCoin que ganas contribuye a metas colectivas para mejorar las instalaciones.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon">🎁</div>
-                        <h3>3. Canjea Premios</h3>
-                        <p>Usa tus LupiCoins para obtener indumentaria, cuotas gratis y más premios reales.</p>
-                    </div>
-                </div>
+        <!-- FAQ -->
+        <div class="faq-card">
+            <h3>Preguntas Frecuentes</h3>
+            <div class="faq-list">
+                <details>
+                    <summary>¿Tiene algún costo para el club?</summary>
+                    <div>No, la asociación para los clubes es y será siempre 100% gratuita. Nuestro modelo se basa en un pequeño porcentaje de las ventas del marketplace.</div>
+                </details>
+                <details>
+                    <summary>¿Cómo se financian las mejoras del club?</summary>
+                    <div>A través de las metas comunitarias que alcanzan los socios al ganar LupiCoins y de las ganancias generadas en el marketplace oficial del club.</div>
+                </details>
+                <details>
+                    <summary>¿Qué tipo de premios puedo canjear?</summary>
+                    <div>Podrás canjear indumentaria oficial de tu club, merchandising, pago de cuotas sociales, acceso a eventos especiales y más.</div>
+                </details>
+                <details>
+                    <summary>¿Mis datos personales están seguros?</summary>
+                    <div>La seguridad y privacidad de nuestros usuarios es prioridad. Utilizamos protocolos de encriptación avanzados para proteger tu información.</div>
+                </details>
             </div>
-        </section>
-
+        </div>
+    </div>
+</section>
         <!-- Sección Testimonios -->
         <section class="testimonials">
             <div class="container">
@@ -397,6 +431,139 @@
                 container.appendChild(particle);
             }
         });
+
     </script>
+
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+
+let particlesArray = [];
+const colors = ['#00FFC8', '#0FF', '#0FFFB0', '#0FF7FF'];
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// Partícula
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 1.5;
+    this.speedY = (Math.random() - 0.5) * 1.5;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    // Rebote en bordes
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Crear partículas
+function initParticles(count = 80) {
+  particlesArray = [];
+  for (let i = 0; i < count; i++) {
+    particlesArray.push(new Particle());
+  }
+}
+initParticles();
+
+// Animación
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+    </script>
+    <script>
+/*
+  Lógica: mostrará la card cuya "centro" esté más cerca del centro del viewport.
+  throttle con requestAnimationFrame para performance.
+*/
+(function () {
+  const cards = Array.from(document.querySelectorAll('.step-card'));
+  if (!cards.length) return;
+
+  let ticking = false;
+  let lastActive = -1;
+
+  function updateActiveCard() {
+    const viewportCenter = window.innerHeight / 2;
+    let closestIndex = -1;
+    let minDistance = Infinity;
+
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      // si card está completamente fuera (arriba o abajo) la consideramos pero distancia será grande
+      const cardCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(cardCenter - viewportCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    // umbral: solo cambiar si la card más cercana está razonablemente dentro de la pantalla
+    const threshold = window.innerHeight * 0.45; // ajustable
+    if (minDistance <= threshold) {
+      if (closestIndex !== lastActive) {
+        cards.forEach((c, idx) => c.classList.toggle('is-visible', idx === closestIndex));
+        lastActive = closestIndex;
+      }
+    } else {
+      // si ninguna cumple el threshold, no forzamos cambios (mantener la última activa)
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateActiveCard();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  // Inicial
+  updateActiveCard();
+
+  // Eventos
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // también permitir activar con keyboard (flechas) - opcional
+  window.addEventListener('keyup', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      // scrollear un poco para "avanzar"
+      window.scrollBy({ top: window.innerHeight * 0.45, left: 0, behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      window.scrollBy({ top: -window.innerHeight * 0.45, left: 0, behavior: 'smooth' });
+    }
+  });
+})();
+</script>
 </body>
 </html>
