@@ -962,7 +962,7 @@ body {
 
 /* STEP CARD estilo futurista */
 .step-card {
-  background: linear-gradient(145deg, rgba(15,15,25,0.92), rgba(20,20,35,0.92));
+  background: linear-gradient(145deg, rgba(6, 6, 240, 0.92), rgba(20,20,35,0.92));
   border-radius: 20px;
   padding: 2rem;
   color: #fff;
@@ -975,7 +975,30 @@ body {
   transform: translateY(50px);
   transition: transform 0.7s ease-out, opacity 0.6s ease-out;
 }
+/* Borde animado neón */
+.step-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(130deg, 
+    rgba(0,255,200,0.9), 
+    rgba(0,162,255,0.7),
+    transparent 60%);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
 
+/* Hover efecto glow */
+.step-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 35px rgba(0,200,255,0.35), 
+              0 0 15px rgba(0,162,255,0.25);
+}
 /* Visible cuando aparece al hacer scroll */
 .step-card.is-visible {
   opacity: 1;
