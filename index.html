@@ -68,93 +68,211 @@
             </div>
         </main>
 
-        <!-- Sección de Características -->
-        <section id="features" class="features">
-            <div class="container">
-                <div class="features-header">
-                    <h2>Tu pasión transforma tu club</h2>
-                    <p>Descubre cómo Lupi transforma la experiencia para tu club y para ti. Sube de nivel, gana y haz historia.</p>
+      <!-- Sección de Características Mejorada -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="features-header">
+                <h2>Donde tu pasión se convierte en poder real</h2>
+                <p>Lupi es el puente único que conecta la energía de los hinchas con el crecimiento de los clubes. Gana, impacta y transforma el fútbol.</p>
+            </div>
+
+            <!-- Selector de perspectiva -->
+            <div class="perspective-selector">
+                <button class="perspective-btn active" data-perspective="both">Para Todos</button>
+                <button class="perspective-btn" data-perspective="clubs">Para Clubes</button>
+                <button class="perspective-btn" data-perspective="fans">Para Hinchas</button>
+            </div>
+
+            <div class="features-grid">
+                <!-- Potencia tu club - MEJORADO -->
+                <div class="feature-card club-card" data-perspective="clubs">
+                    <div class="feature-badge">GRATIS para clubes</div>
+                    <div class="feature-icon">
+                        <img src="assets/estadio.png" alt="Estadio" class="glow-img" loading="lazy">
+                    </div>
+                    <h3>TRANSFORMA TU CLUB CON EL PODER DE TU HINCHADA</h3>
+                    <p class="feature-subtitle">Alianza Estratégica Sin Costo Inicial</p>
+                    
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-number">+40%</span>
+                            <span class="stat-label">Ingresos extra para clubes</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3x</span>
+                            <span class="stat-label">Más engagement</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#00bcd4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Financiación directa</strong> de tu hinchada para refuerzos y mejoras</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#00bcd4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Marketplace oficial</strong> con comisión 0% los primeros 6 meses</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#00bcd4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Dashboard avanzado</strong> para entender y crecer con tu comunidad</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#00bcd4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Experiencias únicas</strong> que puedes ofrecer a tus hinchas más leales</span>
+                        </li>
+                    </ul>
+                    
+                    <!-- Carrusel de testimonios para clubes -->
+                    <div class="testimonials-carousel">
+                        <div class="testimonials-track" id="clubTestimonialsTrack">
+                            <div class="testimonial-slide">
+                                <p>"Con Lupi, nuestro club pequeño pudo financiar la remodelación de vestuarios en solo 3 meses"</p>
+                                <span>- Director Deportivo, Club Atlético Esperanza</span>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p>"La app nos permitió conectar con nuestra hinchada de una manera que nunca imaginamos"</p>
+                                <span>- Presidente, Club Deportivo Unión</span>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p>"Gracias a los fondos recaudados, pudimos fichar a un refuerzo clave para el torneo"</p>
+                                <span>- Director Técnico, FC Victoria</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-indicators" id="clubIndicators">
+                            <div class="indicator active" data-slide="0"></div>
+                            <div class="indicator" data-slide="1"></div>
+                            <div class="indicator" data-slide="2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-cta">
+                        <button class="cta-btn club-cta">Registra tu Club Gratis</button>
+                        <a href="#" class="cta-link">Ver casos de éxito →</a>
+                    </div>
                 </div>
 
-                <div class="features-grid">
-                    <!-- Potencia tu club -->
-                    <div class="feature-card club-card">
-                        <div class="feature-icon">
-                            <img src="assets/estadio.png" alt="Estadio" class="glow-img" loading="lazy">
-                        </div>
-                        <h3>POTENCIA TU CLUB</h3>
-                        <p class="feature-subtitle">Alianza Estratégica Gratuita</p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>Recibe <strong>refuerzos y donaciones</strong> para crecer sin límites.</span>
-                            </li>
-                            <li>
-                                <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>Lanza tu <strong>marketplace oficial</strong> y expande tu marca.</span>
-                            </li>
-                            <li>
-                                <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>Desbloquea <strong>mejoras épicas</strong> para tus instalaciones.</span>
-                            </li>
-                            <li>
-                                <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>Sube de nivel en la app para <strong>desbloquear todo el potencial</strong>.</span>
-                            </li>
-                        </ul>
+                <!-- Comienza tu leyenda - MEJORADO -->
+                <div class="feature-card legend-card" data-perspective="fans">
+                    <div class="feature-badge">+50,000 hinchas activos</div>
+                    <div class="feature-icon">
+                        <img src="assets/joystick.png" alt="Joystick" class="glow-joystick" loading="lazy">
                     </div>
-
-                    <!-- Comienza tu leyenda -->
-                    <div class="feature-card legend-card">
-                        <div class="feature-icon">
-                            <img src="assets/joystick.png" alt="Joystick" class="glow-joystick" loading="lazy">
+                    <h3>VIVE TU PASIÓN COMO NUNCA ANTES IMAGINASTE</h3>
+                    <p class="feature-subtitle">Tu hinchada, tu impacto, tus recompensas</p>
+                    
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-number">$2.5M</span>
+                            <span class="stat-label">En premios repartidos</span>
                         </div>
-                        <h3>COMIENZA TU LEYENDA</h3>
-                        <p class="feature-subtitle">Forja tu avatar único</p>
-                        <ul class="feature-list">
-                            <li>
-                                <div class="checkbox-empty">
-                                    <div class="checkbox-empty-inner"></div>
-                                </div>
-                                <span>Forja tu <strong>avatar único</strong> y define tu identidad digital.</span>
-                            </li>
-                            <li>
-                                <div class="checkbox-checked">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span>Supera <strong>misiones y desafíos</strong> emocionantes cada día.</span>
-                            </li>
-                            <li>
-                                <div class="checkbox-checked">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span>Acumula <strong>Lupicoins y XP</strong> para subir de nivel.</span>
-                            </li>
-                            <li>
-                                <div class="checkbox-checked">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span>Canjea tus ganancias por <strong>recompensas y premios REALES</strong>.</span>
-                            </li>
-                        </ul>
+                        <div class="stat">
+                            <span class="stat-number">1,200+</span>
+                            <span class="stat-label">Experiencias únicas</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Avatar personalizado</strong> que evoluciona con tu participación</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Desafíos diarios</strong> que te acercan a tu club favorito</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Lupicoins convertibles</strong> en entradas, merchandising y experiencias REALES</span>
+                        </li>
+                        <li>
+                            <div class="checkbox-checked">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="#B02CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span><strong>Voto directo</strong> en decisiones del club y reconocimiento especial</span>
+                        </li>
+                    </ul>
+                    
+                    <!-- Carrusel de testimonios para hinchas -->
+                    <div class="testimonials-carousel">
+                        <div class="testimonials-track" id="fanTestimonialsTrack">
+                            <div class="testimonial-slide">
+                                <p>"Gracias a Lupi, conocí a los jugadores en persona y viví un entrenamiento exclusivo"</p>
+                                <span>- María G., Hincha del Club desde 2015</span>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p>"Canjeé mis Lupicoins por una camiseta firmada por todo el equipo. ¡Increíble!"</p>
+                                <span>- Javier R., Socio del club</span>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p>"Nunca pensé que mi pasión por el fútbol me daría recompensas tan geniales"</p>
+                                <span>- Carlos M., Hincha nivel 5 en Lupi</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-indicators" id="fanIndicators">
+                            <div class="indicator active" data-slide="0"></div>
+                            <div class="indicator" data-slide="1"></div>
+                            <div class="indicator" data-slide="2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-cta">
+                        <button class="cta-btn fan-cta">Descubre la App</button>
+                        <a href="#" class="cta-link">Ver recompensas disponibles →</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+        
+        <!-- Sección de conexión única -->
+        <div class="connection-section">
+            <div class="connection-content">
+                <h3>El único ecosistema donde hinchas y clubes crecen juntos</h3>
+                <p>Cada acción en Lupi genera valor real: los hinchas ganan recompensas tangibles mientras su club recibe apoyo directo para crecer.</p>
+                <div class="connection-stats">
+                    <div class="connection-stat">
+                        <strong>+200 clubes</strong> ya transforman su realidad
+                    </div>
+                    <div class="connection-stat">
+                        <strong>97%</strong> de hinchas recomiendan Lupi
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div id="waves" class="pmp-module__sc-1376hvl-0 giFHZl pmp-module__sc-zklm10-2 lfaJhZ"></div>
 
@@ -213,7 +331,7 @@
       </div>
     </div>
 
-    <div class="features-cta mt-10">
+    <div class="download-container">
       <a href="#download-link" class="download-button">¡Descarga Lupi App y sé parte de la historia!</a>
     </div>
   </div>
@@ -255,35 +373,36 @@
         </div>
     </div>
 </section>
-        <!-- Sección Testimonios -->
-        <section class="testimonials">
-            <div class="container">
-                <h2>Nuestra comunidad ya está subiendo de nivel</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <img src="https://placehold.co/100x100/13103a/00ff88?text=JP" alt="Avatar de Juan Pérez" loading="lazy">
-                        <p>"¡Desbloqueamos las nuevas luces de la cancha! Es increíble ver cómo el club se transforma con cada misión completada."</p>
-                        <h4>Juan Pérez, Lvl 15</h4>
-                        <p class="testimonial-role">Presidente del Club "Los Pumas"</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <img src="https://placehold.co/100x100/13103a/8a2be2?text=SG" alt="Avatar de Sofía Gómez" loading="lazy">
-                        <p>"Mi avatar es genial, las misiones son super divertidas y ya canjeé mis Lupicoins por la nueva remera. ¡Soy fan!"</p>
-                        <h4>Sofía Gómez, Lvl 11</h4>
-                        <p class="testimonial-role">Socia destacada</p>
-                    </div>
+
+         <!-- Sección CTA Final MEJORADA -->
+    <section id="cta" class="final-cta">
+        <!-- Elementos decorativos  flotantes -->
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="container">
+            <h2>Lleva a tu club al siguiente nivel</h2>
+            <p>Únete a la revolución deportiva. Con LupiApp, cada hincha se convierte en héroe y cada club alcanza su máximo potencial.</p>
+            
+            <button class="cta-button">Comenzar Ahora</button>
+            
+            <!-- Elementos de prueba social -->
+            <div class="social-proof">
+                <div class="proof-item">
+                    <span class="proof-icon">⭐</span>
+                    <span class="proof-text"><span class="proof-number">4.9/5</span> en App Store</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-icon">👥</span>
+                    <span class="proof-text"><span class="proof-number">+50,000</span> usuarios activos</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-icon">🏆</span>
+                    <span class="proof-text"><span class="proof-number">200+</span> clubes transformados</span>
                 </div>
             </div>
-        </section>
-
-        <!-- Sección CTA Final -->
-        <section id="cta" class="final-cta">
-            <div class="container">
-                <h2>Lleva a tu club al siguiente nivel.</h2>
-                <p>La aventura de tu club te espera. Descarga LupiApp y conviértete en el MVP de tu comunidad.</p>
-                <button class="cta-button">Registrarse</button>
-            </div>
-        </section>
+        </div>
+    </section>
 
         <!-- Footer -->
         <footer class="footer">
@@ -294,7 +413,7 @@
                         <p>El patrocinador digital de tu club de barrio.</p>
                     </div>
                     <div class="footer-section">
-                        <h3>Mapa de Misiones</h3>
+                        <h3>Mapa del Sitio</h3>
                         <ul>
                             <li><a href="#how-it-works">Cómo Empezar</a></li>
                             <li><a href="#features">Poderes de la App</a></li>
@@ -591,5 +710,168 @@ animateParticles();
   });
 })();
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Selector de perspectiva
+            const perspectiveButtons = document.querySelectorAll('.perspective-btn');
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            perspectiveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Quitar clase active de todos los botones
+                    perspectiveButtons.forEach(btn => btn.classList.remove('active'));
+                    // Añadir clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    const perspective = this.getAttribute('data-perspective');
+                    
+                    // Mostrar/ocultar tarjetas según la perspectiva
+                    featureCards.forEach(card => {
+                        if (perspective === 'both') {
+                            card.classList.remove('hidden');
+                        } else {
+                            if (card.getAttribute('data-perspective') === perspective) {
+                                card.classList.remove('hidden');
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Efectos de hover mejorados
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Carrusel de testimonios para clubes
+            const clubTrack = document.getElementById('clubTestimonialsTrack');
+            const clubIndicators = document.querySelectorAll('#clubIndicators .indicator');
+            let clubCurrentSlide = 0;
+            const clubTotalSlides = 3;
+            
+            // Carrusel de testimonios para hinchas
+            const fanTrack = document.getElementById('fanTestimonialsTrack');
+            const fanIndicators = document.querySelectorAll('#fanIndicators .indicator');
+            let fanCurrentSlide = 0;
+            const fanTotalSlides = 3;
+            
+            // Función para mover el carrusel
+            function moveCarousel(track, indicators, currentSlide, totalSlides, direction = 'next') {
+                let newSlide;
+                
+                if (direction === 'next') {
+                    newSlide = (currentSlide + 1) % totalSlides;
+                } else {
+                    newSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                }
+                
+                // Actualizar posición del track
+                track.style.transform = `translateX(-${newSlide * 100}%)`;
+                
+                // Actualizar indicadores
+                indicators.forEach((indicator, index) => {
+                    if (index === newSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+                
+                return newSlide;
+            }
+            
+            // Configurar intervalos automáticos
+            setInterval(() => {
+                clubCurrentSlide = moveCarousel(clubTrack, clubIndicators, clubCurrentSlide, clubTotalSlides, 'next');
+            }, 6000);
+            
+            setInterval(() => {
+                fanCurrentSlide = moveCarousel(fanTrack, fanIndicators, fanCurrentSlide, fanTotalSlides, 'next');
+            }, 6000);
+            
+            // Agregar control por clic en los indicadores (clubes)
+            clubIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    clubCurrentSlide = moveCarousel(clubTrack, clubIndicators, clubCurrentSlide, clubTotalSlides, index > clubCurrentSlide ? 'next' : 'prev');
+                });
+            });
+            
+            // Agregar control por clic en los indicadores (hinchas)
+            fanIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    fanCurrentSlide = moveCarousel(fanTrack, fanIndicators, fanCurrentSlide, fanTotalSlides, index > fanCurrentSlide ? 'next' : 'prev');
+                });
+            });
+            
+            // Animación de aparición al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+        // Efectos interactivos adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaButton = document.querySelector('.cta-button');
+            const ctaSection = document.querySelector('.final-cta');
+            
+            // Efecto de pulsación al hacer hover en el botón
+            ctaButton.addEventListener('mouseenter', function() {
+                ctaSection.style.animation = 'glow 1s infinite ease-in-out';
+            });
+            
+            ctaButton.addEventListener('mouseleave', function() {
+                ctaSection.style.animation = 'glow 4s infinite ease-in-out';
+            });
+            
+            // Efecto de click en el botón
+            ctaButton.addEventListener('click', function() {
+                // Animación de click
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    // Aquí iría la lógica de redirección o registro
+                    alert('¡Gracias por tu interés en LupiApp! Serás redirigido al formulario de registro.');
+                }, 200);
+            });
+            
+            // Efecto de aparición al hacer scroll (simulado)
+            setTimeout(() => {
+                ctaSection.style.opacity = '0';
+                ctaSection.style.transform = 'translateY(30px)';
+                ctaSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    ctaSection.style.opacity = '1';
+                    ctaSection.style.transform = 'translateY(0)';
+                }, 100);
+            }, 500);
+        });
+    </script>
 </body>
 </html>
