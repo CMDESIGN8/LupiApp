@@ -8,7 +8,7 @@
   <!-- SEO -->
   <meta name="description" content="LupiApp transforma tu club con misiones, recompensas y comunidad. Convierte a tus socios en protagonistas.">
   <meta name="robots" content="index, follow">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Open Graph -->
   <meta property="og:title" content="LupiApp – Transforma tu Club">
   <meta property="og:description" content="La app que convierte a tus socios en protagonistas con misiones, recompensas y comunidad.">
@@ -404,34 +404,126 @@
         </div>
     </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-section">
+      <!-- Footer Mejorado -->
+    <footer class="footer">
+        <!-- Elementos decorativos flotantes -->
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
                         <h3>LupiApp</h3>
-                        <p>El patrocinador digital de tu club de barrio.</p>
                     </div>
-                    <div class="footer-section">
-                        <h3>Mapa del Sitio</h3>
-                        <ul>
-                            <li><a href="#how-it-works">Cómo Empezar</a></li>
-                            <li><a href="#features">Poderes de la App</a></li>
-                            <li><a href="#cta-download">Descarga la App</a></li>
-                            <li><a href="#">Soporte</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h3>Conéctate</h3>
-                        <p>📩 inversiones@lupiapp.com</p>
-                        <p>🌐 @LupiApp en redes sociales</p>
+                    <p>El patrocinador digital de tu club de barrio.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="footer-bottom">
-                    <p>© 2025 LupiApp · Todos los derechos reservados</p>
+                
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li>
+                            <a href="#how-it-works">
+                                <i class="fas fa-chevron-right"></i>
+                                Cómo Funciona
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#features">
+                                <i class="fas fa-chevron-right"></i>
+                                Características
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#clubs">
+                                <i class="fas fa-chevron-right"></i>
+                                Para Clubes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#fans">
+                                <i class="fas fa-chevron-right"></i>
+                                Para Hinchas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#faq">
+                                <i class="fas fa-chevron-right"></i>
+                                Preguntas Frecuentes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>inversiones@lupiapp.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (123) 456-7890</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Buenos Aires, Argentina</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-download">
+                        <h4>Descarga la App</h4>
+                        <div class="download-badges">
+                            <a href="#" class="badge">
+                                <!-- En un caso real, aquí iría una imagen de la App Store -->
+                                <div style="background: #000; color: white; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                    App Store
+                                </div>
+                            </a>
+                            <a href="#" class="badge">
+                                <!-- En un caso real, aquí iría una imagen de Google Play -->
+                                <div style="background: #000; color: white; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                    Google Play
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 LupiApp · Todos los derechos reservados</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <a href="#" class="back-to-top" aria-label="Volver arriba">
+                    <i class="fas fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
     </div>
 
     <!-- Three.js y GLTFLoader -->
@@ -871,6 +963,42 @@ animateParticles();
                     ctaSection.style.transform = 'translateY(0)';
                 }, 100);
             }, 500);
+        });
+    </script>
+     <script>
+        // Funcionalidad para el botón "Volver arriba"
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            
+            // Mostrar/ocultar el botón al hacer scroll
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'flex';
+                } else {
+                    backToTopTopBtn.style.display = 'none';
+                }
+            });
+            
+            // Scroll suave al hacer clic
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Efectos de hover en los enlaces del footer
+            const footerLinks = document.querySelectorAll('.footer-section a');
+            footerLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
         });
     </script>
 </body>
